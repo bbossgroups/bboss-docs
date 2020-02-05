@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Elasticsearch Bboss</title>
+  <link rel="icon" href="images/logo1.png">
+  <meta name="google-site-verification" content="6t0LoIeFksrjF4c9sqUEsVXiQNxLp2hgoqo0KryT-sE" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="keywords" content="bboss,Elasticsearch,esdoc,document,lucene,全文检索,highlevel,最佳实践,java rest client api,restclient,rest client">
+  <meta name="description" content="The best elasticsearch highlevel java rest client API.">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <!--<link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css" title="vue">
+  <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/dark.css" title="dark" disabled>
+  <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/buble.css" title="buble" disabled>
+  <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/pure.css" title="pure" disabled>-->
+  <link rel="stylesheet" href="themes/vue.css" title="vue">
+  <link rel="stylesheet" href="themes/dark.css" title="dark" disabled>
+  <link rel="stylesheet" href="themes/buble.css" title="buble" disabled>
+  <link rel="stylesheet" href="themes/pure.css" title="pure" disabled>
+  <script src="_media/index.js"></script>
+  <style>
+    nav.app-nav li ul {
+      min-width: 100px;
+    }
+    .markdown-section{margin:0 auto;max-width:1350px;padding:30px 15px 40px;position:relative}
+  </style>
+</head>
+
+<body>
+<div id="app">Loading ...</div>
+<script>
+  window.$docsify = {
+    alias: {
+      '.*?/awesome': 'https://raw.githubusercontent.com/docsifyjs/awesome-docsify/master/README.md',
+      // '.*?/changelog': 'https://github.com/bbossgroups/bboss-elasticsearch/commits/master',
+      '/.*/_navbar.md': '/_navbar.md',
+	  '/.*/_sidebar.md': '/_sidebar.md',
+      '/zh-cn/(.*)': 'https://raw.githubusercontent.com/docsifyjs/docs-zh/master/$1',
+      '/de-de/(.*)': 'https://raw.githubusercontent.com/docsifyjs/docs-de/master/$1',
+      '/ru/(.*)': 'https://raw.githubusercontent.com/docsifyjs/docs-ru/master/$1',
+      '/es/(.*)': 'https://raw.githubusercontent.com/docsifyjs/docs-es/master/$1'
+    },
+    auto2top: true,
+    coverpage: true,
+    executeScript: true,
+    loadSidebar: true,
+    loadNavbar: false,
+    mergeNavbar: false,
+    maxLevel: 4,
+    subMaxLevel: 4,
+    ga: 'UA-106147152-1',
+    name: 'ElasticsearchBboss',
+    search: {
+      noData: {
+        '/de-de/': 'Keine Ergebnisse!',
+        '/zh-cn/': '没有结果!',
+        '/': 'No results!'
+      },
+      paths: 'auto',
+      placeholder: {
+        '/de-de/': 'Suche',
+        '/zh-cn/': '搜索',
+        '/': 'Search'
+      }
+    },
+    formatUpdated: '{MM}/{DD} {HH}:{mm}',
+    plugins: [
+      function (hook, vm) {
+        hook.beforeEach(function (html) {
+          if (/githubusercontent\.com/.test(vm.route.file)) {
+            url = vm.route.file
+                    .replace('raw.githubusercontent.com', 'github.com')
+                    .replace(/\/master/, '/blob/master')
+          } else {
+            url = 'https://github.com/bbossgroups/bboss-elasticsearch/tree/master/docs/' + vm.route.file
+          }
+          var editHtml = '[:memo: Edit Document](' + url + ')\n';
+
+          return editHtml
+                  + html
+                  + '\n\n----\n\n'
+                  // + '<script type="text/javascript">'
+                  // + 'var cnzz_protocol = (("https:" == document.location.protocol) ? " https://"'
+                  // + ': " http://");'
+                  // + 'document'
+                  // + '.write(unescape("%3Cspan id=\'cnzz_stat_icon_1254131450\'%3E%3C/span%3E%3Cscript src=\'"'
+                  // + '        + cnzz_protocol'
+                  // + '        + "s11.cnzz.com/z_stat.php%3Fid%3D1254131450%26show%3Dpic2\' type=\'text/javascript\'%3E%3C/script%3E"));'
+                  // + '<\/script><a href="http://www.miitbeian.gov.cn" target="_blank">湘ICP备16000994号</a>'
+                  + '<a href="http://www.miitbeian.gov.cn" target="_blank">湘ICP备16000994号</a>&nbsp;<a href="https://www.bbossgroups.com" target="_blank" style="color: inherit; font-weight: normal; text-decoration: none;">Powered by bbossgroups</a>';
+        })
+      },
+      DocsifyCodefund.create('fae1f9a4-870c-4c25-b8e0-c80464f7a95c')
+    ]
+  }
+</script>
+<!--<script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
+<script src="//unpkg.com/docsify/lib/plugins/search.min.js"></script>
+<script src="//unpkg.com/docsify/lib/plugins/ga.min.js"></script>
+<script src="//unpkg.com/prismjs/components/prism-bash.min.js"></script>
+<script src="//unpkg.com/prismjs/components/prism-markdown.min.js"></script>
+<script src="//unpkg.com/prismjs/components/prism-nginx.min.js"></script>-->
+
+<script src="_media/docsify.min.js"></script>
+<script src="_media/search.min.js"></script>
+<script src="_media/ga.min.js"></script>
+<script src="_media/prism-bash.min.js"></script>
+<script src="_media/prism-markdown.min.js"></script>
+<script src="_media/prism-nginx.min.js"></script>
+<script src="_media/prism-java.min.js"></script>
+<script src="_media/prism-json.min.js"></script>
+<script src="_media/prism-properties.min.js"></script>
+
+<script>
+  ((window.gitter = {}).chat = {}).options = {
+    room: 'bbossgroups/bboss-elasticsearch'
+  };
+</script>
+<script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+
+<script src="_media/cnzz.js"></script>
+</body>
+
+</html>
