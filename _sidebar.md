@@ -24,7 +24,15 @@
 
 - [bboss框架配置监控介绍](control.md)
 
+- [bboss热部署应用资源销毁监听器ApplicationLifeListener使用说明](monitor.md)
+
 - [bboss开通微信公众号，快快来关注吧](weixin.md)
+
+- [bboss框架eclipse工程编码utf-8改造以及框架模块之间依赖关系改造优化完成](utf-8.md)
+
+- cxf
+
+  - [bboss支持最新的apache cxf v3.1.0](cxf/apache-cxf.md)
 
 - international
 
@@ -56,6 +64,7 @@
   - [sso功能介绍](SSO/SsoFunction.md)
   - [bboss安全认证过滤器认证后重定向到请求页面功能介绍](SSO/functionIN.md)
   - [bboss跨站攻击白名单和脚本攻击防火墙配置](SSO/attack.md)
+  - [bboss防止跨站攻击策略](SSO/cross-site.md)
 
 - taglib
 
@@ -68,6 +77,10 @@
   - [bboss数据库标签系列一 分页列表详细信息标签预编译sql查询数据](taglib/SQL.md)
   - [扩展bboss标签库编写自己的标签](taglib/extendedLabel.md)
   - [bbossgroups标签库使用大全（续三）-新增功能特性详解](taglib/NewFunction.md)
+  - [bbossgroups标签库使用大全（续二）-表达式使用](taglib/expressions.md)
+  - [bboss分页组件翻页js前置处理函数和js后置处理函数使用方法](taglib/js.md)
+  - [bboss标签库与jstl标签库功能对比](taglib/jstl.md)
+  - [bbossgroups标签使用大全（续一）-安全篇](taglib/safe.md)
 
 - SessionSharing
 
@@ -100,6 +113,11 @@
   - [bboss内置数据源apache dbcp与druid数据源切换方法](persistent/druid.md)
   - [bboss持久层多数据源配置及多数据库事务控制使用方法](persistent/multi-data.md)
   - [bboss持久层demo使用说明](persistent/demoInstruction.md)
+  - [bboss持久层More分页查询API使用介绍](persistent/API.md)
+  - [bboss持久层操作Clob和Blob字段示例](persistent/clob.md)
+  - [bboss持久层ormaping机制详解](persistent/ormaping.md)
+  - [bboss持久层改进支持模块sql配置文件引用其它模块sql配置文件中sql语句](persistent/SqlStatement.md)
+  - [bboss持久层sql语句输出到log4j日志文件设置](persistent/log-file.md)
 
 - quartz
 
@@ -113,7 +131,6 @@
   - [扩展bboss ioc语法实现自定义的ioc依赖注入功能](aop/DependencyInjection.md)
   - [bboss序列化cglib代理对象方法介绍](aop/cglib.md)
   - [bboss自定义类对象序列化机制介绍](aop/serialize.md)
-  - [ioc starter使用](aop/starter.md)
   - [bboss将一个组件同时发布为webservice,hessian,http三种服务方法介绍](aop/method.md)
 
 - platform
@@ -160,7 +177,14 @@
   
   - [bboss发布apache cxf 2.7.6服务和定义客户端服务实例可能产生冲突解决办法](mvc/apache.md)
   
+  - [bboss mvc接收和响应xml格式数据的方法](mvc/XmlFortmat.md)
+  
+  - [bboss mvc忽略对bean属性进行参数绑定方法](mvc/bean.md)
+  
+  - [bboss mvc参数绑定注解RequestParam使用说明](mvc/RequestParam.md)
+  
     
+  
   
   
   
