@@ -39,7 +39,7 @@ Java代码
 org.apache.cxf.bus.CXFBusFactory  
 ```
 
-![](../images/mvc/bf6f0d5e-7b7e-3295-8cf1-712b51141ea5.gif)
+![](../images/images/mvc/bf6f0d5e-7b7e-3295-8cf1-712b51141ea5.gif)
 
 即可（org.apache.cxf.bus.CXFBusFactory是cxf默认提供的org.apache.cxf.BusFactory实现类）。同时，对bboss发布cxfwebservice服务机制进行改进，在加载所有mvc控制器之前先发布cxf webservice服务。这样上述的冲突就得到彻底解决。
 
