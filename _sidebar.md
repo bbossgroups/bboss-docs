@@ -24,8 +24,6 @@
 
 - [bboss框架配置监控介绍](control.md)
 
-- [bboss](usa.md)
-
 - international
 
   - [bboss国际化标签小常识-基础数据国际化案例](international/common.md)
