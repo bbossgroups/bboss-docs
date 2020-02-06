@@ -21,7 +21,7 @@ bboss kafka组件作用
   <dependency>  
       <groupId>com.bbossgroups.plugins</groupId>  
       <artifactId>bboss-plugin-kafka</artifactId>  
-      <version>5.1.2</version>  
+      <version>5.6.4</version>  
   </dependency>
   ```
 
