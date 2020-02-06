@@ -30,7 +30,7 @@ bboss kafka组件作用
   Java代码
 
   ```java
-  compile 'com.bbossgroups.plugins:bboss-plugin-kafka:5.1.2' 
+  compile 'com.bbossgroups.plugins:bboss-plugin-kafka:5.6.4' 
   ```
 
   ### 2.使用kafka producer，发送消息
