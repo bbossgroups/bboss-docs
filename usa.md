@@ -1,0 +1,3 @@
+bboss mvc参数绑定注解MapKey主要具备以下三个功能：
+1.用于注解控制器方法map<key,po>类型参数，map<key,po>类型参数主要用来把表单中的多条记录转换为po对象，并以MapKey注解指定的value属性对应的参数值作为key将po对象put到map对象中，以下是一个具体的实例：控制方法Java代码
+
