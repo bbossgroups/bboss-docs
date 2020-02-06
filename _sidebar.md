@@ -24,6 +24,8 @@
 
 - [bboss框架配置监控介绍](control.md)
 
+- [bboss开通微信公众号，快快来关注吧](weixin.md)
+
 - international
 
   - [bboss国际化标签小常识-基础数据国际化案例](international/common.md)
@@ -65,6 +67,7 @@
   - [bboss逻辑标签判断对象类型是否为给定的Class类型方法](taglib/Class.md)
   - [bboss数据库标签系列一 分页列表详细信息标签预编译sql查询数据](taglib/SQL.md)
   - [扩展bboss标签库编写自己的标签](taglib/extendedLabel.md)
+  - [bbossgroups标签库使用大全（续三）-新增功能特性详解](taglib/NewFunction.md)
 
 - SessionSharing
 
@@ -96,6 +99,7 @@
   - [bboss持久层查询元数据缓存机制开启方法](persistent/metadata.md)
   - [bboss内置数据源apache dbcp与druid数据源切换方法](persistent/druid.md)
   - [bboss持久层多数据源配置及多数据库事务控制使用方法](persistent/multi-data.md)
+  - [bboss持久层demo使用说明](persistent/demoInstruction.md)
 
 - quartz
 
@@ -110,6 +114,7 @@
   - [bboss序列化cglib代理对象方法介绍](aop/cglib.md)
   - [bboss自定义类对象序列化机制介绍](aop/serialize.md)
   - [ioc starter使用](aop/starter.md)
+  - [bboss将一个组件同时发布为webservice,hessian,http三种服务方法介绍](aop/method.md)
 
 - platform
 
@@ -152,6 +157,8 @@
   - [bboss mvc控制器方法响应报文注解ResponseBody使用说明](mvc/ResponseBody.md)
   
   - [bboss mvc启动事件监听器使用方法](mvc/monitor.md)
+  
+  - [bboss发布apache cxf 2.7.6服务和定义客户端服务实例可能产生冲突解决办法](mvc/apache.md)
   
     
   
