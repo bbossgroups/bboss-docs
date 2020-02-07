@@ -30,6 +30,12 @@
 
 - [bboss框架eclipse工程编码utf-8改造以及框架模块之间依赖关系改造优化完成](utf-8.md)
 
+- [bboss_spring_struts2_mybatis对比分析](mybatis.md)
+
+- quickstart
+
+  - [bboss离线开发文档下载](quickstart/download.md)
+
 - cxf
 
   - [bboss支持最新的apache cxf v3.1.0](cxf/apache-cxf.md)
@@ -41,6 +47,8 @@
 - workflow
 
   - [bboss版activiti 5.12扩展动态](workflow/activiti.md)
+  - [扩展Activiti 5.12轻松搞定流程实例跟随流程版本一起升级](workflow/upgrade.md)
+  - [扩展Activiti-5.12轻松实现流程节点间自由跳转和任意驳回/撤回](workflow/FreeJump.md)
 
 - rpc
 
@@ -118,6 +126,7 @@
   - [bboss持久层ormaping机制详解](persistent/ormaping.md)
   - [bboss持久层改进支持模块sql配置文件引用其它模块sql配置文件中sql语句](persistent/SqlStatement.md)
   - [bboss持久层sql语句输出到log4j日志文件设置](persistent/log-file.md)
+  - [bboss持久层sqlname对应的sql语句在对应的xml文件中不存在时报的简单而直观的提示](persistent/sqlname.md)
 
 - quartz
 
@@ -132,6 +141,7 @@
   - [bboss序列化cglib代理对象方法介绍](aop/cglib.md)
   - [bboss自定义类对象序列化机制介绍](aop/serialize.md)
   - [bboss将一个组件同时发布为webservice,hessian,http三种服务方法介绍](aop/method.md)
+  - [bboss 发布和使用hessian服务方法介绍](aop/hessian.md)
 
 - platform
 
@@ -184,6 +194,10 @@
   - [bboss mvc参数绑定注解RequestParam使用说明](mvc/RequestParam.md)
   
   - [bboss mvc参数绑定注解MapKey使用说明](mvc/MapKey.md)
+  
+  - [bboss mvc获取request,session,response,pageContext对象方法](mvc/request.md)
+  
+  - [bboss mvc ajax响应输出中文乱码解决方法](mvc/ajax.md)
   
     
   
