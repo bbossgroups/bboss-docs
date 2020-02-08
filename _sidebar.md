@@ -32,6 +32,12 @@
 
 - [bboss_spring_struts2_mybatis对比分析](mybatis.md)
 
+- [Bboss mvc和struts的简单对比](struts.md)
+
+- bbossgroups
+
+  - [bboss 3.6发布，丰富的功能扩展和改进](bbossgroups/extension.md)
+
 - quickstart
 
   - [bboss离线开发文档下载](quickstart/download.md)
@@ -89,6 +95,7 @@
   - [bboss分页组件翻页js前置处理函数和js后置处理函数使用方法](taglib/js.md)
   - [bboss标签库与jstl标签库功能对比](taglib/jstl.md)
   - [bbossgroups标签使用大全（续一）-安全篇](taglib/safe.md)
+  - [bboss中的map标签结合list标签/cell标签展示复杂数据结构案例](taglib/map.md)
 
 - SessionSharing
 
@@ -127,10 +134,14 @@
   - [bboss持久层改进支持模块sql配置文件引用其它模块sql配置文件中sql语句](persistent/SqlStatement.md)
   - [bboss持久层sql语句输出到log4j日志文件设置](persistent/log-file.md)
   - [bboss持久层sqlname对应的sql语句在对应的xml文件中不存在时报的简单而直观的提示](persistent/sqlname.md)
+  - [bboss 持久层重大改进](persistent/improve.md)
+  - [bboss持久层返回mysql自增主键功能说明之二](persistent/function.md)
+  - [bboss持久层分页接口使用示例](persistent/port.md)
 
 - quartz
 
   - [bboss quartz定时任务使用案例介绍](quartz/case.md)
+  - [bboss quartz组件全攻略](quartz/raider.md)
 
 - aop
 
@@ -142,6 +153,7 @@
   - [bboss自定义类对象序列化机制介绍](aop/serialize.md)
   - [bboss将一个组件同时发布为webservice,hessian,http三种服务方法介绍](aop/method.md)
   - [bboss 发布和使用hessian服务方法介绍](aop/hessian.md)
+  - [bboss aop拦截器使用简介](aop/blocker.md)
 
 - platform
 
@@ -198,6 +210,16 @@
   - [bboss mvc获取request,session,response,pageContext对象方法](mvc/request.md)
   
   - [bboss mvc ajax响应输出中文乱码解决方法](mvc/ajax.md)
+  
+  - [bboss libreoffice结合使用说明](mvc/libreoffice.md)
+  
+  - [bboss 属性编辑器在mvc中的应用](mvc/editor.md)
+  
+  - [bboss mvc 新增特性-防止控制器中public方法成为控制器方法接收客户端请求](mvc/public.md)
+  
+  - [bboss 动态令牌使用示例-ajax请求获取和传递令牌](mvc/-ajax.md)
+  
+  - [bboss 动态令牌机制轻松搞定表单重复提交和请求校验签名单点登录](mvc/token.md)
   
     
   
