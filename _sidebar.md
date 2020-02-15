@@ -34,6 +34,10 @@
 
 - [Bboss mvc和struts的简单对比](struts.md)
 
+- talk
+
+  - [mysql 执行查询导致服务器崩溃求解：Some pointers may be invalid and cause the dump to abort](talk/breakdown.md)
+
 - bbossgroups
 
   - [bboss 3.6发布，丰富的功能扩展和改进](bbossgroups/extension.md)
@@ -41,6 +45,9 @@
 - quickstart
 
   - [bboss离线开发文档下载](quickstart/download.md)
+  - [bboss持久层事务管理组件TransactionManager增加两个release方法](quickstart/release.md)
+  - [Bboss国际化实践PPT](quickstart/PPT.md)
+  - [bboss mvc文件上传下载新增功能详解](quickstart/upload.md)
 
 - cxf
 
@@ -59,6 +66,7 @@
 - rpc
 
   - [bboss webservice引擎使用方法](rpc/webservice.md)
+  - [Rest协议框架-bboss rpc](rpc/rest.md)
 
 - event
 
@@ -137,6 +145,9 @@
   - [bboss 持久层重大改进](persistent/improve.md)
   - [bboss持久层返回mysql自增主键功能说明之二](persistent/function.md)
   - [bboss持久层分页接口使用示例](persistent/port.md)
+  - [bboss 事务框架托管hibernate事务保存更新操作失效问题解决办法](persistent/hibernate.md)
+  - [bboss 持久层配置apache dbcp，proxool,c3p0,Druid等数据源方法](persistent/proxool.md)
+  - [bboss持久层bean属性和表字段相关注解使用说明](persistent/note.md)
 
 - quartz
 
@@ -154,6 +165,8 @@
   - [bboss将一个组件同时发布为webservice,hessian,http三种服务方法介绍](aop/method.md)
   - [bboss 发布和使用hessian服务方法介绍](aop/hessian.md)
   - [bboss aop拦截器使用简介](aop/blocker.md)
+  - [bboss ioc容器之间组件引用方法简介](aop/vessel.md)
+  - [解决cxf+bboss发布的webservice缺少<wsdl:types>和<wsdl:message>标签的问题](aop/webservice.md)
 
 - platform
 
@@ -220,6 +233,8 @@
   - [bboss 动态令牌使用示例-ajax请求获取和传递令牌](mvc/-ajax.md)
   
   - [bboss 动态令牌机制轻松搞定表单重复提交和请求校验签名单点登录](mvc/token.md)
+  
+  - [bboss mvc结合jsonp实现跨站跨域应用间通讯功能介绍](mvc/jsonp.md)
   
     
   
