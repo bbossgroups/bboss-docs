@@ -41,6 +41,8 @@
 - bbossgroups
 
   - [bboss 3.6发布，丰富的功能扩展和改进](bbossgroups/extension.md)
+  - [bboss国际化功能简介](bbossgroups/INT.md)
+  - [bboss 4.10.7及更低版本ant构建方法](bbossgroups/ant.md)
 
 - quickstart
 
@@ -48,6 +50,7 @@
   - [bboss持久层事务管理组件TransactionManager增加两个release方法](quickstart/release.md)
   - [Bboss国际化实践PPT](quickstart/PPT.md)
   - [bboss mvc文件上传下载新增功能详解](quickstart/upload.md)
+  - [bboss持久层事务管理组件托管第三方持久层框架（mybatis等）事务功能介绍](quickstart/mybatis.md)
 
 - cxf
 
@@ -148,6 +151,7 @@
   - [bboss 事务框架托管hibernate事务保存更新操作失效问题解决办法](persistent/hibernate.md)
   - [bboss 持久层配置apache dbcp，proxool,c3p0,Druid等数据源方法](persistent/proxool.md)
   - [bboss持久层bean属性和表字段相关注解使用说明](persistent/note.md)
+  - [bboss 持久层sql语句中一维/多维数组类型变量、list变量、map变量、bean对象变量使用说明](persistent/variate.md)
 
 - quartz
 
@@ -167,6 +171,7 @@
   - [bboss aop拦截器使用简介](aop/blocker.md)
   - [bboss ioc容器之间组件引用方法简介](aop/vessel.md)
   - [解决cxf+bboss发布的webservice缺少<wsdl:types>和<wsdl:message>标签的问题](aop/webservice.md)
+  - [开源工作流引擎activiti与bboss整合使用方法浅析](aop/activiti.md)
 
 - platform
 
