@@ -43,6 +43,7 @@
   - [bboss 3.6发布，丰富的功能扩展和改进](bbossgroups/extension.md)
   - [bboss国际化功能简介](bbossgroups/INT.md)
   - [bboss 4.10.7及更低版本ant构建方法](bbossgroups/ant.md)
+  - [bboss 将内容为GBK编码文件转UTF-8工具介绍](bbossgroups/GBK.md)
 
 - quickstart
 
@@ -152,6 +153,7 @@
   - [bboss 持久层配置apache dbcp，proxool,c3p0,Druid等数据源方法](persistent/proxool.md)
   - [bboss持久层bean属性和表字段相关注解使用说明](persistent/note.md)
   - [bboss 持久层sql语句中一维/多维数组类型变量、list变量、map变量、bean对象变量使用说明](persistent/variate.md)
+  - [bboss 持久层数据库信息加密功能介绍](persistent/encrypt.md)
 
 - quartz
 
@@ -172,6 +174,7 @@
   - [bboss ioc容器之间组件引用方法简介](aop/vessel.md)
   - [解决cxf+bboss发布的webservice缺少<wsdl:types>和<wsdl:message>标签的问题](aop/webservice.md)
   - [开源工作流引擎activiti与bboss整合使用方法浅析](aop/activiti.md)
+  - [bboss aop/ioc组件配置语法诠释](aop/grammar.md)
 
 - platform
 
@@ -240,6 +243,8 @@
   - [bboss 动态令牌机制轻松搞定表单重复提交和请求校验签名单点登录](mvc/token.md)
   
   - [bboss mvc结合jsonp实现跨站跨域应用间通讯功能介绍](mvc/jsonp.md)
+  
+  - [bboss 安全认证过滤器功能介绍](mvc/filter.md)
   
     
   
