@@ -44,6 +44,9 @@
   - [bboss国际化功能简介](bbossgroups/INT.md)
   - [bboss 4.10.7及更低版本ant构建方法](bbossgroups/ant.md)
   - [bboss 将内容为GBK编码文件转UTF-8工具介绍](bbossgroups/GBK.md)
+  - [bbossgroups 3.5 发布](bbossgroups/NewVersion.md)
+  - [bboss 序列化功能详解](bbossgroups/serialization.md)
+  - [bboss 序列化机制重大改进-支持复杂对象及对象之间关系序列化和恢复功能](bbossgroups/perfection.md)
 
 - quickstart
 
@@ -52,6 +55,7 @@
   - [Bboss国际化实践PPT](quickstart/PPT.md)
   - [bboss mvc文件上传下载新增功能详解](quickstart/upload.md)
   - [bboss持久层事务管理组件托管第三方持久层框架（mybatis等）事务功能介绍](quickstart/mybatis.md)
+  - [bboss rpc使用介绍](quickstart/rpc.md)
 
 - cxf
 
@@ -154,6 +158,11 @@
   - [bboss持久层bean属性和表字段相关注解使用说明](persistent/note.md)
   - [bboss 持久层sql语句中一维/多维数组类型变量、list变量、map变量、bean对象变量使用说明](persistent/variate.md)
   - [bboss 持久层数据库信息加密功能介绍](persistent/encrypt.md)
+  - [bboss 持久层框架直接返回基础数据类型和基础数据类型List集合介绍](persistent/List.md)
+  - [关于一个系统应用是否使用多个数据源（连接池）的探讨](persistent/discuss.md)
+  - [bboss 持久层框架CallableDBUtil组件执行存储过程和函数实例](persistent/CallableDBUtil.md)
+  - [基于bbossgroups持久层框架实现数据库分页查询](persistent/paging.md)
+  - [bboss 动态sql使用foreach循环示例](persistent/foreach.md)
 
 - quartz
 
@@ -175,6 +184,7 @@
   - [解决cxf+bboss发布的webservice缺少<wsdl:types>和<wsdl:message>标签的问题](aop/webservice.md)
   - [开源工作流引擎activiti与bboss整合使用方法浅析](aop/activiti.md)
   - [bboss aop/ioc组件配置语法诠释](aop/grammar.md)
+  - [bboss aop/ioc依赖注入功能介绍](aop/inject.md)
 
 - platform
 
@@ -245,6 +255,10 @@
   - [bboss mvc结合jsonp实现跨站跨域应用间通讯功能介绍](mvc/jsonp.md)
   
   - [bboss 安全认证过滤器功能介绍](mvc/filter.md)
+  
+  - [bboss mvc处理ajax get方法中文乱码方式纪实](mvc/get.md)
+  
+  - [bboss mvc中ModelMap和ModelAndView的使用方法](mvc/ModelMap.md)
   
     
   
