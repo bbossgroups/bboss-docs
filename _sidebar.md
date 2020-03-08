@@ -47,6 +47,8 @@
   - [bbossgroups 3.5 发布](bbossgroups/NewVersion.md)
   - [bboss 序列化功能详解](bbossgroups/serialization.md)
   - [bboss 序列化机制重大改进-支持复杂对象及对象之间关系序列化和恢复功能](bbossgroups/perfection.md)
+  - [bbossgroups 3.4发布](bbossgroups/version.md)
+  - [bbossgroups 对象xml序列化/反序列化性能测试](bbossgroups/xml.md)
 
 - quickstart
 
@@ -163,6 +165,11 @@
   - [bboss 持久层框架CallableDBUtil组件执行存储过程和函数实例](persistent/CallableDBUtil.md)
   - [基于bbossgroups持久层框架实现数据库分页查询](persistent/paging.md)
   - [bboss 动态sql使用foreach循环示例](persistent/foreach.md)
+  - [bboss预编译批处理api使用介绍](persistent/precompile.md)
+  - [bbossgroups持久层sql配置文件实时加载（热加载）机制介绍](persistent/HotLoad.md)
+  - [bbossgroups持久层sql配置文件多数据库sql语句配置机制](persistent/multidata.md)
+  - [bboss持久层行处理器使用介绍](persistent/processor.md)
+  - [bbossgroups 持久层模板sql变量参数设置的三种方式](persistent/preferences)
 
 - quartz
 
@@ -185,6 +192,7 @@
   - [开源工作流引擎activiti与bboss整合使用方法浅析](aop/activiti.md)
   - [bboss aop/ioc组件配置语法诠释](aop/grammar.md)
   - [bboss aop/ioc依赖注入功能介绍](aop/inject.md)
+  - [Bboss和xstream序列化/反序列化性能对比](aop/xstream.md)
 
 - platform
 
@@ -259,6 +267,12 @@
   - [bboss mvc处理ajax get方法中文乱码方式纪实](mvc/get.md)
   
   - [bboss mvc中ModelMap和ModelAndView的使用方法](mvc/ModelMap.md)
+  
+  - [bbossgroups 开发系列文章之一 最佳实践](mvc/best.md)
+  
+  - [bboss mvc 控制器方法参数绑定技巧-List类型参数绑定介绍](mvc/bind.md)
+  
+  - [bboss mvc大文件上传及or mapping存储大文件机制详解](mvc/mapping.md)
   
     
   
