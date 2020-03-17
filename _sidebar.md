@@ -49,6 +49,10 @@
   - [bboss 序列化机制重大改进-支持复杂对象及对象之间关系序列化和恢复功能](bbossgroups/perfection.md)
   - [bbossgroups 3.4发布](bbossgroups/version.md)
   - [bbossgroups 对象xml序列化/反序列化性能测试](bbossgroups/xml.md)
+  - [bboss 组件容器的使用方法浅析](bbossgroups/vessel.md)
+  - [bbossgroups 3.3 发布](bbossgroups/three.md)
+  - [bbossgroups框架发布的jar包和依赖jar包概览](bbossgroups/jar.md)
+  - [我们需要一站式解决方案还是混合组合方案](bbossgroups/plan.md)
 
 - quickstart
 
@@ -114,6 +118,7 @@
   - [bboss标签库与jstl标签库功能对比](taglib/jstl.md)
   - [bbossgroups标签使用大全（续一）-安全篇](taglib/safe.md)
   - [bboss中的map标签结合list标签/cell标签展示复杂数据结构案例](taglib/map.md)
+  - [bboss标签库使用大全-逻辑标签使用介绍](taglib/logic.md)
 
 - SessionSharing
 
@@ -170,6 +175,8 @@
   - [bbossgroups持久层sql配置文件多数据库sql语句配置机制](persistent/multidata.md)
   - [bboss持久层行处理器使用介绍](persistent/processor.md)
   - [bbossgroups 持久层模板sql变量参数设置的三种方式](persistent/preferences)
+  - [bbossgroups持久层框架链接池配置优化策略之一 空闲链接回收配置](persistent/recycle.md)
+  - [bbossgroups 持久层监控功能介绍](persistent/monitor.md)
 
 - quartz
 
@@ -273,6 +280,14 @@
   - [bboss mvc 控制器方法参数绑定技巧-List类型参数绑定介绍](mvc/bind.md)
   
   - [bboss mvc大文件上传及or mapping存储大文件机制详解](mvc/mapping.md)
+  
+  - [bboss mvc 控制器方法参数绑定技巧-Map类型参数绑定介绍](mvc/Map.md)
+  
+  - [bboss mvc 对象自动转换为json响应请求浅析](mvc/target.md)
+  
+  - [web开发利器bboss mvc结合ext 4 desktop开发的桌面应用程序效果分享](mvc/effect.md)
+  
+  - [bboss mvc基础配置介绍](mvc/base.md)
   
     
   
