@@ -53,6 +53,7 @@
   - [bbossgroups 3.3 发布](bbossgroups/three.md)
   - [bbossgroups框架发布的jar包和依赖jar包概览](bbossgroups/jar.md)
   - [我们需要一站式解决方案还是混合组合方案](bbossgroups/plan.md)
+  - [bbossgroups的特色特点介绍](bbossgroups/feature)
 
 - quickstart
 
@@ -119,6 +120,7 @@
   - [bbossgroups标签使用大全（续一）-安全篇](taglib/safe.md)
   - [bboss中的map标签结合list标签/cell标签展示复杂数据结构案例](taglib/map.md)
   - [bboss标签库使用大全-逻辑标签使用介绍](taglib/logic.md)
+  - [bboss标签使用大全-数据展示标签](taglib/DataLabel.md)
 
 - SessionSharing
 
@@ -288,6 +290,10 @@
   - [web开发利器bboss mvc结合ext 4 desktop开发的桌面应用程序效果分享](mvc/effect.md)
   
   - [bboss mvc基础配置介绍](mvc/base.md)
+  
+  - [bboss mvc文件上传下载实战进阶](mvc/advance.md)
+  
+  - [bboss mvc文件上传下载实战演练](mvc/combat.md)
   
     
   
