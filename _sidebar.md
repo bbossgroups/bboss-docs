@@ -34,6 +34,8 @@
 
 - [Bboss mvc和struts的简单对比](struts.md)
 
+- [bbossgroups项目新域名开通](domain.md)
+
 - talk
 
   - [mysql 执行查询导致服务器崩溃求解：Some pointers may be invalid and cause the dump to abort](talk/breakdown.md)
@@ -54,6 +56,9 @@
   - [bbossgroups框架发布的jar包和依赖jar包概览](bbossgroups/jar.md)
   - [我们需要一站式解决方案还是混合组合方案](bbossgroups/plan.md)
   - [bbossgroups的特色特点介绍](bbossgroups/feature)
+  - [bbossgroups 相关资料整理](bbossgroups/material.md)
+  - [bbossgroups项目demo站点升级完毕，朋友们可以去看看](bbossgroups/address.md)
+  - [bbossgroups-3.2 发布，支持对象xml序列化功能](bbossgroups/two.md)
 
 - quickstart
 
@@ -67,6 +72,7 @@
 - cxf
 
   - [bboss支持最新的apache cxf v3.1.0](cxf/apache-cxf.md)
+  - [cxf webserivce与jdk1.6包冲突问题解决办法](cxf/question.md)
 
 - international
 
@@ -179,6 +185,12 @@
   - [bbossgroups 持久层模板sql变量参数设置的三种方式](persistent/preferences)
   - [bbossgroups持久层框架链接池配置优化策略之一 空闲链接回收配置](persistent/recycle.md)
   - [bbossgroups 持久层监控功能介绍](persistent/monitor.md)
+  - [bbossgroups持久层框架查询返回Map对象和Map列表对象api](persistent/MapApi.md)
+  - [bbossgroups持久层框架ConfigSQLExecutor组件api实例](persistent/executor.md)
+  - [bbossgroups持久层框架数据源配置文件实例](persistent/origin.md)
+  - [bbossgroups持久层框架动态sql语句配置和使用](persistent/statement.md)
+  - [bbossgroups持久层ConfigSQLExecutor组件的典型用法-预编译操作](persistent/PrecompileOperation.md)
+  - [持久层动态创建、启动、停止和使用多个数据源的方法](persistent/multiple.md)
 
 - quartz
 
@@ -294,6 +306,14 @@
   - [bboss mvc文件上传下载实战进阶](mvc/advance.md)
   
   - [bboss mvc文件上传下载实战演练](mvc/combat.md)
+  
+  - [Ajax方式发送XML及接收xml响应实例](mvc/xml.md)
+  
+  - [MVC结合Easyui Portal 实例](mvc/portal.md)
+  
+  - [浅谈 BbossMVC restful使用技巧](mvc/restful.md)
+  
+  - [浅谈 bboss mvc 页面访问控制实现机制](mvc/page.md)
   
     
   
