@@ -59,6 +59,10 @@
   - [bbossgroups 相关资料整理](bbossgroups/material.md)
   - [bbossgroups项目demo站点升级完毕，朋友们可以去看看](bbossgroups/address.md)
   - [bbossgroups-3.2 发布，支持对象xml序列化功能](bbossgroups/two.md)
+  - [bbossgroups 框架最小依赖工程资源下载（mvc，aop，persistent，taglib，object servializable）](bbossgroups/download.md)
+  - [推荐bbossgroups 专栏文章《bbossgroups 开发系列文章之-最佳实践 》](bbossgroups/recommend.md)
+  - [bbossgroups 3.1中webservice引擎使用方法](bbossgroups/webservice.md)
+  - [bbossgroups 3.1中quartz调度引擎的使用方法](bbossgroups/quartz.md)
 
 - quickstart
 
@@ -191,6 +195,7 @@
   - [bbossgroups持久层框架动态sql语句配置和使用](persistent/statement.md)
   - [bbossgroups持久层ConfigSQLExecutor组件的典型用法-预编译操作](persistent/PrecompileOperation.md)
   - [持久层动态创建、启动、停止和使用多个数据源的方法](persistent/multiple.md)
+  - [bbossgroups 3.1SQLExecutor组件api使用实例](persistent/SQLExecutor.md)
 
 - quartz
 
@@ -214,6 +219,7 @@
   - [bboss aop/ioc组件配置语法诠释](aop/grammar.md)
   - [bboss aop/ioc依赖注入功能介绍](aop/inject.md)
   - [Bboss和xstream序列化/反序列化性能对比](aop/xstream.md)
+  - [浅谈 bbossgroups 对象xml序列化技术](aop/technology.md)
 
 - platform
 
@@ -314,6 +320,10 @@
   - [浅谈 BbossMVC restful使用技巧](mvc/restful.md)
   
   - [浅谈 bboss mvc 页面访问控制实现机制](mvc/page.md)
+  
+  - [浅谈 BbossMVC 数据绑定](mvc/MVC.md)
+  
+  - [通过bboss mvc实现分页操作](mvc/paginate.md)
   
     
   
