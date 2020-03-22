@@ -63,6 +63,11 @@
   - [推荐bbossgroups 专栏文章《bbossgroups 开发系列文章之-最佳实践 》](bbossgroups/recommend.md)
   - [bbossgroups 3.1中webservice引擎使用方法](bbossgroups/webservice.md)
   - [bbossgroups 3.1中quartz调度引擎的使用方法](bbossgroups/quartz.md)
+  - [bboss mvc框架中使用注解指定控制器方法日期类型参数日期格式的例子](bbossgroups/time.md)
+  - [bbossgroups-3.1 发布，支持组件方法异步调用](bbossgroups/async.md)
+  - [bbossgroups 组件方法异步调用](bbossgroups/transfer.md)
+  - [bbossgroups 3.0 培训教程](bbossgroups/train.md)
+  - [bbossgroups-3.0发布,新增子项目bboss mvc](bbossgroups/subitem.md)
 
 - quickstart
 
@@ -220,6 +225,7 @@
   - [bboss aop/ioc依赖注入功能介绍](aop/inject.md)
   - [Bboss和xstream序列化/反序列化性能对比](aop/xstream.md)
   - [浅谈 bbossgroups 对象xml序列化技术](aop/technology.md)
+  - [bboss factory依赖注入模式使用方法](aop/pour.md)
 
 - platform
 
@@ -324,6 +330,8 @@
   - [浅谈 BbossMVC 数据绑定](mvc/MVC.md)
   
   - [通过bboss mvc实现分页操作](mvc/paginate.md)
+  
+  - [bbossgroups mvc demo构建部署方法](mvc/demo.md)
   
     
   
