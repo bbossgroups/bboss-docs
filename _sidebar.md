@@ -68,6 +68,13 @@
   - [bbossgroups 组件方法异步调用](bbossgroups/transfer.md)
   - [bbossgroups 3.0 培训教程](bbossgroups/train.md)
   - [bbossgroups-3.0发布,新增子项目bboss mvc](bbossgroups/subitem.md)
+  - [bboosgroups论坛地址](bbossgroups/forum.md)
+  - [bbossgroups 2.1即将发布一系列文章](bbossgroups/article.md)
+  - [使用rmi协议，基于cglib实现组件管理和远程方法调用](bbossgroups/rmi.md)
+  - [基于bbossgroups持久层框架实现数据库分页查询](bbossgroups/sybase.md)
+  - [bboss-persistent结合bboss-aop实现注解事务](bbossgroups/aop.md)
+  - [发布bbossgroups-2.0-RC补丁-bboss rpc classcast and timeout exception patch.zip](bbossgroups/patch.md)
+  - [发布紧急补丁-cglib stackoverflow-patch for bbossgroups-2.0-RC](bbossgroups/emergency.md)
 
 - quickstart
 
@@ -201,6 +208,9 @@
   - [bbossgroups持久层ConfigSQLExecutor组件的典型用法-预编译操作](persistent/PrecompileOperation.md)
   - [持久层动态创建、启动、停止和使用多个数据源的方法](persistent/multiple.md)
   - [bbossgroups 3.1SQLExecutor组件api使用实例](persistent/SQLExecutor.md)
+  - [bboss多数据库事务管理](persistent/manage.md)
+  - [bbosspersistent 性能初探](persistent/performance.md)
+  - [mysql 高版本jdbc驱动程序使用PreparedStatement.setBinaryStream方法报错及解决办法](persistent/error.md)
 
 - quartz
 
@@ -332,6 +342,8 @@
   - [通过bboss mvc实现分页操作](mvc/paginate.md)
   
   - [bbossgroups mvc demo构建部署方法](mvc/demo.md)
+  
+  - [ModelAndView使用方法-一个关于校验码生成的bbossmvc restful示例1](mvc/example.md)
   
     
   
