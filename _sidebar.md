@@ -75,6 +75,10 @@
   - [bboss-persistent结合bboss-aop实现注解事务](bbossgroups/aop.md)
   - [发布bbossgroups-2.0-RC补丁-bboss rpc classcast and timeout exception patch.zip](bbossgroups/patch.md)
   - [发布紧急补丁-cglib stackoverflow-patch for bbossgroups-2.0-RC](bbossgroups/emergency.md)
+  - [bbossgroups 2.0-RC版本中如何通过JGroups来实现集群节点间远程服务调用，或者多服务器之间远程服务调用](bbossgroups/RPC.md)
+  - [基于quartz任务调度组件的使用](bbossgroups/order.md)
+  - [bboss aop ioc机制配置](bbossgroups/ioc.md)
+  - [bbossgroups-2.0-RC 发布](bbossgroups/RC.md)
 
 - quickstart
 
