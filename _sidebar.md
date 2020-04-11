@@ -79,6 +79,14 @@
   - [基于quartz任务调度组件的使用](bbossgroups/order.md)
   - [bboss aop ioc机制配置](bbossgroups/ioc.md)
   - [bbossgroups-2.0-RC 发布](bbossgroups/RC.md)
+  - [即将发布bbossgroup-2.0 rc版本](bbossgroups/zero.md)
+  - [新建了圈子http://bbossgroups.group.javaeye.com/，欢迎大家加入](bbossgroups/NewBuilt.md)
+  - [bbossgroups 1.0rc版本的rpc框架增加jboss netty 协议](bbossgroups/netty.md)
+  - [bbossgroups RPC 基于aop的轻量级rpc框架](bbossgroups/framework.md)
+  - [bbossgroups jms组件框架](bbossgroups/jms.md)
+  - [bbossgroups cxf Webservice服务管理框架](bbossgroups/cxf.md)
+  - [bbossgroups 线程池使用](bbossgroups/thread.md)
+  - [Bbossgroups 正则表达式工具类使用介绍](bbossgroups/tool.md)
 
 - quickstart
 
@@ -116,6 +124,8 @@
 - random-talk
 
   - [MongoDB与内存](random-talk/MongoDB.md)
+  - [jquery之陷阱-选择器中的特殊字符转义](random-talk/trap.md)
+  - [uml之实践感悟](random-talk/uml.md)
 
 - big-data
 
@@ -147,6 +157,8 @@
   - [bboss中的map标签结合list标签/cell标签展示复杂数据结构案例](taglib/map.md)
   - [bboss标签库使用大全-逻辑标签使用介绍](taglib/logic.md)
   - [bboss标签使用大全-数据展示标签](taglib/DataLabel.md)
+  - [采用jquery来分页，排序，查询](taglib/jquery.md)
+  - [树标签的脚本从prototype迁移到jquery实战](taglib/move.md)
 
 - SessionSharing
 
@@ -215,11 +227,13 @@
   - [bboss多数据库事务管理](persistent/manage.md)
   - [bbosspersistent 性能初探](persistent/performance.md)
   - [mysql 高版本jdbc驱动程序使用PreparedStatement.setBinaryStream方法报错及解决办法](persistent/error.md)
+  - [开源j2ee 框架bbossgroups 1.0 数据库操作标签初探](persistent/j2ee.md)
 
 - quartz
 
   - [bboss quartz定时任务使用案例介绍](quartz/case.md)
   - [bboss quartz组件全攻略](quartz/raider.md)
+  - [bbossgroups quartz任务管理组件](quartz/package.md)
 
 - aop
 
@@ -240,6 +254,7 @@
   - [Bboss和xstream序列化/反序列化性能对比](aop/xstream.md)
   - [浅谈 bbossgroups 对象xml序列化技术](aop/technology.md)
   - [bboss factory依赖注入模式使用方法](aop/pour.md)
+  - [bbossgroups-1.0 rpc框架修复了一个bug](aop/bug.md)
 
 - platform
 
