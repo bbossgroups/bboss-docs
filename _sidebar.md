@@ -258,6 +258,20 @@
   - [持久层框架中通过Record对象获取Blob对象值导致java堆栈溢出的问题](persistent/Blob.md)
   - [关于bboss persistent主键生成机制的说明](persistent/major.md)
   - [bboss persistent 1.0.4 发布,功能变更清单见正文](persistent/four.md)
+  - [bboss persistent 1.0.3 发布，功能变更清单见正文](persistent/change.md)
+  - [bboss persistent通过jndi引用外部数据源（datasource）方法](persistent/datasource.md)
+  - [bboss persistent事务管理介绍 （二）](persistent/two.md)
+  - [bboss persistent事务管理介绍 （三）](persistent/three.md)
+  - [bboss persistent事务管理介绍 （四）](persistent/introduceFOUR.md)
+  - [bboss persistent事务管理介绍 （五）](persistent/five.md)
+  - [bboss persistent事务管理介绍 （六）](persistent/six.md)
+  - [bboss persistent事务管理介绍 （七）](persistent/seven.md)
+  - [bboss persistent事务管理介绍 （八）](persistent/eight.md)
+  - [bboss persistent事务管理介绍 （九）](persistent/nine.md)
+  - [bboss persistent事务管理介绍 （十）](persistent/ten.md)
+  - [bboss persistent事务管理介绍 （十一）](persistent/eleven.md)
+  - [bboss 持久层框架使用最佳实践-带连接（connection）参数接口和不带连接参数接口的选择](persistent/select.md)
+  - [获取数据库连接-bboss persistent](persistent/connect.md)
 
 - quartz
 
@@ -286,6 +300,21 @@
   - [bboss factory依赖注入模式使用方法](aop/pour.md)
   - [bbossgroups-1.0 rpc框架修复了一个bug](aop/bug.md)
   - [bboss aop 1.0.6 发布](aop/six.md)
+  - [bboss aop 远程服务介绍-远程服务id定义规则](aop/far.md)
+  - [bboss aop 远程服务介绍-点对点远程服务调用和组播服务调用的区别](aop/distinguish.md)
+  - [bboss aop 远程服务介绍-网络环境](aop/network.md)
+  - [bboss aop 远程服务介绍-远程服务调用实例](aop/example.md)
+  - [bboss aop 远程服务介绍-体系结构](aop/architecture.md)
+  - [BaseSPIManager组件介绍](aop/package.md)
+  - [bboss aop 系统全局属性管理](aop/manager.md)
+  - [使用BaseSPIManager获取组件实例和直接创建组件实例的区别](aop/different.md)
+  - [哈哈，终于在bboss aop中实现了rpc（远程服务调用）功能](aop/rpc.md)
+  - [bboss aop 实践(6) 声明式事务管理](aop/declarative.md)
+  - [bboss aop 实践（4） 防止循环依赖注入](aop/into.md)
+  - [bboss aop 实践 (5-1) 拦截器（Interceptor）](aop/interceptor.md)
+  - [bboss aop 实践 (3-1) 构造函数依赖注入](aop/function.md)
+  - [bboss aop 实践（3）构造函数依赖注入](aop/three.md)
+  - [bboss aop 实践（2）属性依赖注入](aop/two.md)
 
 - platform
 
