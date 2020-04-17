@@ -38,6 +38,8 @@
 
 - [项目成果整理清单](results.md)
 
+- [开发体系结构-基于bboss 框架开发BS系统的体系结构](bs.md)
+
 - talk
 
   - [mysql 执行查询导致服务器崩溃求解：Some pointers may be invalid and cause the dump to abort](talk/breakdown.md)
@@ -272,6 +274,11 @@
   - [bboss persistent事务管理介绍 （十一）](persistent/eleven.md)
   - [bboss 持久层框架使用最佳实践-带连接（connection）参数接口和不带连接参数接口的选择](persistent/select.md)
   - [获取数据库连接-bboss persistent](persistent/connect.md)
+  - [bboss persistent框架数据库连接池配置介](persistent/pool.md)
+  - [bboss persistent事务管理介绍 （一）](persistent/one.md)
+  - [关于bboss-persistent持久层框架通过jndi引用外部数据源（datasource）](persistent/jndi.md)
+  - [bboss-persistent 1.0.2 has released.](persistent/released.md)
+  - [bboss persistent 1.0.2中方便地实现大字段(clob,blob)的处理](persistent/field.md)
 
 - quartz
 
@@ -315,6 +322,7 @@
   - [bboss aop 实践 (3-1) 构造函数依赖注入](aop/function.md)
   - [bboss aop 实践（3）构造函数依赖注入](aop/three.md)
   - [bboss aop 实践（2）属性依赖注入](aop/two.md)
+  - [bboss-aop 实践(1) xml配置文件语法](aop/xml.md)
 
 - platform
 
