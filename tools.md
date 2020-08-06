@@ -1,6 +1,7 @@
 ### bboss自动代码生成工具使用指南
 
-  **工具在线试用：**
+#   **工具在线试用**
+
 [http://gencode.bbossgroups.com](http://gencode.bbossgroups.com/)
 
 在介绍之前首先了解一下bboss自动代码生成工具能帮助我们做哪些事情。
@@ -22,7 +23,8 @@ http://www.iteye.com/news/31078-bboss-gencode
 
 下面介绍具体用法。  
 
-**第一步 工具安装**
+# **第一步 工具安装**
+
 从bboss官网下载安装包：[下载](http://www.bbossgroups.com/tool/download.htm?fileName=gencode.zip)
 下安装包后直接解压，解压后的目录结构为：
 
@@ -31,6 +33,12 @@ http://www.iteye.com/news/31078-bboss-gencode
   运行解压目录下的startup.bat（linux下执行startup.sh）
 然后在chrome或者火狐浏览器下访问地址：
 http://localhost/gencode
+
+## 1. 配置源码存放目录
+
+可以在web.xml和config.properties中配置生成的源码存放目录以及配置数据库sqlite的存放目录，如果两个文件中都配置了，则优先加载config.properties中的配置。
+
+### 在config.properties中配置
 
 如果需要定制一些配置，可以修改解压目录下的config.properties文件：
 config.properties内容如下：  
@@ -41,14 +49,47 @@ config.properties内容如下：
 port=80
 context=gencode
 
-
 如果需要修改代码的存放目录（默认为运行目录下的sourcecode目录），就打开配置属性sourcepath并修改：
 \#sourcepath=d:/sourcecode
 
 如果需要修改存放表单配置的sqlite数据库的路径（不设置的话默认为运行目录），就打开配置属性sqlitepath并修改：
 \#sqlitepath=d:/gencodedb  
 
-  **从github下载源码构建安装：**
+### 在web.xml中配置
+
+修改下面的iocLifeCycleEventListenerParams即可：sqlitepath=/opt/gencodedb|sourcepath=/opt/sourcecode
+
+```xml
+<servlet>
+   <servlet-name>mvcdispather</servlet-name>
+   <servlet-class>org.frameworkset.web.servlet.DispatchServlet</servlet-class>
+   <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <!--如果有多个目录需要加载，请用,号分隔-->
+      <param-value>/WEB-INF/conf/bboss-*.xml,/WEB-INF/conf/gencode/bboss-*.xml</param-value>
+   </init-param>
+   <init-param>
+      <param-name>messagesources</param-name>
+      <param-value>/WEB-INF/conf/gencode/messages_gencode</param-value>
+</init-param> 
+<init-param>
+      <param-name>iocLifeCycleEventListeners</param-name>
+      <param-value>org.frameworkset.gencode.web.GencodeIocLifeCycleEventListener</param-value>
+   </init-param>
+   <init-param>
+      <param-name>iocLifeCycleEventListenerParams</param-name>
+      <!-- 指定sqlite数据库文件路径参数sqlitepath和源代码存放目录路径参数sourcepath
+      sourcepath：如果没有设置sourcepath参数，那么需要在代码配置界面上或者代码生成组件上指定源码存放路径
+      linux:sqlitepath=/opt/gencodedb|sourcepath=/opt/sourcecode
+      windows:sqlitepath=d:/gencodedb|sourcepath=d:/sourcecode
+       -->
+      <param-value>sqlitepath=/opt/gencodedb|sourcepath=/opt/sourcecode</param-value>
+   </init-param>
+   <load-on-startup>0</load-on-startup>
+</servlet>
+```
+
+##   2. 从github下载源码构建安装
 
 https://github.com/bbossgroups/bboss-gencode
 svn源码下载地址：
@@ -99,7 +140,8 @@ Xml代码
 
   参数iocLifeCycleEventListenerParams中维护了sqlitepath（sqlite数据库文件路径）和sourcepath（代码存放路径）两个参数，根据自己本机的路径修改即可。
 
-**第二步 添加数据源**
+# **第二步 添加数据源**
+
 为了能够对数据库中的表生成代码，需要配置相应的数据源,参考下图：  
 
 ![](images/bboss/36b7eb2e-d1f9-3c52-9290-3156aa8bdac7.gif)
@@ -116,7 +158,8 @@ mysql
 
 同时也可以修改和删除已有数据源。  
 
-**第三步 选择数据库表并生成代码**
+# **第三步 选择数据库表并生成代码**
+
 选择数据源：
 
 ![](images/bboss/63be8ab7-327b-3166-92e3-1f8ea72ee279.gif)
@@ -128,7 +171,8 @@ mysql
   然后点击进入表单配置，即可
 如果需要重新加载数据源中的表结构，可以点击刷新表结构
 
-**第四步 配置表单**
+# **第四步 配置表单**
+
 选择好表并进入表单界面：  
 
 ![](images/bboss/882ebbb6-d886-3597-9ed3-1028477a70b3.gif)
@@ -139,7 +183,7 @@ mysql
 
 ![](images/bboss/36016012-5df4-3c96-8b03-471b4a50ce86.gif)
 
-  **基本信息配置**
+##   **基本信息配置**
 
 模块名称 指定模块英文名称
 模块中文名称 指定模块中文名称
@@ -164,11 +208,15 @@ excel版本号 设置excel导出功能，暂未实现
 【Rownumber Over(Order By)】适用数据库oracle，mysql，maradb，sqlite，postgres，derby，mssql server2005/2008，db2
 
 指定DB操作数据源 可以设置服务组件中通用dao执行DB操作的数据源，不指定时在poolman中配置的第一个数据源上执行所有DB操作
-**版权信息配置**
+
+## **版权信息配置**
+
 作者
 公司
 版本号
-**字段信息配置**
+
+## **字段信息配置**
+
 字段信息配置可以指定每个字段的配置：
 java类型
 中文名称
@@ -196,13 +244,13 @@ java类型
 
 ![](images/bboss/27e7e0c4-8128-3b88-80bc-45c5261ea013.gif)
 
-**代码配置历史记录管理**
+# **代码配置历史记录管理**
 
 
 
 ![](images/bboss/662e9dc7-352f-346e-ada0-85a189aad6d2.gif)
 
-**在线浏览代码**
+# **在线浏览代码**
 
 ![](images/bboss/d6e92a33-b752-3aaa-a9eb-351408ef7bd1.gif)
 
