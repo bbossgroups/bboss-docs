@@ -17,7 +17,7 @@ Xml代码
 <dependency>  
     <groupId>com.bbossgroups</groupId>  
     <artifactId>bboss-data</artifactId>  
-    <version>5.1.2</version>  
+    <version>5.8.2</version>  
 </dependency>  
 ```
 

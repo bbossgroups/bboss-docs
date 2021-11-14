@@ -8,7 +8,7 @@ Xml代码
 <dependency>   
     <groupId>com.bbossgroups</groupId>   
     <artifactId>bboss-persistent</artifactId>   
-    <version>5.1.3</version>   
+    <version>5.8.2</version>   
 </dependency>
 ```
 
@@ -17,7 +17,7 @@ Xml代码
 Java代码
 
 ```java
-compile 'com.bbossgroups:bboss-persistent:5.1.3'  
+compile 'com.bbossgroups:bboss-persistent:5.8.2'  
 
 ```
 
