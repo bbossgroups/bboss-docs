@@ -10,13 +10,13 @@ Xml代码
 <dependency>  
     <groupId>com.bbossgroups</groupId>  
     <artifactId>bboss-core</artifactId>  
-    <version>5.8.2</version>  
+    <version>5.8.9</version>  
 </dependency>  
 ```
 
   **gradle坐标：**
 
-compile group: 'com.bbossgroups', name: 'bboss-core', version: '5.8.2'
+compile group: 'com.bbossgroups', name: 'bboss-core', version: '5.8.9'
 
 运行测试用例junit gradle坐标：
 testCompile group: 'junit', name: 'junit', version: '4.+'

@@ -7,7 +7,7 @@ gradle
 Java代码
 
 ```java
-compile 'com.bbossgroups:bboss-data:5.2.8' 
+compile 'com.bbossgroups:bboss-data:5.8.9' 
 ```
 
 maven
@@ -17,7 +17,7 @@ Xml代码
 <dependency>  
     <groupId>com.bbossgroups</groupId>  
     <artifactId>bboss-data</artifactId>  
-    <version>5.8.2</version>  
+    <version>5.8.9</version>  
 </dependency>  
 ```
 
