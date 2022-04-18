@@ -1,6 +1,3 @@
-- Translations
-  - [:uk: English](/)
-  - [:cn: 中文](/zh-cn/)
-  - [:de: Deutsch](/de-de/)
-  - [:es: Spanish](/es/)
-  - [:ru: Russian](/ru/)
+* [首页](https://www.bbossgroups.com)
+  
+* [BBoss Elasticsearch文档](https://esdoc.bbossgroups.com/)   

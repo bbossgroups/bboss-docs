@@ -1,6 +1,6 @@
 ![logo](images/logo.png)
 
-# BBoss 5.8.9
+# BBoss 5.9.0
 
 > The best java framework.
 

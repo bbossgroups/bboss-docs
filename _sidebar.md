@@ -2,6 +2,8 @@
 
 - [gradle实践](bboss-gradle.md)
 
+- [bboss redis组件使用实例](redis.md)
+
 - [bboss平台管理员配置指南](guide.md)
 
 - [kafka组件使用介绍](kafka.md)

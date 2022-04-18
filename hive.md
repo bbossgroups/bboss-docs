@@ -10,7 +10,7 @@ dependency
 
 artifactId   bboss-persistent   /artifactId  
 
-version  5.8.9  /version  /dependency   dependency  
+version  5.9.0  /version  /dependency   dependency  
 
 groupId   org.apache.hive  /groupId 
 
@@ -19,7 +19,7 @@ groupId   org.apache.hive  /groupId
 version   2.1.0   /version   /dependency
 
 **gradle坐标**
-compile 'com.bbossgroups:bboss-persistent:5.8.9'
+compile 'com.bbossgroups:bboss-persistent:5.9.0'
 compile 'org.apache.hive:hive-jdbc:'2.1.0'
 
 bboss持久层操作hive实例

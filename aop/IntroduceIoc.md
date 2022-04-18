@@ -1,7 +1,8 @@
-### bboss ioc配置文件中使用外部属性文件介绍
+# bboss ioc配置文件中使用外部属性文件介绍
 
 与spring ioc一样，在bboss ioc中也可以非常方便地引用外部属性文件(5.0.1及后续版本)，本文介绍使用方法。
-在工程中引入bboss ioc：
+
+## 1. 在工程中引入bboss ioc
 
 maven坐标：
 Xml代码 
@@ -10,13 +11,13 @@ Xml代码
 <dependency>  
     <groupId>com.bbossgroups</groupId>  
     <artifactId>bboss-core</artifactId>  
-    <version>5.8.9</version>  
+    <version>5.9.0</version>  
 </dependency>  
 ```
 
   **gradle坐标：**
 
-compile group: 'com.bbossgroups', name: 'bboss-core', version: '5.8.9'
+compile group: 'com.bbossgroups', name: 'bboss-core', version: '5.9.0'
 
 运行测试用例junit gradle坐标：
 testCompile group: 'junit', name: 'junit', version: '4.+'
@@ -25,7 +26,7 @@ testCompile group: 'junit', name: 'junit', version: '4.+'
 
 参考文档将gradle工程导入eclipse：[bboss gradle工程导入eclipse介绍](http://yin-bp.iteye.com/blog/2313145)
 
-#### **定义和导入外部属性文件**
+## **2. 定义和导入外部属性文件**
 
 属性文件必须包含在classpath环境中
 
@@ -36,22 +37,36 @@ testCompile group: 'junit', name: 'junit', version: '4.+'
 可以定义多个属性文件
 文件定义好后需要在ioc配置文件的最开始通过config元素导入，如果有多个配置文件，可以在ioc根文件中导入属性文件（可以同时导入多个）：
 
-  config file="org/frameworkset/spi/variable/ioc-var.properties"/
-config file="org/frameworkset/spi/variable/ioc-var1.properties"/
-
-config file="file:F:/workspace/bboss/bboss-core/test/org/frameworkset/spi/variable/ioc-var.properties"/
+```xml
+<properties>  
+    <config file="org/frameworkset/spi/variable/ioc-var.properties"/>  
+    <config file="org/frameworkset/spi/variable/ioc-var1.properties"/>  
+    <property name="test.beans"  
+        f:varValue="aaa${varValue}aaa"   
+        f:intValue="2"  
+        long="1" int="1" boolean="true" string="${varValue1}string" object="object"  
+        class="org.frameworkset.spi.variable.VariableBean">  
+        <construction>  
+            <property ><![CDATA[${varValue1}ccc]]></property>  
+            <property value="ddd${varValue2}"/>  
+        </construction>  
+        <property name="varValue1" ><![CDATA[${varValue1}ccc]]></property>  
+        <property name="varValue2" value="ddd${varValue2:99}"/>  
+    </property>  
+      
+       
+</properties>  
+```
 
 通过file:前缀指定物理路径，默认是classpath目录下的路径
 属性文件内容：
-
-Java代码
 
 ```java
 varValue1=hello varValue1!  
 varValue2=hello varValue2!  
 ```
 
-#### **使用外部属性文件**
+## 3. 使用外部属性文件
 
 导入后就可以在注入的属性、扩展属性中引用属性文件中定义的变量：
 
@@ -61,9 +76,9 @@ varValue2=hello varValue2!
 
 在依赖注入的属性值中引用外部属性完整的示例
 
-Xml代码
 
-```java
+
+```xml
 <properties>  
     <config file="org/frameworkset/spi/variable/ioc-var.properties"/>  
     <config file="org/frameworkset/spi/variable/ioc-var1.properties"/>  
@@ -125,7 +140,7 @@ public class VariableBean extends BeanInfoAware{
 }  
 ```
 
-#### **通过ioc容器直接获取外部属性api方法实例**
+## 4. 通过ioc容器直接获取外部属性api方法实例
 
 Java代码 
 
@@ -136,7 +151,7 @@ BaseApplicationContext context = DefaultApplicationContext.getApplicationContext
         System.out.println(context.getExternalProperty("varValue2"));  
 ```
 
-#### **直接加载配置文件并获取属性值方法**
+## **5. 直接加载配置文件并获取属性值方法**
 
 Java代码 
 
@@ -160,7 +175,90 @@ PropertiesContainer propertiesContainer = new PropertiesContainer();
 
 ```
 
-####   **外部属性有效范围**
+## 6. 使用外部属性加载拦截器
+
+通过使用外部属性加载拦截器，可以对加载后的属性在使用之前进行预处理，比如对加密的属性值进行解密处理，下面举例说明
+
+### 6.1属性加载拦截器组件接口
+
+```java
+org.frameworkset.spi.assemble.PropertiesInterceptor
+```
+
+包含以下接口方法
+
+```java
+/**
+ * 对加载的属性值进行拦截处理，用处理后的值替换原来的值，常用于对加密数据的解密处理
+ * @param propertyContext 包含property和value两个属性
+ *   property 属性名称 如果value是复杂对象，property可能为空  
+ *   value  属性值
+    property为空时，只需要处理value即可,并且复杂对象处理后的值必须设置回复杂对象
+ *   会忽略返回值
+ * @return 返回处理加工后的新值
+ */
+public Object convert(PropertyContext propertyContext);
+```
+
+### 6.2 定义一个属性加载拦截器
+
+一般根据属性名称进行不同的加工处理，对于不需要处理的属性直接返回其值即可。
+
+```java
+package org.frameworkset.spi.assemble;
+
+import org.frameworkset.spi.assemble.PropertiesInterceptor;
+import org.frameworkset.spi.assemble.PropertyContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
+public class VisualopsPropertiesInterceptor implements PropertiesInterceptor {
+   private static Logger logger = LoggerFactory.getLogger(VisualopsPropertiesInterceptor.class);
+   private DBPasswordEncrypt dbPasswordEncrypt = new DBPasswordEncrypt();
+   @Override
+   public Object convert(PropertyContext propertyContext) {
+      String key = String.valueOf(propertyContext.getProperty());
+       //如果是加密后的数据库口令属性，进行解密处理，并返回解密后的数据库口令
+      if(key.equals("ecop.db.password")){ 
+          
+         try {
+            return dbPasswordEncrypt.decryptDBPassword(String.valueOf(propertyContext.getValue()));
+         }
+         catch (Exception e){
+            logger.error(propertyContext.toString(),e);
+         }
+      }
+      return propertyContext.getValue();
+   }
+}
+```
+
+### 6.3 外部属性加载拦截器配置
+
+外部属性加载拦截器VisualopsPropertiesInterceptor定义好后，需要在对应的属性配置文件中进行配置才会生效，一个配置文件只能配置一个有效的外部属性加载拦截器,以属性名称propertiesInterceptor进行配置，因此propertiesInterceptor属性不能作为其他属性使用。例如在application.properties文件中进行配置
+
+```properties
+propertiesInterceptor=org.frameworkset.spi.assemble.VisualopsPropertiesInterceptor
+```
+
+这样VisualopsPropertiesInterceptor将会对application.properties中的所有属性调用public Object convert(PropertyContext propertyContext)方法进行处理，并用户方法返回值替代原来的属性值，从而实现对象属性值的加工处理。
+
+如果是在spring boot项目中，对于的属性名称为：
+
+```properties
+spring.elasticsearch.bboss.propertiesInterceptor
+```
+
+spring boot配置样例：
+
+```properties
+spring.elasticsearch.bboss.propertiesInterceptor=org.frameworkset.spi.assemble.VisualopsPropertiesInterceptor
+```
+
+在Apollo配置中心中，亦可以通过propertiesInterceptor或者spring.elasticsearch.bboss.propertiesInterceptor来指定外部属性加载拦截器。
+
+##   7. 外部属性有效范围
 
 1.根容器配置文件中导入的外部属性文件中的属性值对根文件中导入（managerimport）子文件可见
 2.子文件中导入的外部属性文件中的属性只对本身及其下级子文件可见，以此类推

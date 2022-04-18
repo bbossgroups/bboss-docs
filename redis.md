@@ -1,28 +1,42 @@
-### bboss redis组件使用实例
+# bboss redis组件使用实例
 
-**在工程中导入bboss redis组件**
+bboss提供一个简单的redis操作组件，基于jedis进行封装
+
+```java
+org.frameworkset.nosql.redis.RedisTool
+```
+
+RedisTool提供两个单例静态方法,来获取RedisTool实例，支持多redis数据源
+
+```java
+RedisTool.getInstance();//获取默认的redis数据源
+RedisTool.getInstance(String redisDatasourceName);//获取指定名称的redis数据源
+```
+
+
+
+## 1.导入bboss redis组件
 
 gradle
 
-Java代码
-
 ```java
-compile 'com.bbossgroups:bboss-data:5.8.9' 
+compile 'com.bbossgroups:bboss-data:5.9.1' 
 ```
 
 maven
-Xml代码
+
 
 ```xml
 <dependency>  
     <groupId>com.bbossgroups</groupId>  
     <artifactId>bboss-data</artifactId>  
-    <version>5.8.9</version>  
+    <version>5.9.1</version>  
 </dependency>  
 ```
 
-bboss redis操作组件使用代码：
-Java代码
+## 2.bboss redis组件使用
+
+先通过一段简单的代码来看看bboss redis组件的使用方法
 
 ```java
 package org.frameworkset.nosql;  
@@ -39,59 +53,35 @@ public class RedisTest {
     @Test  
     public void get()  
     {  
-        RedisHelper redisHelper = null;  
-        try  
-        {  
-            redisHelper = RedisFactory.getRedisHelper();  
-            redisHelper.set("test", "value1");  
-            String value = redisHelper.get("test");  
-            System.out.println("test="+value);  
-            redisHelper.setex("foo", 1,"fasdfasf");//指定缓存有效期1秒  
-              
-            System.out.println("foo ttl="+redisHelper.ttl("foo"));//获取有效期  
-            value = redisHelper.get("foo");//获取数据  
-            System.out.println("foo="+value);  
-            //删除数据  
-            redisHelper.del("foo");  
-            value = redisHelper.getSet("fowwero","test");  
-              
-            System.out.println("fowwero="+value);  
-            value = redisHelper.getSet("fowwero","eeee");//获取后修改数据  
-              
-            System.out.println("fowwero="+value);  
-              
-            value = redisHelper.get("fowwero");  
-              
-            System.out.println("fowwero="+value);  
-        }  
-        finally  
-        {  
-            if(redisHelper != null)  
-                redisHelper.release();  
-        }  
+       	RedisTool.getInstance().set("aaa","ddd");
+		RedisTool.getInstance().hset("ddd","aaa","xxxx");
+		RedisTool.getInstance().get("aaa");
+		RedisTool.getInstance().set("vops_biz_count_history_max","{sss}");
+		System.out.println(RedisTool.getInstance().get("vops_biz_count_history_max"));
     }  
        
   
 }  
 ```
 
-**配置redis服务器**
+## **3.配置Redis组件**
 
-**redis集群配置**
+
+
+### **3.1 Redis集群配置**
 
 修改resources/redis.xml文件，设置redis的服务器地址和端口
 
-Xml代码
+
 
 ```xml
 <properties>  
       
     <property name="default" class="org.frameworkset.nosql.redis.RedisDB">  
         <property name="servers">  
-            127.0.0.1:6379  
-                        127.0.0.1:6380  
+            127.0.0.1:6379,127.0.0.1:6380  
         </property>  
-        <!-- single|cluster|shared -->  
+        <!-- single|cluster -->  
         <property name="mode" value="cluster" />  
               
         <property name="auth" value="123456" />  
@@ -103,11 +93,11 @@ Xml代码
 </properties>  
 ```
 
-**redis单节点配置**
+### **3.2 Redis单节点配置**
 
 修改resources/redis.xml文件，设置redis的服务器地址和端口
 
-Xml代码
+
 
 ```xml
 <properties>  
@@ -116,7 +106,7 @@ Xml代码
         <property name="servers">  
             127.0.0.1:6379  
         </property>  
-        <!-- single|cluster|shared -->  
+        <!-- single|cluster -->  
         <property name="mode" value="single" />  
               
         <property name="auth" value="123456" />  
@@ -125,7 +115,7 @@ Xml代码
            
     </property>  
        
-</properties>x
+</properties>
 ```
 
 **redis配置说明**
@@ -142,3 +132,122 @@ Xml代码
 
   **poolMaxTotal**：客户端连接池最大连接数
   **poolMaxWaitMillis**：等待空闲连接超时时间，单位：毫秒
+
+## 4.多数据源配置
+
+可以配置多个redis集群，例如：
+
+```xml
+<properties>  
+      
+    <property name="default" class="org.frameworkset.nosql.redis.RedisDB">  
+        <property name="servers">  
+            127.0.0.1:6379,127.0.0.1:6380  
+        </property>  
+        <!-- single|cluster -->  
+        <property name="mode" value="cluster" />  
+              
+        <property name="auth" value="123456" />  
+        <property name="poolMaxTotal" value="10"/>      
+        <property name="poolMaxWaitMillis" value="2000"/>   
+           
+    </property>  
+    
+     <property name="buzRedis" class="org.frameworkset.nosql.redis.RedisDB">  
+        <property name="servers">  
+            192.168.1.2:6379,192.168.1.3:6380  
+        </property>  
+        <!-- single|cluster -->  
+        <property name="mode" value="cluster" />  
+              
+        <property name="auth" value="123456" />  
+        <property name="poolMaxTotal" value="10"/>      
+        <property name="poolMaxWaitMillis" value="2000"/>   
+           
+    </property>  
+       
+</properties> 
+```
+
+配置好多数据源后，通过以下方法获取指定的数据源api实例
+
+```java
+RedisTool.getInstance("buzRedis");//获取redis2对应的redis数据源
+```
+
+
+
+## 5.通过代码配置Redis数据源
+
+```java
+public class RedisConfigTest {
+   @Before
+   public void init(){
+      //构建名称为test的redis数据源，可以通过RedisFactory.builRedisDB构建其他的数据源
+      //不同的数据源设置不同的name，如果对应的name已经被其他redis集群使用，则忽略创建
+      RedisConfig redisConfig = new RedisConfig();
+      redisConfig.setName("test")
+            .setAuth("")
+            //集群节点可以通过逗号分隔，也可以通过\n符分隔
+//          .setServers("10.13.4.15:6359\n10.13.4.15:6369\n10.13.4.15:6379\n10.13.4.15:6389")
+            .setServers("10.13.4.15:6359,10.13.4.15:6369,10.13.4.15:6379,10.13.4.15:6389")
+            .setMaxRedirections(5)
+            .setMode(RedisDB.mode_cluster)
+            .setConnectionTimeout(10000)
+            .setSocketTimeout(10000)
+            .setPoolMaxWaitMillis(2000)
+            .setPoolMaxTotal(50)
+            .setPoolTimeoutRetry(3)
+            .setPoolTimeoutRetryInterval(500l)
+            .setMaxIdle(-1)
+            .setMinIdle(-1)
+            .setTestOnBorrow(true)
+            .setTestOnReturn(false)
+            .setTestWhileIdle(false)
+            .setProperties(new LinkedHashMap<>());
+      RedisFactory.builRedisDB(redisConfig);
+
+   }
+   @Test
+   public void test(){
+      //使用test数据源操作对应的redis集群
+      RedisTool.getInstance("test").set("aaa","ddd");
+      RedisTool.getInstance("test").hset("ddd","aaa","xxxx");
+      Assert.assertEquals("ddd",RedisTool.getInstance("test").get("aaa"));
+   }
+}
+```
+
+## 6.redis批处理操作
+
+```java
+            ClusterPipeline clusterPipeline = null;
+//          ClusterPipeline clusterPipeline1 = null;//可以写多个redis集群
+            //批量处理
+            try {
+               clusterPipeline = RedisTool.getInstance().getClusterPipelined();
+//             clusterPipeline1 = RedisTool.getInstance("redis1").getClusterPipelined();//可以写多个redis集群
+
+               for (CommonRecord record : datas) {
+                  Map<String, Object> data = record.getDatas();
+                  String LOG_ID =String.valueOf(data.get("LOG_ID"));
+//             logger.info(SimpleStringUtil.object2json(data));
+                  String valuedata = SimpleStringUtil.object2json(data);
+                  logger.debug("LOG_ID:{}",LOG_ID);
+                  clusterPipeline.hset("xingchenma1", LOG_ID, valuedata);
+//                clusterPipeline1.hset("xingchenma2", cert_no, valuedata);
+               }
+               clusterPipeline.sync();
+
+//             clusterPipeline1.sync();//可以写多个redis集群
+            }
+            finally {
+               if(clusterPipeline != null){
+                  clusterPipeline.close();
+               }
+
+//             if(clusterPipeline1 != null){//可以写多个redis集群
+//                clusterPipeline1.close();
+//             }
+            }
+```

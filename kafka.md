@@ -21,12 +21,12 @@ bboss kafka组件作用
   <dependency>  
       <groupId>com.bbossgroups.plugins</groupId>  
       <artifactId>bboss-plugin-kafka</artifactId>  
-      <version>5.9.5</version>  
+      <version>5.9.7</version>  
   </dependency>
     <dependency>  
       <groupId>com.bbossgroups.plugins</groupId>  
       <artifactId>bboss-plugin-kafka2x</artifactId>  
-      <version>5.9.5</version>  
+      <version>5.9.7</version>  
   </dependency>
   ```
 
@@ -35,8 +35,8 @@ bboss kafka组件作用
   Java代码
 
   ```java
-  compile 'com.bbossgroups.plugins:bboss-plugin-kafka:5.9.5' 
-  compile 'com.bbossgroups.plugins:bboss-plugin-kafka2x:5.9.5' 
+  compile 'com.bbossgroups.plugins:bboss-plugin-kafka:5.9.7' 
+  compile 'com.bbossgroups.plugins:bboss-plugin-kafka2x:5.9.7' 
   ```
 
   ### 2.使用kafka producer，发送消息
