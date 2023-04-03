@@ -11,16 +11,15 @@ Xml代码
 <dependency>  
     <groupId>com.bbossgroups</groupId>  
     <artifactId>bboss-core</artifactId>  
-    <version>5.9.0</version>  
+    <version>6.0.2</version>  
 </dependency>  
 ```
 
   **gradle坐标：**
 
-compile group: 'com.bbossgroups', name: 'bboss-core', version: '5.9.0'
+compile group: 'com.bbossgroups', name: 'bboss-core', version: '6.0.2'
 
-运行测试用例junit gradle坐标：
-testCompile group: 'junit', name: 'junit', version: '4.+'
+
 
 下载本文演示gradle工程：[下载](http://dl.iteye.com/topics/download/091574dc-54aa-3979-aadb-254bb86bff37)
 
@@ -215,22 +214,45 @@ import org.slf4j.LoggerFactory;
 
 public class VisualopsPropertiesInterceptor implements PropertiesInterceptor {
    private static Logger logger = LoggerFactory.getLogger(VisualopsPropertiesInterceptor.class);
-   private DBPasswordEncrypt dbPasswordEncrypt = new DBPasswordEncrypt();
-   @Override
-   public Object convert(PropertyContext propertyContext) {
-      String key = String.valueOf(propertyContext.getProperty());
-       //如果是加密后的数据库口令属性，进行解密处理，并返回解密后的数据库口令
-      if(key.equals("ecop.db.password")){ 
-          
-         try {
-            return dbPasswordEncrypt.decryptDBPassword(String.valueOf(propertyContext.getValue()));
-         }
-         catch (Exception e){
-            logger.error(propertyContext.toString(),e);
-         }
-      }
-      return propertyContext.getValue();
-   }
+   //解密组件，根据实际情况调整 
+   private PasswordEncrypt passwordEncrypt = new PasswordEncrypt();
+	@Override
+	public Object convert(PropertyContext propertyContext) {
+		String key = String.valueOf(propertyContext.getProperty());
+		if(key.endsWith("db.password")){
+			try {
+				return passwordEncrypt.decryptDBPassword(String.valueOf(propertyContext.getValue()));
+			}
+			catch (Exception e){
+				logger.error(propertyContext.toString(),e);
+			}
+		}
+		else if(key.endsWith("redis.auth")){
+			try {
+				return passwordEncrypt.decryptDBPassword(String.valueOf(propertyContext.getValue()));
+			}
+			catch (Exception e){
+				logger.error(propertyContext.toString(),e);
+			}
+		}
+		else if(key.endsWith("elasticPassword")){
+			try {
+				return passwordEncrypt.decryptDBPassword(String.valueOf(propertyContext.getValue()));
+			}
+			catch (Exception e){
+				logger.error(propertyContext.toString(),e);
+			}
+		}
+		else if(key.endsWith("http.authPassword")){
+			try {
+				return passwordEncrypt.decryptDBPassword(String.valueOf(propertyContext.getValue()));
+			}
+			catch (Exception e){
+				logger.error(propertyContext.toString(),e);
+			}
+		}
+		return propertyContext.getValue();
+	}
 }
 ```
 
@@ -239,6 +261,10 @@ public class VisualopsPropertiesInterceptor implements PropertiesInterceptor {
 外部属性加载拦截器VisualopsPropertiesInterceptor定义好后，需要在对应的属性配置文件中进行配置才会生效，一个配置文件只能配置一个有效的外部属性加载拦截器,以属性名称propertiesInterceptor进行配置，因此propertiesInterceptor属性不能作为其他属性使用。例如在application.properties文件中进行配置
 
 ```properties
+ecop.db.password = r7OVqnbv5PE
+redis.auth = r7OVqnbv5PE
+http.authPassword = r7OVqnbv5PE
+elasticPassword = r7OVqnbv5PE
 propertiesInterceptor=org.frameworkset.spi.assemble.VisualopsPropertiesInterceptor
 ```
 
@@ -258,8 +284,26 @@ spring.elasticsearch.bboss.propertiesInterceptor=org.frameworkset.spi.assemble.V
 
 在Apollo配置中心中，亦可以通过propertiesInterceptor或者spring.elasticsearch.bboss.propertiesInterceptor来指定外部属性加载拦截器。
 
-##   7. 外部属性有效范围
 
-1.根容器配置文件中导入的外部属性文件中的属性值对根文件中导入（managerimport）子文件可见
-2.子文件中导入的外部属性文件中的属性只对本身及其下级子文件可见，以此类推
-3.mvc容器对应的根文件是bboss-mvc.xml文件，在其中引入的外部属性配置文件对所有其他mvc配置文件可见，其他mvc配置文件导入的外部属性文件只对本身及其下级子文件可见
+
+## 7. 在外部属性配置文件中使用变量
+
+可以在属性配置文件中使用变量，变量解析规则：检索其他对应属性->jvm属性->系统环境变量
+
+配置示例如下：
+
+```properties
+mainclass=#[mainclassevn:org.frameworkset.elasticsearch.imp.DB2CSVFile]
+```
+
+配置检索mainclass功能,例如：
+
+默认使用org.frameworkset.elasticsearch.imp.DB2CSVFile作为作业主程序，如果设置了环境变量mainclassevn，则使用mainclassevn作为作业主程序，否则并将原始值返回
+
+
+
+##   8. 外部属性有效范围
+
+1. 根容器配置文件中导入的外部属性文件中的属性值对根文件中导入（managerimport）子文件可见
+2. 子文件中导入的外部属性文件中的属性只对本身及其下级子文件可见，以此类推
+3. mvc容器对应的根文件是bboss-mvc.xml文件，在其中引入的外部属性配置文件对所有其他mvc配置文件可见，其他mvc配置文件导入的外部属性文件只对本身及其下级子文件可见

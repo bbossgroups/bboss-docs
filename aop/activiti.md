@@ -42,7 +42,7 @@ Xml代码
 <dependency>  
   <groupId>com.bbossgroups.activiti</groupId>  
   <artifactId>activiti-engine</artifactId>  
-  <version>5.12.15</version>  
+  <version>5.12.31</version>  
 </dependency>  
 ```
 

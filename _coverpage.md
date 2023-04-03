@@ -1,8 +1,8 @@
 ![logo](images/logo.png)
 
-# BBoss 5.9.0
+# BBoss 6.0.2
 
-> The best java framework.
+> The best java framework.基于Apache License 2.0开源
 
 - IOC，MVC，Persistent，Session共享，序列化
 
