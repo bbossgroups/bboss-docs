@@ -84,10 +84,12 @@ var _hmt = _hmt || [];
           } else {
             url = 'https://github.com/bbossgroups/bboss-docs/tree/master/' + vm.route.file
           }
-          var editHtml = '[:memo: Edit Document](' + url + ')\n';
+          //var editHtml = '[:memo: Edit Document](' + url + ')\n';
+		  var editHtml = '\n';
 
-          return editHtml
+           return editHtml
                   + html
+            //return html +
                   + '\n\n----\n\n'
                   // + '<script type="text/javascript">'
                   // + 'var cnzz_protocol = (("https:" == document.location.protocol) ? " https://"'
