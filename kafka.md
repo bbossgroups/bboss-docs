@@ -18,7 +18,7 @@ bboss kafka组件作用
 
 - 从kafka接收和处理数据（支持批量消息处理和按条处理)
 
-  ### 1.导入bboss kafka组件
+# 1.导入bboss kafka组件
 
   maven坐标
   Xml代码
@@ -31,9 +31,9 @@ bboss kafka组件作用
       <version>6.1.3</version>  
   </dependency>
   ```
-  
+
   **gradle坐标**
-  
+
   Java代码
 
   ```java
@@ -41,21 +41,21 @@ compile 'com.bbossgroups.plugins:bboss-plugin-kafka2x:6.1.3'
   ```
 
   kafka依赖包需要额外导入，下面给出示例，kafka2x变量可以指定为具体的kafka客户端版本号，例如：
-  
+
   1.1.0
-  
+
   2.3.0
-  
+
   3.4.0
+
   
-  
-  
+
   kafka_2.12包可以根据实际情况调整为对应的kafka版本号，例如：
-  
+
   kafka_2.12
-  
+
   kafka_2.13
-  
+
   ```groovy
   api (
   			[group: 'org.apache.kafka', name: 'kafka_2.12', version: "${kafka2x}", transitive: true],
@@ -79,11 +79,10 @@ compile 'com.bbossgroups.plugins:bboss-plugin-kafka2x:6.1.3'
   		exclude group: 'org.slf4j', module: 'slf4j-log4j12'
   	}
   ```
-  
-  ### 2.使用kafka producer，发送消息
-  
-  #### 2.1 kafka producer配置
-  
+
+# 2.使用kafka producer发送消息
+## 2.1 kafka producer配置
+
 
 编写kafka.xml配置文件，放到classpath跟路径下面
 
@@ -173,7 +172,7 @@ A small batch size will make batching less common and may reduce throughput (a b
 
 
 
-#### **2.2 发送kafka消息**
+## 2.2 发送kafka消息
 
 发送kafka消息相关组件：
 
@@ -200,9 +199,9 @@ KafkaUtil组件加载配置文件并获取KafkaProductor ,通过KafkaProductor �
 Future<RecordMetadata> recordMetadataFuture = productor.send("blackcatstore", (long)12, SimpleStringUtil.object2json(datas));
 RecordMetadata recordMetadata = recordMetadataFuture.get();//同步等待
 ```
-### 3.接收和处理kafka消息
+# 3. 接收和处理kafka消息
 
-#### 3.1 kafka consumer配置
+## 3.1 kafka consumer配置
 
   新建[kafkaconfumersimple.xml](https://gitee.com/bboss/bestpractice/blob/master/testkafka2x/resources/kafka_2.12-2.3.0/kafkaconfumersimple.xml)文件，放到classpath根路径下面
 
@@ -317,7 +316,7 @@ valueDeserializer value反序列化插件配置
 
 
 
-#### **3.2 接收和处理消息**
+## 3.2 接收和处理消息
 
 接收和处理消息相关组件：
 
@@ -368,7 +367,7 @@ public class TestKafkaBatchConsumer2ndStore extends KafkaBatchConsumer2ndStore{
 }
 ```
 
-#### **3.3 加载配置并启动管理kafka consumer**
+## 3.3 加载配置并启动管理kafka consumer
 
 ```java
  //启动ioc配置对应的容器中管理的kafka消费程序，自动注册消费程序销毁hook，以便在jvm退出时自动关闭消费程序
@@ -385,4 +384,124 @@ public class TestKafkaBatchConsumer2ndStore extends KafkaBatchConsumer2ndStore{
         //手动销毁所有容器中管理的kafka消费程序
 //        KafkaConsumersStarter.shutdownAllConsumers();
 ```
+
+# 4 弹性扩展和缩减kafka consumer消费线程
+
+通过kaka组件相关的api可以方便地调整kafka consumer消费线程数量:
+
+1. 增加kafka consumer消费线程
+2. 缩减kafka consumer消费线程
+3. 重置kafka consumer消费线程
+
+## 4.1 api使用案例
+
+```java
+ KafkaUtil kafkaUtil = new KafkaUtil("kafka_2.12-2.3.0/kafkaconfumersimple.xml");
+        BaseKafkaConsumer kafkaConsumer = kafkaUtil.getKafkaConsumer("kafkabatchconsumerstore");
+//增加给定数量的消费线程
+        kafkaConsumer.increamentConsumerThead(2);
+        //消减给定数量的消费线程
+        kafkaConsumer.decreamentConsumerThead(2);
+
+        //重置消费线程数量
+        kafkaConsumer.resetConsumerThreads(3);
+```
+
+## 4.2 实时监听apollo配置中线程数
+
+可以实时监听apollo配置中线程数变化，实现动态弹性扩展和缩减kafka consumer消费线程功能
+
+在kafkaconfumersimple.xml增加apollo相关的配置：
+
+```xml
+    <!--
+          指定apolloNamespace属性配置namespace
+          kafka消费线程数量变化监听器
+       -->
+
+    <config apolloNamespace="application"
+            configChangeListener="org.frameworkset.plugin.kafka.ConsumerThreadChangeListener"/>
+```
+
+org.frameworkset.plugin.kafka.ConsumerThreadChangeListener继承抽象类：
+
+**org.frameworkset.apollo.PropertiesChangeListener**
+
+具体的实现如下：
+
+```java
+package org.frameworkset.plugin.kafka;
+
+
+import com.ctrip.framework.apollo.model.ConfigChange;
+import com.ctrip.framework.apollo.model.ConfigChangeEvent;
+import org.frameworkset.apollo.PropertiesChangeListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.Set;
+
+/**
+ * <p>Description: kafka消费线程数量变化监听器
+
+ * </p>
+ * <p></p>
+ * <p>Copyright (c) 2020</p>
+ * @Date 2020/8/9 23:10
+ * @author biaoping.yin
+ * @version 1.0
+ */
+public class ConsumerThreadChangeListener extends PropertiesChangeListener {
+	private static Logger logger = LoggerFactory.getLogger(ConsumerThreadChangeListener.class);
+
+
+	public void onChange(ConfigChangeEvent changeEvent) {
+		if(logger.isInfoEnabled()) {
+			logger.info("Changes for namespace {}", changeEvent.getNamespace());
+		}
+        Set<String> changedKeys = changeEvent.changedKeys();
+        ConfigChange threadChange = null;
+
+        String threadKey = "thread";
+
+        for (String key : changedKeys) {
+            if(key.equals(threadKey) ){
+                threadChange = changeEvent.getChange(key);
+                break;
+
+            }
+        }
+        if(threadChange != null){
+            String thread = threadChange.getNewValue();
+            int i_thread = Integer.parseInt(thread);
+            BaseKafkaConsumer kafkaConsumer = applicationContext.getTBeanObject("kafkabatchconsumerstore",BaseKafkaConsumer.class);
+            //重置消费线程数量
+            kafkaConsumer.resetConsumerThreads(i_thread);
+        }
+
+
+	}
+
+	@Override
+	public void completeLoaded() {
+
+	}
+}
+```
+
+ConsumerThreadChangeListener实时监听配置参数thread，如果有变化，则从ioc容器applicationContext中获取BaseKafkaConsumer组件kafkabatchconsumerstore，然后调用下面的方法调整消费线程数量:
+
+```java
+kafkaConsumer.resetConsumerThreads(i_thread);
+```
+
+## 4.3 bboss apollo使用参考文档
+
+非spring boot项目
+
+https://esdoc.bbossgroups.com/#/apollo-config
+
+spring boot项目
+
+https://esdoc.bbossgroups.com/#/springboot-bbosses-apollo
 
