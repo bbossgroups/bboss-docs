@@ -10,13 +10,13 @@ Xml代码
 <dependency>  
     <groupId>com.bbossgroups</groupId>  
     <artifactId>bboss-http</artifactId>  
-    <version>6.1.3</version>  
+    <version>6.1.5</version>  
 </dependency>  
 ```
 
   gradle坐标：
 
-compile 'com.bbossgroups:bboss-http:6.1.3'
+compile 'com.bbossgroups:bboss-http:6.1.5'
 
  http组件使用：
 org.frameworkset.spi.remote.http.HttpRequestUtil
