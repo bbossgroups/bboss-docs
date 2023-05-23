@@ -261,7 +261,6 @@ public class VisualopsPropertiesInterceptor implements PropertiesInterceptor {
 外部属性加载拦截器VisualopsPropertiesInterceptor定义好后，需要在对应的属性配置文件中进行配置才会生效，一个配置文件只能配置一个有效的外部属性加载拦截器,以属性名称propertiesInterceptor进行配置，因此propertiesInterceptor属性不能作为其他属性使用。例如在application.properties文件中进行配置
 
 ```properties
-ecop.db.password = r7OVqnbv5PE
 redis.auth = r7OVqnbv5PE
 http.authPassword = r7OVqnbv5PE
 elasticPassword = r7OVqnbv5PE

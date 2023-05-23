@@ -189,8 +189,8 @@ public class RedisConfigTest {
       redisConfig.setName("test")
             .setAuth("")
             //集群节点可以通过逗号分隔，也可以通过\n符分隔
-//          .setServers("10.13.4.15:6359\n10.13.4.15:6369\n10.13.4.15:6379\n10.13.4.15:6389")
-            .setServers("10.13.4.15:6359,10.13.4.15:6369,10.13.4.15:6379,10.13.4.15:6389")
+//          .setServers("101.13.4.15:6359\n101.13.4.15:6369\n101.13.4.15:6379\n101.13.4.15:6389")
+            .setServers("127.0.0.1:6359,101.13.4.15:6369,101.13.4.15:6379,101.13.4.15:6389")
             .setMaxRedirections(5)
             .setMode(RedisDB.mode_cluster)
             .setConnectionTimeout(10000)
