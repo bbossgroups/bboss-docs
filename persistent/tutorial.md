@@ -19,13 +19,13 @@ dependency
 
 ​    artifactId>bboss-persistent /artifactId
 
-​    version>6.0.7</version 
+​    version>6.0.8</version 
 
 /dependency
 
 **gradle坐标** 
 
-compile 'com.bbossgroups:bboss-persistent:6.0.7'
+compile 'com.bbossgroups:bboss-persistent:6.0.8'
 
 首先搭建持久层demo开发环境，下载bboss最佳实践：
 

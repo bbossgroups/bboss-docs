@@ -13,12 +13,12 @@ Xml代码
 <dependency>  
     <groupId>com.bbossgroups</groupId>  
     <artifactId>bboss-schedule</artifactId>  
-    <version>6.0.7</version>  
+    <version>6.0.8</version>  
 </dependency>  
 ```
 
   **gradle坐标**
-compile 'com.bbossgroups:bboss-schedule:6.0.7'
+compile 'com.bbossgroups:bboss-schedule:6.0.8'
 
 bboss 整合quartz版本为**quartz 2.3.0**。 
 
