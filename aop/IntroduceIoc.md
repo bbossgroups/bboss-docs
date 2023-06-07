@@ -306,3 +306,11 @@ mainclass=#[mainclassevn:org.frameworkset.elasticsearch.imp.DB2CSVFile]
 1. 根容器配置文件中导入的外部属性文件中的属性值对根文件中导入（managerimport）子文件可见
 2. 子文件中导入的外部属性文件中的属性只对本身及其下级子文件可见，以此类推
 3. mvc容器对应的根文件是bboss-mvc.xml文件，在其中引入的外部属性配置文件对所有其他mvc配置文件可见，其他mvc配置文件导入的外部属性文件只对本身及其下级子文件可见
+
+## 9.外部属性配置文件中导入公共配置文件
+
+可以通过include.files直接在配置文件中引入其他配置文件：适用于公共配置管理和维护
+
+```properties
+include.files=xxx.properties,dd.properties,cc.properties
+```
