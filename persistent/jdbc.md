@@ -1,6 +1,6 @@
 ### 最新版本mysql jdbc驱动包获取表定义信息空指针异常处理方法
 
-  在使用最新的mysql-connector-java 6.0.8时，获取表定义信息会抛出空指针异常：
+  在使用最新的mysql-connector-java 6.0.9时，获取表定义信息会抛出空指针异常：
 [2016-12-15 10:19:28][DEBUG][com.frameworkset.common.poolman.util.JDBCPool] load table[td_sm_dicttype]'s metadata.
 java.lang.NullPointerException
 at com.frameworkset.common.poolman.util.JDBCPool.buildTableMetaData(JDBCPool.java:1705)
