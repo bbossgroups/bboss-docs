@@ -301,7 +301,7 @@ bboss为了方便系统在jsp页面上获取当前用户的会话属性，特意
 Html代码
 
 ```html
-<%@ taglib uri="/WEB-INF/sany-taglib.tld" prefix="sany"%>  
+<%@ taglib uri="/WEB-INF/s-taglib.tld" prefix="s"%>  
 ```
 
 接着就可以使用标签了：
@@ -309,9 +309,9 @@ Html代码
 Html代码
 
 ```html
-<sany:accesscontrol userattribute="userName"/>  
-<sany:accesscontrol userattribute="userAccount"/>  
-<sany:accesscontrol userattribute="orgjob"/>  
+<s:accesscontrol userattribute="userName"/>  
+<s:accesscontrol userattribute="userAccount"/>  
+<s:accesscontrol userattribute="orgjob"/>  
 ```
 
 检查资源操作权限的方法：

@@ -53,7 +53,7 @@ Xml代码
 <property name="appbom.configsqlexecutor"          
     class="com.frameworkset.common.poolman.ConfigSQLExecutor" >  
     <construction>  
-        <property value="com/sany/appbom/service/appbom.xml"/>  
+        <property value="com/s/appbom/service/appbom.xml"/>  
     </construction>  
       
 </property>  
@@ -65,7 +65,7 @@ Xml代码
 
 ```xml
 <bean id="appbom.configsqlexecutor" class="com.frameworkset.common.poolman.ConfigSQLExecutor">                                    
-        <constructor-arg value="com/sany/appbom/service/appbom.xml" type="String" index ="1"></constructor-arg>                            
+        <constructor-arg value="com/s/appbom/service/appbom.xml" type="String" index ="1"></constructor-arg>                            
     </bean>  
 ```
 

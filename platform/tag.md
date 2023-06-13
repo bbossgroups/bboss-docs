@@ -10,7 +10,7 @@
 
 国际化案例
 
-<dict:select type="sex" name="userSex" textValueCode="sany.pdp.common.operation.select" textNAN="-1"  extend=" onclick='alert(1) ' class='blue'"/>
+<dict:select type="sex" name="userSex" textValueCode="s.pdp.common.operation.select" textNAN="-1"  extend=" onclick='alert(1) ' class='blue'"/>
 
 本地化写法：
 

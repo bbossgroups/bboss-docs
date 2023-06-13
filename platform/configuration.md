@@ -13,7 +13,7 @@ Xml代码
 
 ```xml
 <sysmenu ...  
-        successRedirect="sanydesktop/index.page"  
+        successRedirect="sdesktop/index.page"  
         logoutredirect="login.page"  
                 topMenus="2"  
 ...  
@@ -41,8 +41,8 @@ Xml代码
 
 ```xml
 <subsystem name="移动门户"  id="mbp" module="module-mbp.xml"  
-            successRedirect="sanydesktop/index.page"  
-    logoutredirect="/sanymbp/login.page"/>  
+            successRedirect="sdesktop/index.page"  
+    logoutredirect="/smbp/login.page"/>  
 ```
 
 直接在system根节点下配置subsystem 元素，**如果不需要在登录界面看到或者要废弃某个子系统注释或者删掉**即可，相关属性说明如下：
@@ -70,20 +70,20 @@ private String getSuccessRedirect(String loginStyle, String subsystem) {
         {  
           
             if (loginStyle == null || loginStyle.equals("5") || loginStyle.equals("6")) {  
-                ret.append("sanydesktop/indexcommon.page");  
+                ret.append("sdesktop/indexcommon.page");  
             }   
             else if ((loginStyle != null && loginStyle.equals("1")) || loginStyle.equals("cms")) {  
                 ret.append("index.jsp?subsystem_id=").append(subsystem);  
             } else if (loginStyle.equals("3")) {  
-                ret.append("sanydesktop/index.page");  
+                ret.append("sdesktop/index.page");  
             } else if (loginStyle.equals("2")) {  
                 ret.append("desktop/desktop1.page");  
             } else if (loginStyle.equals("4")) {  
-                ret.append("sanydesktop/webindex.page");  
+                ret.append("sdesktop/webindex.page");  
             }  
             else  
             {  
-                ret.append("sanydesktop/indexcommon.page");  
+                ret.append("sdesktop/indexcommon.page");  
             }  
         }  
         else  
@@ -94,20 +94,20 @@ private String getSuccessRedirect(String loginStyle, String subsystem) {
             else  
             {  
                 if (loginStyle == null || loginStyle.equals("5") || loginStyle.equals("6")) {  
-                    ret.append("sanydesktop/indexcommon.page");  
+                    ret.append("sdesktop/indexcommon.page");  
                 }   
                 else if ((loginStyle != null && loginStyle.equals("1")) || loginStyle.equals("cms")) {  
                     ret.append("index.jsp?subsystem_id=").append(subsystem);  
                 } else if (loginStyle.equals("3")) {  
-                    ret.append("sanydesktop/index.page");  
+                    ret.append("sdesktop/index.page");  
                 } else if (loginStyle.equals("2")) {  
                     ret.append("desktop/desktop1.page");  
                 } else if (loginStyle.equals("4")) {  
-                    ret.append("sanydesktop/webindex.page");  
+                    ret.append("sdesktop/webindex.page");  
                 }  
                 else  
                 {  
-                    ret.append("sanydesktop/indexcommon.page");  
+                    ret.append("sdesktop/indexcommon.page");  
                 }  
             }  
         }  
@@ -193,12 +193,12 @@ Xml代码
             /sso/sso.page,  
             /sso/ssowithtoken.page,  
             /sso/ssowithticket.page,  
-            /sanydesktop/cookieLocale.page,  
+            /sdesktop/cookieLocale.page,  
            /sysmanager/password/modifyExpiredUserPWD.jsp,  
           /passward/modifyExpiredPassword.page,  
           /passward/generateImageCode.page,  
           /common/jsp/tokenfail.jsp,  
-          /sanymbp/login.page,  
+          /smbp/login.page,  
           /monitor/dbmonitor_activitedetail.jsp  
            </param-value>  
     </init-param>  
@@ -287,7 +287,7 @@ Xml代码
         </init-param>  
         <init-param>  
             <param-name>failedbackurlpattern</param-name>  
-            <param-value>/sanydesktop/index.page,/sanydesktop/indexcommon.page</param-value>  
+            <param-value>/sdesktop/index.page,/sdesktop/indexcommon.page</param-value>  
         </init-param>  
            
   </filter>  
@@ -335,7 +335,7 @@ public static void geSubMenus(Map<String,MenuItemU> permissionMenus,Module modul
                 }  
                 else  
                 {  
-                    url = MenuHelper.getRealUrl(contextpath, Framework.getWorkspaceContent(item,accesscontroler),MenuHelper.sanymenupath_menuid,item.getId());  
+                    url = MenuHelper.getRealUrl(contextpath, Framework.getWorkspaceContent(item,accesscontroler),MenuHelper.smenupath_menuid,item.getId());  
                 }  
                 MenuItemU menuItemU = new MenuItemU();  
                 menuItemU.setId(item.getId());  
@@ -409,13 +409,13 @@ Xml代码
           
     <subsystem name="代理商门户" i18n:en_US="代理商门户" id="dp" module="module-dp.xml"          
         baseuri="http://localhost:7000/creatorcms" />  
-    <subsystem name="WEB应用统计平台" i18n:en_US="WEB应用统计平台" id="sanylog" module="module-sanylog.xml"        
+    <subsystem name="WEB应用统计平台" i18n:en_US="WEB应用统计平台" id="slog" module="module-slog.xml"        
         baseuri="http://localhost:7000/creatorcms" />          
           
     <subsystem name="移动门户" i18n:en_US="移动门户" id="mbp" module="module-mbp.xml"  
         baseuri="http://localhost:7000/creatorcms"   
-        successRedirect="sanydesktop/index.page"  
-        logoutredirect="/sanymbp/login.page"/>  
+        successRedirect="sdesktop/index.page"  
+        logoutredirect="/smbp/login.page"/>  
   
 ................  
   
@@ -432,7 +432,7 @@ Xml代码
 
 ```xml
 <properties>    
-    <property name="hrmappurl" value="http://hrm.sany.com.cn/NHRM"/>  
+    <property name="hrmappurl" value="http://hrm.test.com.cn/NHRM"/>  
 </properties> 
 ```
 
@@ -715,7 +715,7 @@ Xml代码
 <property name="history" value="audit" />---流程任务处理日志记录级别，一般为audit  
     <property name="idGenerator" class="org.activiti.engine.impl.persistence.StrongUuidGenerator" />----工作流表记录主键生成机制，全局UUID  
     <property name="userInfoMap" class="com.frameworkset.platform.sysmgrcore.purviewmanager.PDPUserInfoMapImpl"/>---用户信息缓存组件配置  
-     <property name="KPIService" class="com.sany.workflow.service.impl.PlatformKPIServiceImpl"/>--工作流KPI指标参数管理组件  
+     <property name="KPIService" class="com.s.workflow.service.impl.PlatformKPIServiceImpl"/>--工作流KPI指标参数管理组件  
      <property name="enableMixMultiUserTask" value="true"/>--true 启用多用户单任务切换为多用户多任务（流程配置和流程实例配置切换皆可）  
 ```
 
@@ -746,7 +746,7 @@ Xml代码
             指定部署流程版本时，升级流程实例或者删除流程实例回调处理函数，可以与指定的表和表字段一起使用  
             可以指定多个回调处理函数  
              -->  
-<!--             <property upgradecallback="com.sany.test.TestUpgradeCallback"/>            -->  
+<!--             <property upgradecallback="com.s.test.TestUpgradeCallback"/>            -->  
         </list>  
     </property> 
 ```

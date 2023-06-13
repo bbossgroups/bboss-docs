@@ -35,7 +35,7 @@ Xml代码
         </init-param>  
         <init-param>  
             <param-name>failedbackurlpattern</param-name>  
-            <param-value>/sanydesktop/index.page,/sanydesktop/indexcommon.page</param-value>  
+            <param-value>/sdesktop/index.page,/sdesktop/indexcommon.page</param-value>  
         </init-param> 
 ```
 
@@ -67,13 +67,13 @@ Xml代码
             /sso/login.jsp,  
             /sso/sso.page,  
             /sso/ssowithtoken.page,  
-            /sanydesktop/cookieLocale.page,  
+            /sdesktop/cookieLocale.page,  
             /yzm.jsp,  
            /sysmanager/password/modifyExpiredUserPWD.jsp,  
           /passward/modifyExpiredPassword.page,  
           /passward/generateImageCode.page,  
           /common/jsp/tokenfail.jsp,  
-          /sanymbp/login.page  
+          /smbp/login.page  
            </param-value>  
     </init-param>  
     <init-param>  
@@ -101,7 +101,7 @@ Xml代码
         </init-param>  
         <init-param>  
             <param-name>failedbackurlpattern</param-name>  
-            <param-value>/sanydesktop/index.page,/sanydesktop/indexcommon.page</param-value>  
+            <param-value>/sdesktop/index.page,/sdesktop/indexcommon.page</param-value>  
         </init-param>  
            
   </filter>  

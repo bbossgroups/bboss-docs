@@ -467,7 +467,7 @@ public String genTempToken() throws Exception;
 Java代码
 
 ```java
-@WebService(name="TokenService",targetNamespace="com.sany.common.action.TokenService")  
+@WebService(name="TokenService",targetNamespace="com.test.common.action.TokenService")  
 public class TokenController implements TokenService {  
     /** 
      * 获取令牌请求 
@@ -575,7 +575,7 @@ public class TokenController implements TokenService {
       
     /** 
      * 获取令牌请求 
-     * http://localhost:8081/SanyPDP/token/getParameterToken.freepage 
+     * http://localhost:8081/sPDP/token/getParameterToken.freepage 
      * @param request 
      * @return 
      * @throws TokenException  
@@ -610,7 +610,7 @@ public class TokenController implements TokenService {
 Java代码
 
 ```java
-@WebService(name="CheckTokenService",targetNamespace="com.sany.common.action.CheckTokenService")  
+@WebService(name="CheckTokenService",targetNamespace="com.test.common.action.CheckTokenService")  
 public class CheckTokenContoller implements CheckTokenService{  
       
     public @ResponseBody(datatype="json") TokenResult checkToken(String appid,String secret,String token) throws TokenException  
@@ -671,7 +671,7 @@ Java代码
 //hessian服务方式申请token  
 HessianProxyFactory factory = new HessianProxyFactory();  
 //String url = "http://localhost:8081/context/hessian?service=tokenService";  
-String url = "http://localhost:8081/SanyPDP/hessian?service=tokenService";  
+String url = "http://localhost:8081/sPDP/hessian?service=tokenService";  
 TokenService tokenService = (TokenService) factory.create(TokenService.class, url);  
 //通过hessian根据账号或者工号获取ticket  
   
@@ -685,7 +685,7 @@ Java代码
 
 ```java
 客户端获取令牌服务组件- webservice服务方式申请token  
-url = "http://localhost:8081/SanyPDP/cxfservices/tokenService";  
+url = "http://localhost:8081/sPDP/cxfservices/tokenService";  
 JaxWsProxyFactoryBean WSServiceClientFactory = new  JaxWsProxyFactoryBean();  
 WSServiceClientFactory.setAddress(url);  
 WSServiceClientFactory.setServiceClass(TokenService.class);  
@@ -702,11 +702,11 @@ http:
 Java代码
 
 ```java
-url = "http://localhost:8081/SanyPDP/token/genAuthTempToken.freepage?appid="+appid + "&secret="+secret + "&ticket="+ticket;  
-//url = "http://10.25.192.142:8081/SanyPDP/token/genDualToken.freepage?appid="+appid + "&secret="+secret + "&account="+account;  
+url = "http://localhost:8081/sPDP/token/genAuthTempToken.freepage?appid="+appid + "&secret="+secret + "&ticket="+ticket;  
+//url = "http://10.25.192.142:8081/sPDP/token/genDualToken.freepage?appid="+appid + "&secret="+secret + "&account="+account;  
 token = org.frameworkset.spi.remote.http.HttpReqeust.httpPostforString(url);  
 //通过http根据账号或者工号获取ticket  
-//url = "http://10.25.192.142:8081/SanyPDP/token/genTicket.freepage?appid="+appid + "&secret="+secret + "&account="+account + "&worknumber="+worknumber;  
+//url = "http://10.25.192.142:8081/sPDP/token/genTicket.freepage?appid="+appid + "&secret="+secret + "&account="+account + "&worknumber="+worknumber;  
 //String ticket = = org.frameworkset.spi.remote.http.HttpReqeust.httpPostforString(url); 
 ```
 
@@ -747,7 +747,7 @@ String worknumber = "10006857";
   
 HessianProxyFactory factory = new HessianProxyFactory();  
   
-String url = "http://10.0.15.223/SanyToken/hessian?service=tokenService";//令牌服务器获取ticket服务地址  
+String url = "http://10.0.15.223/sToken/hessian?service=tokenService";//令牌服务器获取ticket服务地址  
 TokenService tokenService = (TokenService) factory.create(TokenService.class, url);  
 //通过hessian根据账号或者工号获取ticket  
 String ticket = tokenService.genTicket(account, worknumber, appid, secret);  

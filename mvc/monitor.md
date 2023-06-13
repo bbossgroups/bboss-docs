@@ -84,7 +84,7 @@ Xml代码
             <param-name>messagesources</param-name>  
             <param-value>/WEB-INF/messages_pdp,/WEB-INF/messages_pdp_common,  
             /WEB-INF/conf/appbom/messages_appbom,  
-            /WEB-INF/conf/sanyems/messages</param-value>  
+            /WEB-INF/conf/sems/messages</param-value>  
         </init-param>  
         <init-param>  
             <param-name>useCodeAsDefaultMessage</param-name>  

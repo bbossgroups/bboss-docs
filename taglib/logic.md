@@ -215,7 +215,7 @@ upper, lower
 
 <pg:false actual="${fromwebseal}">
 
-<a href="#" class="zhuxiao" onclick="logout()"><pg:message code="sany.pdp.module.logout"/></a>
+<a href="#" class="zhuxiao" onclick="logout()"><pg:message code="s.pdp.module.logout"/></a>
 
 </pg:false>
 
@@ -223,7 +223,7 @@ upper, lower
 
 <pg:true actual="${fromwebseal}">
 
-<a href="#" class="zhuxiao" onclick="logout()"><pg:message code="sany.pdp.module.logout"/></a>
+<a href="#" class="zhuxiao" onclick="logout()"><pg:message code="s.pdp.module.logout"/></a>
 
 </pg:true>
 

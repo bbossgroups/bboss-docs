@@ -8,8 +8,8 @@ Xml代码
 
 ```xml
  <?xml version="1.0" encoding="UTF-8" ?>   
-- <wsdl:definitions name="MaterialWServiceImplService" targetNamespace="http://impl.webservice.material.mms.sany.com/" xmlns:ns1="http://webservice.material.mms.sany.com/" xmlns:ns2="http://schemas.xmlsoap.org/wsdl/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://impl.webservice.material.mms.sany.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">  
-  <wsdl:import location="http://10.8.135.224:8081/SanyMMS/cxfservices/queryTaskList?wsdl=MaterialWService.wsdl" namespace="http://webservice.material.mms.sany.com/" />   
+- <wsdl:definitions name="MaterialWServiceImplService" targetNamespace="http://impl.webservice.material.mms.test.com/" xmlns:ns1="http://webservice.material.mms.test.com/" xmlns:ns2="http://schemas.xmlsoap.org/wsdl/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://impl.webservice.material.mms.s.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">  
+  <wsdl:import location="http://10.8.135.224:8081/testMMS/cxfservices/queryTaskList?wsdl=MaterialWService.wsdl" namespace="http://webservice.material.mms.test.com/" />   
 - <wsdl:binding name="MaterialWServiceImplServiceSoapBinding" type="ns1:MaterialWService">  
   <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />   
 - <wsdl:operation name="queryAwaitTaskByUserNum">  
@@ -24,7 +24,7 @@ Xml代码
   </wsdl:binding>  
 - <wsdl:service name="MaterialWServiceImplService">  
 - <wsdl:port binding="tns:MaterialWServiceImplServiceSoapBinding" name="MaterialWServiceImplPort">  
-  <soap:address location="http://10.8.135.224:8081/SanyMMS/cxfservices/queryTaskList" />   
+  <soap:address location="http://10.8.135.224:8081/sMMS/cxfservices/queryTaskList" />   
   </wsdl:port>  
   </wsdl:service>  
   </wsdl:definitions>  
@@ -35,7 +35,7 @@ Xml代码
 Xml代码
 
 ```xml
-<wsdl:import location="http://10.8.135.224:8081/SanyMMS/cxfservices/queryTaskList?wsdl=MaterialWService.wsdl" namespace="http://webservice.material.mms.sany.com/" />   
+<wsdl:import location="http://10.8.135.224:8081/sMMS/cxfservices/queryTaskList?wsdl=MaterialWService.wsdl" namespace="http://webservice.material.mms.test.com/" />   
 ```
 
 将<wsdl:import>标签中的location拿出去在浏览器中打开，里面是“丢失”的两个标签，这时候就发现其实并不是丢失了，而是包含在了<wsdl:import>标签内

@@ -107,8 +107,8 @@ Xml代码
 property name="datasource" class="com.frameworkset.commons.dbcp2.BasicDataSource">  
     <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>    
     <property name="url" value="jdbc:oracle:thin:@//10.0.15.51:1521/orcl"/>    
-    <property name="username" value="sanyfms"/>    
-    <property name="password" value="sanyfms"/>    
+    <property name="username" value="sfms"/>    
+    <property name="password" value="sfms"/>    
     <!--initialSize: 初始化连接-->    
     <property name="initialSize" value="5"/>    
     <property name="maxTotal" value="20"/>    
@@ -163,12 +163,12 @@ Xml代码
         <!--<editor clazz="com.frameworkset.common.poolman.security.DecryptEditor"/> -->  
     </property>  
     <!-- 连接数据库的用户名 -->  
-    <property name="username" value="SANYGCMP">  
+    <property name="username" value="sGCMP">  
         <!-- 如果账号是加密的账号，则需要配置解密的编辑器 -->  
         <!-- <editor clazz="com.frameworkset.common.poolman.security.DecryptEditor"/> -->  
     </property>  
     <!-- 连接数据库的密码 -->  
-    <property name="password" value="SANYGCMP">  
+    <property name="password" value="sGCMP">  
         <!-- 如果口令是加密的口令，则需要配置解密的编辑器 -->  
         <!-- <editor clazz="com.frameworkset.common.poolman.security.DecryptEditor"/> -->  
     </property>  

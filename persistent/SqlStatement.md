@@ -6,7 +6,7 @@ Xml代码
 
 ```xml
 <property name="selectByKeys"  
-sqlfile="com/sany/appbom/service/appbom-1.xml" sqlname="selectByKeys"/>  
+sqlfile="com/s/appbom/service/appbom-1.xml" sqlname="selectByKeys"/>  
 ```
 
   sqlfile：指定引用sql语句所在的配置文件

@@ -235,7 +235,7 @@ Xml代码
 ```xml
 <property name="datasource" class="com.frameworkset.commons.dbcp2.BasicDataSource">  
     <property name="driverClassName" value="net.sourceforge.jtds.jdbc.Driver"/>    
-    <property name="url" value="jdbc:jtds:sqlserver://localhost:1433/sanyleasing"/>    
+    <property name="url" value="jdbc:jtds:sqlserver://localhost:1433/sleasing"/>    
     <property name="username" value="pms"/>    
     <property name="password" value="pms"/>    
     <!--initialSize: 初始化连接-->    
@@ -370,7 +370,7 @@ com.frameworkset.common.poolman.security.DESCipher aa = new com.frameworkset.com
 
 `<property name="driverClassName" value="net.sourceforge.jtds.jdbc.Driver"/>` 
 
-`<property name="url" value="jdbc:jtds:sqlserver://localhost:1433/sanyleasing"/>` 
+`<property name="url" value="jdbc:jtds:sqlserver://localhost:1433/sleasing"/>` 
 
 `<property name="username" value="pms"/>` 
 

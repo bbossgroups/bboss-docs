@@ -141,7 +141,7 @@ Java代码
 public @ResponseBody  
     Resource exportExeclTemplate() throws Exception {  
           
-        String fileName = "com/sany/mms/background/action/exceldata.xls";  
+        String fileName = "com/s/mms/background/action/exceldata.xls";  
           
         ClassPathResource classpath = new ClassPathResource(fileName);  
         return classpath;  
@@ -158,7 +158,7 @@ Java代码
 ublic @ResponseBody  
     FileBlob exportExeclTemplate() throws Exception {  
           
-        String fileName = "com/sany/mms/background/action/exceldata.xls";  
+        String fileName = "com/s/mms/background/action/exceldata.xls";  
         FileBlob fb = new FileBlob ("exceldata.xls",new FileInputstream(new File(fileName)))//下载文件流  
                 FileBlob fb = new FileBlob ("exceldata.xls",Blob对象) //下载blob流  
                 FileBlob fb = new FileBlob ("test.xml",new URL("http://localhost:8080/bboss/test.xml"));//下载url地址对应的资源  
