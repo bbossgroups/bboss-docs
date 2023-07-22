@@ -33,13 +33,15 @@ compile group: 'com.bbossgroups', name: 'bboss-core', version: '6.0.9'
 
 ![](../images/bboss/c0db3fd8-b86d-3e1d-96b6-f69e2288ae63.png)
 
-可以定义多个属性文件
+config可以通过定义file多个属性文件,后面的属性配置文件，可以引用先前的属性，反之不成立
 文件定义好后需要在ioc配置文件的最开始通过config元素导入，如果有多个配置文件，可以在ioc根文件中导入属性文件（可以同时导入多个）：
+
+**注：**每个config设置的文件无法相互引用，最终各个config中对应的所有属性被合并为一个容器属性配置注册器供外部或者组件引用
 
 ```xml
 <properties>  
-    <config file="org/frameworkset/spi/variable/ioc-var.properties"/>  
-    <config file="org/frameworkset/spi/variable/ioc-var1.properties"/>  
+    <config file="org/frameworkset/spi/variable/ioc-var.properties,org/frameworkset/spi/variable/ioc-var1.properties"/>  
+    
     <property name="test.beans"  
         f:varValue="aaa${varValue}aaa"   
         f:intValue="2"  
@@ -314,3 +316,83 @@ mainclass=#[mainclassevn:org.frameworkset.elasticsearch.imp.DB2CSVFile]
 ```properties
 include.files=xxx.properties,dd.properties,cc.properties
 ```
+
+## 10.与apollo的集成
+
+与apollo配置中心集成，需要额外导入以下maven坐标：
+
+```xml
+ <dependency>
+            <groupId>com.bbossgroups.plugins</groupId>
+            <artifactId>bboss-plugin-apollo</artifactId>
+            <version>6.1.8</version>
+        </dependency>
+```
+
+在resources/META-INF/app.properties中配置apollo注册中心地址和应用id：
+
+```properties
+app.id=db-elasticsearch-xxljob
+apollo.meta=http://10.13.11.7:8080
+```
+
+直接通过PropertiesContainer加载apollo配置：
+
+```java
+  /**
+    * 从Apollo加载属性配置，后加入的属性配置命名空间，可以引用先前加入的属性，反之不成立
+    * @param namespace
+    */
+public void addConfigPropertiesFromApollo(String namespace)
+/**
+     * 从Apollo加载属性配置，后加入的属性配置命名空间，可以引用先前加入的属性，反之不成立
+     * @param namespace
+     * @param configChangeListener
+     */
+	public void addConfigPropertiesFromApollo(String namespace,String configChangeListener)
+PropertiesContainer propertiesContainer = new PropertiesContainer();  
+propertiesContainer.addConfigPropertiesFromApollo("application");  
+propertiesContainer.addConfigPropertiesFromApollo("application","org.frameworkset.apollo.PropertiesContainerChangeListener");  //指定属性监听器
+属性监听器需要实现接口：PropertiesChangeListener，例如
+/**
+ * <p>Description: </p>
+ * <p></p>
+ * <p>Copyright (c) 2020</p>
+ * @date 2020/8/1 9:37
+ * @author biaoping.yin
+ * @version 1.0
+ */
+public class PropertiesContainerChangeListener extends PropertiesChangeListener {
+	@Override
+	public void onChange(ConfigChangeEvent changeEvent) {
+		if(propertiesContainer != null){
+			try {
+				ResetTag.setLocal();
+				propertiesContainer.reset();
+			}
+			finally {
+				ResetTag.clean();
+			}
+		}
+	}
+}    
+
+```
+
+在ioc配置文件中配置apollo
+
+```xml
+<properties>
+    <!--
+        优先从bboss es属性配置文件加载扩展属性，其次从spring boot 配置文件application.properties加载属性
+        必须配置elasticsearch.rest.hostNames这一个属性，其他属性可选
+
+
+    -->
+    <!-- <config file="conf/elasticsearch.properties,application.properties,config/application.properties"/>-->
+    <config apolloNamespace="application"  changeReload="false"/>
+ </properties>
+```
+
+通过changeReload属性设置是否监听属性变化，如果有变化实时加载变化后的属性
+
