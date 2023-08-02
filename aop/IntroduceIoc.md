@@ -325,7 +325,7 @@ include.files=xxx.properties,dd.properties,cc.properties
  <dependency>
             <groupId>com.bbossgroups.plugins</groupId>
             <artifactId>bboss-plugin-apollo</artifactId>
-            <version>6.1.9</version>
+            <version>6.2.0</version>
         </dependency>
 ```
 
