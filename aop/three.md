@@ -84,7 +84,7 @@ bboss-aop-1.0.5，下载地址： https://sourceforge.net/project/showfiles.php?
 
 ​       <provider type="A" default="true"
 
-​           class="com.chinacreator.spi.constructor.ConstructorImpl" />   
+​           class="com.bboss.spi.constructor.ConstructorImpl" />   
 
 ​       < construction >   
 
@@ -92,7 +92,7 @@ bboss-aop-1.0.5，下载地址： https://sourceforge.net/project/showfiles.php?
 
 ​           < param refid="interceptor.a" />
 
-​           < param type="com.chinacreator.spi.constructor.Test" />
+​           < param type="com.bboss.spi.constructor.Test" />
 
 ​       </ construction >
 
@@ -100,7 +100,7 @@ bboss-aop-1.0.5，下载地址： https://sourceforge.net/project/showfiles.php?
 
 </ manager-config >
 
-将manager-constructor.xml文件存储在classes下的包com.chinacreator.spi.constructor目录下，
+将manager-constructor.xml文件存储在classes下的包com.bboss.spi.constructor目录下，
 
 再将manager-constructor.xml配置在主文件manager-provider.xml(该文件在classes根目录下)中： 
 
@@ -108,9 +108,9 @@ bboss-aop-1.0.5，下载地址： https://sourceforge.net/project/showfiles.php?
 
 ​    ... ...   
 
-​    < managerimport file="com/chinacreator/spi/interceptor/manager-interceptor.xml" />  
+​    < managerimport file="com/bboss/spi/interceptor/manager-interceptor.xml" />  
 
-​    < managerimport file="com/chinacreator/spi/constructor/manager-constructor.xml" />
+​    < managerimport file="com/bboss/spi/constructor/manager-constructor.xml" />
 
 ​    ... ... 
 
@@ -130,7 +130,7 @@ bboss-aop-1.0.5，下载地址： https://sourceforge.net/project/showfiles.php?
 
 ​       <provider type="A" default="true"
 
-​           class="com.chinacreator.spi.interceptor.A" />
+​           class="com.bboss.spi.interceptor.A" />
 
 ​       <!-- against the loop ioc rules,because constructor.a reference interceptor.a 
 
@@ -154,9 +154,9 @@ bboss-aop-1.0.5，下载地址： https://sourceforge.net/project/showfiles.php?
 
 ​       </ synchronize>
 
-​       < interceptor class="com.chinacreator.spi.interceptor.Insterceptor"/>
+​       < interceptor class="com.bboss.spi.interceptor.Insterceptor"/>
 
-​       < interceptor class="com.chinacreator.spi.interceptor.Insterceptor1"/>     
+​       < interceptor class="com.bboss.spi.interceptor.Insterceptor1"/>     
 
 ​       <!-- 
 

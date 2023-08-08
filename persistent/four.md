@@ -336,11 +336,11 @@ public class TestXMLHandler {
 
 o 修改bug，执行o/r mapping 查询时，如果数字类型/byte/boolean的数据值为null时，会报以下异常：
 
-Build ValueObject for ResultSet[select * from mq_node where NODE_NAME='test'] Get Column[CA_ID] from  ResultSet to [com.chinacreator.mq.client.MqNode@10cec16.CA_ID[int](mailto:com.chinacreator.mq.client.MqNode@10cec16.CA_ID[int)] failed:null
+Build ValueObject for ResultSet[select * from mq_node where NODE_NAME='test'] Get Column[CA_ID] from  ResultSet to [com.bboss.mq.client.MqNode@10cec16.CA_ID[int](mailto:com.bboss.mq.client.MqNode@10cec16.CA_ID[int)] failed:null
 
 ERROR 01-06 17 : 30 : 25,093 - Build ValueObject for ResultSet[select * from mq_node where 
 
-NODE_NAME='test'] Get Column[CA_ID] from  ResultSet to [com.chinacreator.mq.client.MqNode@10cec16.CA_ID[int](mailto:com.chinacreator.mq.client.MqNode@10cec16.CA_ID[int)] failed:null
+NODE_NAME='test'] Get Column[CA_ID] from  ResultSet to [com.bboss.mq.client.MqNode@10cec16.CA_ID[int](mailto:com.bboss.mq.client.MqNode@10cec16.CA_ID[int)] failed:null
 
 java.lang.IllegalArgumentException
 
@@ -364,7 +364,7 @@ java.lang.IllegalArgumentException
 
  at com.frameworkset.common.poolman.DBUtil.executeSelectForObject(DBUtil.java:3618)
 
- at com.chinacreator.mq.client.MqNodeService.getNodeByName(MqNodeService.java:150)
+ at com.bboss.mq.client.MqNodeService.getNodeByName(MqNodeService.java:150)
 
  at be.ibridge.kettle.consumer_stream.ConsumerService.buildMQClient(ConsumerService.java:63)
 

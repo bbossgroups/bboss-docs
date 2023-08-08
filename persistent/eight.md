@@ -4,9 +4,9 @@
 
  < rollbackexceptions >                  
 
-< exception class="com.chinacreator.spi.transaction.RollbackInstanceofException"                  type="INSTANCEOF" />                  
+< exception class="com.bboss.spi.transaction.RollbackInstanceofException"                  type="INSTANCEOF" />                  
 
-< exception class="com.chinacreator.spi.transaction.Exception1"                  type="IMPLEMENTS" />              
+< exception class="com.bboss.spi.transaction.Exception1"                  type="IMPLEMENTS" />              
 
 </ rollbackexceptions >              
 
@@ -18,7 +18,7 @@
 
  < rollbackexceptions >                  
 
-< exception class="com.chinacreator.spi.transaction.RollbackInstanceofException"                  type="INSTANCEOF" />             
+< exception class="com.bboss.spi.transaction.RollbackInstanceofException"                  type="INSTANCEOF" />             
 
  </ rollbackexceptions >              
 
@@ -30,7 +30,7 @@
 
 < rollbackexceptions >                  
 
-< exception class="com.chinacreator.spi.transaction.RollbackInstanceofException"                  type="IMPLEMENTS" />               
+< exception class="com.bboss.spi.transaction.RollbackInstanceofException"                  type="IMPLEMENTS" />               
 
 </ rollbackexceptions >              
 
@@ -64,7 +64,7 @@
 
 < rollbackexceptions >                  
 
-< exception class="com.chinacreator.spi.transaction.RollbackInstanceofException"                  type="IMPLEMENTS" />              
+< exception class="com.bboss.spi.transaction.RollbackInstanceofException"                  type="IMPLEMENTS" />              
 
 </ rollbackexceptions >              
 
@@ -96,7 +96,7 @@ pattern【testPatternTX[1-9.]*】表示以testPatternTX开头的所有方法
 
 < rollbackexceptions >                  
 
-< exception class="com.chinacreator.spi.transaction.RollbackInstanceofException"                  type="IMPLEMENTS" />              
+< exception class="com.bboss.spi.transaction.RollbackInstanceofException"                  type="IMPLEMENTS" />              
 
 </ rollbackexceptions >           
 

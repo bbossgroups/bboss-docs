@@ -71,11 +71,11 @@ Map
 
 cms.jar中程序包路径
 
-com.chinacreator更换为
+com.bboss更换为
 
 com.frameworkset.platform
 
-这样就和bboss-cms工程中的内容管理标签库保持一致，bboss3.5.1分支和master分支任然保留对com.chinacreator的支持。
+这样就和bboss-cms工程中的内容管理标签库保持一致，bboss3.5.1分支和master分支任然保留对com.bboss的支持。
 
 28.cell标签增加encodecount属性，用来指定用utf-8编码输出的次数，有些情况下需要编码2次
 例如：

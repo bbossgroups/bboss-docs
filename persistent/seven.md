@@ -38,7 +38,7 @@
 
 ​       <provider type="DB" default="true"
 
-​           class="com.chinacreator.spi.transaction.A1" />
+​           class="com.bboss.spi.transaction.A1" />
 
 ​       <!-- 
 

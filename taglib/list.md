@@ -12,7 +12,7 @@ https://sourceforge.net/project/showfiles.php?group_id=238653&package_id=290092
 
 后续版本可直接在listdata标签的dataInfo属性中指定数据加载器的全路径，而无需在配置文件中进行配置
 
-比如com.chinacreator.tag.DataList）
+比如com.bboss.tag.DataList）
 
 ​    3. 编写页面jsp页面引用标签，实现分页/列表展示
 

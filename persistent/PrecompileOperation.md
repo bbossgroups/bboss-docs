@@ -15,7 +15,7 @@
 Java代码
 
 ```java
-package com.chinacreator.tjbb.dao.impl;  
+package com.bboss.tjbb.dao.impl;  
   
 import java.util.ArrayList;  
 import java.util.HashMap;  
@@ -24,9 +24,9 @@ import java.util.Map;
   
   
   
-import com.chinacreator.tjbb.dao.SjxftjDao;  
-import com.chinacreator.tjbb.dto.DssjxfTj;  
-import com.chinacreator.tjbb.dto.SjxftjDto;  
+import com.bboss.tjbb.dao.SjxftjDao;  
+import com.bboss.tjbb.dto.DssjxfTj;  
+import com.bboss.tjbb.dto.SjxftjDto;  
 import com.frameworkset.common.poolman.ConfigSQLExecutor;  
 import com.frameworkset.common.poolman.Record;  
 import com.frameworkset.common.poolman.handle.NullRowHandler;  
@@ -34,7 +34,7 @@ import com.frameworkset.common.poolman.handle.NullRowHandler;
   
 public class SjxftjDaoImpl implements SjxftjDao{  
     public static final String DBNAME = "stsmc";  
-    private static ConfigSQLExecutor executor = new ConfigSQLExecutor("com/chinacreator/tjbb/dao/impl/stxftj.xml");  
+    private static ConfigSQLExecutor executor = new ConfigSQLExecutor("com/bboss/tjbb/dao/impl/stxftj.xml");  
   
     public List<SjxftjDto> findSjxftjList()  throws Exception{          
         return executor.queryListWithDBName(SjxftjDto.class, DBNAME, "findSjxftjList");  

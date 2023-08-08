@@ -6,7 +6,7 @@
 
 BaseSPIManager的完整包路径如下：
 
-com.chinacreator.spi.BaseSPIManager
+com.bboss.spi.BaseSPIManager
 
 BaseSPIManager提供了以下两个静态管理接口：
 

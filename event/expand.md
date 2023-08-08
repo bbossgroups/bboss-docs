@@ -94,7 +94,7 @@
 
 ​       目前系统提供以下缺省实现：
 
-​       com.chinacreator.thread.WaitPolicy  循环等待event.threadpool.waitTime指定的时间，单位为秒
+​       com.bboss.thread.WaitPolicy  循环等待event.threadpool.waitTime指定的时间，单位为秒
 
 ​       java.util.concurrent.ThreadPoolExecutor.DiscardPolicy 直接丢弃任务，不抛出异常
 
@@ -106,7 +106,7 @@
 
 ​        -->
 
-​       <property name=*"event.threadpool.rejectedExecutionHandler"* value=*"com.chinacreator.thread.WaitPolicy"*/>
+​       <property name=*"event.threadpool.rejectedExecutionHandler"* value=*"com.bboss.thread.WaitPolicy"*/>
 
 ​    </ properties >
 
@@ -124,7 +124,7 @@
 
 ​       -->
 
-​       <provider type=*"default"* class=*"com.chinacreator.remote.EventRemoteServiceImpl" />*
+​       <provider type=*"default"* class=*"com.bboss.remote.EventRemoteServiceImpl" />*
 
 ​    </ manager >
 
@@ -156,7 +156,7 @@ remoteevent.enabled 是否允许远程事件 true**允许，**false**不允许�
 
 ​       -->
 
-​       <provider type=*"default"* class=*"com.chinacreator.remote.EventRemoteServiceImpl"* />
+​       <provider type=*"default"* class=*"com.bboss.remote.EventRemoteServiceImpl"* />
 
 ​    </ manager >
 

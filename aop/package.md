@@ -18,7 +18,7 @@ BaseSPIManager管理系统配置属性
 
 BaseSPIManager的完整包路径如下：
 
-com.chinacreator.spi.BaseSPIManager
+com.bboss.spi.BaseSPIManager
 
 #### BaseSPIManager管理业务组件
 

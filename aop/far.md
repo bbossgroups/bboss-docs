@@ -78,4 +78,4 @@ Integer value = (Integer)BaseSPIManager.*getRPCResult*("172.16.17.56", "1185", r
 
 所有的远程调用的过程中抛出的异常，都会作为
 
-com.chinacreator.remote.RemoteException类型的异常抛出。
+com.bboss.remote.RemoteException类型的异常抛出。

@@ -9,7 +9,7 @@ https://sourceforge.net/project/showfiles.php?group_id=238653
 
 对象A引用了对象B，对象B引用对象C，对象C引用了对象A，这样就形成了一种循环引用的场景。
 
-使用bboss aop框架的依赖注入功能时，应用避免出现业务组件的循环依赖注入的情况，bboss aop能够有效的防止这种情况的出现，一旦开发人员配置了这种场景，应用程序通过com.chinacreator.spi.BaseSPIManager的getProvider方法获取业务组件的实例时将抛出异常：
+使用bboss aop框架的依赖注入功能时，应用避免出现业务组件的循环依赖注入的情况，bboss aop能够有效的防止这种情况的出现，一旦开发人员配置了这种场景，应用程序通过com.bboss.spi.BaseSPIManager的getProvider方法获取业务组件的实例时将抛出异常：
 
 **throw** **new** CurrentlyInCreationException("loop inject error the inject context path is [A>B>C>A]");
 
@@ -25,7 +25,7 @@ https://sourceforge.net/project/showfiles.php?group_id=238653
 
 ​       <provider type="DB"
 
-​           class="com.chinacreator.spi.reference.A" />
+​           class="com.bboss.spi.reference.A" />
 
 ​       < reference fieldname="b" refid="b" />
 
@@ -35,7 +35,7 @@ https://sourceforge.net/project/showfiles.php?group_id=238653
 
 ​       <provider type="DB"
 
-​           class="com.chinacreator.spi.reference.B" />
+​           class="com.bboss.spi.reference.B" />
 
 ​       < reference fieldname="c" refid="c"  />
 
@@ -47,7 +47,7 @@ https://sourceforge.net/project/showfiles.php?group_id=238653
 
 ​       <provider type="DB"
 
-​           class="com.chinacreator.spi.reference.C" />
+​           class="com.bboss.spi.reference.C" />
 
 ​    </ manager >
 

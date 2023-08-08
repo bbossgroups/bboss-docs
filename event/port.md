@@ -4,7 +4,7 @@
 
 组件接口
 
-com.chinacreator.event.Listener
+com.bboss.event.Listener
 
 方法：
 
@@ -32,7 +32,7 @@ public void handle(Event e);
 
 注册事件监听器需要的相关组件接口说明如下：
 
-##### 10.5.2.1 com.chinacreator.event.NotifiableFactory
+##### 10.5.2.1 com.bboss.event.NotifiableFactory
 
  
 
@@ -44,7 +44,7 @@ public static Notifiable getNotifiable()
 
 ​      然后在这个激发器对象上注册所有监听器 
 
-##### 10.5.2.2 com.chinacreator.event.Notifiable
+##### 10.5.2.2 com.bboss.event.Notifiable
 
 - ​        **方法** **1**：
 
@@ -220,15 +220,15 @@ NotifiableFactory.getNotifiable().addListener(listener, Listener.*LOCAL_REMOTE*)
 
 与事件发布相关的组件接口如下：
 
-com.chinacreator.event.EventHandle
+com.bboss.event.EventHandle
 
-com.chinacreator.event.EventImpl
+com.bboss.event.EventImpl
 
-com.chinacreator.event.EventType
+com.bboss.event.EventType
 
-com.chinacreator.event.EventTarget
+com.bboss.event.EventTarget
 
-com.chinacreator.remote.Utils 
+com.bboss.remote.Utils 
 
 EventHandle是一个抽象类封装了所有事件广播（事件本地广播和事件远程广播）的所有功能。EventHandle分发事件消息可以同步分发消息也可以通过异步的方式发布消息。
 
@@ -250,4 +250,4 @@ EventImpl是事件消息的封装对象，封装的信息包括：
 
 EventTarget封装事件发送目标地址，包括ip和端口两个信息。只有事件的eventBroadcastType为远程传播(Event.REMOTE)和 本地远程传播 (Event.REMOTELOCAL)两种类型时，才可以指定target属性，如果target为null，那么事件将被广播到所有的远程节点上面的监听器，否则只广播到target指定的目的地址对应的远程监听器，如果对应的target不存在，那么直接丢弃这个事件消息。 
 
-com.chinacreator.remote.Utils:EventHandle组件采用Utils组件来广播远程消息。Utils中采用JGroups组播通讯控件来实现事件消息在远程服务器之间广播。具体消息的远程广播机制请参考系统集群配置说明一节。
+com.bboss.remote.Utils:EventHandle组件采用Utils组件来广播远程消息。Utils中采用JGroups组播通讯控件来实现事件消息在远程服务器之间广播。具体消息的远程广播机制请参考系统集群配置说明一节。

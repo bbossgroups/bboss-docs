@@ -78,27 +78,27 @@ Java代码
 
 ```java
 public static final String DBNAME = "stsmc";      
-    private static ConfigSQLExecutor executor = new ConfigSQLExecutor("com/chinacreator/tjbb/dao/impl/stxftj.xml");   
+    private static ConfigSQLExecutor executor = new ConfigSQLExecutor("com/bboss/tjbb/dao/impl/stxftj.xml");   
 ```
 
-只要确保com/chinacreator/tjbb/dao/impl/stxftj.xml文件存放在classpath环境中即可，一般是在classes目录下。
+只要确保com/bboss/tjbb/dao/impl/stxftj.xml文件存放在classpath环境中即可，一般是在classes目录下。
 
 dao组件中执行动态sql并返回执行结果：
 
 Java代码
 
 ```java
-package com.chinacreator.esb.uddi.requester.dao.impl;    
+package com.bboss.esb.uddi.requester.dao.impl;    
         
-    import com.chinacreator.esb.uddi.requester.dao.RequesterDao;    
-    import com.chinacreator.esb.uddi.requester.entity.Requester;    
+    import com.bboss.esb.uddi.requester.dao.RequesterDao;    
+    import com.bboss.esb.uddi.requester.entity.Requester;    
     import com.frameworkset.common.poolman.ConfigSQLExecutor;    
     import com.frameworkset.util.ListInfo;    
         
     public class RequesterDaoImpl implements RequesterDao {    
             
         public static final String dbName= "stsmc";      
-        private static ConfigSQLExecutor executor = new ConfigSQLExecutor("com/chinacreator/tjbb/dao/impl/stxftj.xml");     
+        private static ConfigSQLExecutor executor = new ConfigSQLExecutor("com/bboss/tjbb/dao/impl/stxftj.xml");     
         
         
         public ListInfo getRequesterDaoListInfo(String sortKey, boolean desc,    

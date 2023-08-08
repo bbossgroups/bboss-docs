@@ -30,15 +30,15 @@ Bboss aop中可以在业务组件的配置文件配置系统全局属性，用�
 
 ​    </ properties >   
 
-​    <managerimport file=*"com/chinacreator/spi/properties/properties.xml"* />
+​    <managerimport file=*"com/bboss/spi/properties/properties.xml"* />
 
-​    <managerimport file=*"com/chinacreator/spi/rpc/service-assemble.xml"* />
+​    <managerimport file=*"com/bboss/spi/rpc/service-assemble.xml"* />
 
 </ manager-config >
 
 其中单独配置了几个属性，同时导入了一个文件
 
-*com/chinacreator/spi/properties/properties.xml*
+*com/bboss/spi/properties/properties.xml*
 
 其内容为：
 

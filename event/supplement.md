@@ -62,7 +62,7 @@ event.threadpool.* 配置调度异步消息传输的线程池的相关信息
 
 ​       -->
 
-​       < provider type="default" class="com.chinacreator.remote.EventRemoteServiceImpl"  />
+​       < provider type="default" class="com.bboss.remote.EventRemoteServiceImpl"  />
 
 ​    </ manager >
 

@@ -54,7 +54,7 @@ bboss-aop框架是一个基于动态代理技术实现的轻量级aop框架，�
 
 ​                      目前系统中提供了以下缺省拦截器：
 
-​                              数据库事务管理拦截器（com.chinacreator.spi.
+​                              数据库事务管理拦截器（com.bboss.spi.
 
 ​                              interceptor.TransactionInterceptor）,支持对声明式事务的管理
 
@@ -239,7 +239,7 @@ bboss-aop框架是一个基于动态代理技术实现的轻量级aop框架，�
 
 ​                < provider type="A"
 
-​                        class="com.chinacreator.spi.constructor.ConstructorImpl" />   
+​                        class="com.bboss.spi.constructor.ConstructorImpl" />   
 
 ​                < construction >    
 
@@ -247,7 +247,7 @@ bboss-aop框架是一个基于动态代理技术实现的轻量级aop框架，�
 
 ​                        < param refid="interceptor.a" />
 
-​                        < param type="com.chinacreator.spi.constructor.Test" />
+​                        < param type="com.bboss.spi.constructor.Test" />
 
 ​                </ construction >
 
@@ -261,7 +261,7 @@ bboss-aop框架是一个基于动态代理技术实现的轻量级aop框架，�
 
 ​        bean管理组件：
 
-​        com.chinacreator.spi.BaseSPIManager           
+​        com.bboss.spi.BaseSPIManager           
 
 ​    BaseSPIManager中定义的获取管理服务实例的静态方法：
 
@@ -301,9 +301,9 @@ public static Object getProvider(String providerManagerType,String sourceType) t
 
   获取组件实例示例：
 
-  以第一节中的配置文件为例，组件com.chinacreator.spi.constructor.ConstructorImpl直接（也可以间接）实现了
+  以第一节中的配置文件为例，组件com.bboss.spi.constructor.ConstructorImpl直接（也可以间接）实现了
 
-  接口com.chinacreator.spi.constructor.ConstructorInf
+  接口com.bboss.spi.constructor.ConstructorInf
 
    try {
 

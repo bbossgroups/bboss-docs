@@ -72,7 +72,7 @@ txtype="REQUIRED_TRANSACTION">
 
 ​              < rollbackexceptions >
 
-​                  <exception class="com.chinacreator.spi.transaction.RollbackInstanceofException"
+​                  <exception class="com.bboss.spi.transaction.RollbackInstanceofException"
 
 ​                  type="IMPLEMENTS"/>
 
@@ -86,7 +86,7 @@ txtype="REQUIRED_TRANSACTION">
 
 ​              < rollbackexceptions >
 
-​                  <exception class="com.chinacreator.spi.transaction.RollbackInstanceofException"
+​                  <exception class="com.bboss.spi.transaction.RollbackInstanceofException"
 
 ​                  type="INSTANCEOF"/>
 

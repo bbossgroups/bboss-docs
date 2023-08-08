@@ -47,20 +47,20 @@ Xml代码
         path:add-requester="/uddi/requester/addRequester.jsp"  
         path:edit-requester="/uddi/requester/editRequester.jsp"  
         path:query-requester="/uddi/requester/RequesterListInfo.jsp"  
-        class="com.chinacreator.esb.uddi.requester.web.RequesterController"  
+        class="com.bboss.esb.uddi.requester.web.RequesterController"  
         f:fuzzySearch="true" f:requesterService="attr:uddi.requester.requesterService"  
         f:businessLineService="attr:businessLineService"/>  
       
     <property name="uddi.requester.requesterService"  
-        class="com.chinacreator.esb.uddi.requester.service.impl.RequesterServiceImpl" f:requesterDao="attr:uddi.requester.requesterDao"/>  
+        class="com.bboss.esb.uddi.requester.service.impl.RequesterServiceImpl" f:requesterDao="attr:uddi.requester.requesterDao"/>  
       
     <property name="uddi.requester.requesterDao"  
-        class="com.chinacreator.esb.uddi.requester.dao.impl.RequesterDaoImpl" f:executor="attr:uddi.requester.Configexecutor"/>  
+        class="com.bboss.esb.uddi.requester.dao.impl.RequesterDaoImpl" f:executor="attr:uddi.requester.Configexecutor"/>  
       
     <property name="uddi.requester.Configexecutor"  
         class="com.frameworkset.common.poolman.ConfigSQLExecutor">  
         <construction>  
-            <property value="com/chinacreator/esb/uddi/requester/dao/impl/sqlfile.xml"/>  
+            <property value="com/bboss/esb/uddi/requester/dao/impl/sqlfile.xml"/>  
         </construction>  
     </property>  
 </properties>  
@@ -88,14 +88,14 @@ Xml代码
 <property name="uddi.requester.Configexecutor"    
     class="com.frameworkset.common.poolman.ConfigSQLExecutor">    
     <construction>    
-        <property value="com/chinacreator/esb/uddi/requester/dao/impl/sqlfile.xml"/>    
+        <property value="com/bboss/esb/uddi/requester/dao/impl/sqlfile.xml"/>    
     </construction>    
 </property>   
 ```
 
 dao组件通过名称uddi.requester.Configexecutor来注入和引用该组件。这个持久组件配置了一个sql文件：
 
-com/chinacreator/esb/uddi/requester/dao/impl/sqlfile.xml
+com/bboss/esb/uddi/requester/dao/impl/sqlfile.xml
 
 非常明显我们将sql语句配置在了一个xml文件中，我们来看看这个文件的内容，其实配置文件中我们用key和value的方式管理sql语句，我们在dao中通过key来引用每个sql语句。在开发环境可以将这个sql文件配置为热加载，即修改后不用重启应用服务器就生效，sqlfile.xml文件内容如下：
 
@@ -174,25 +174,25 @@ Xml代码
 
 ```xml
 <property name="uddi.requester.requesterDao"  
-        class="com.chinacreator.esb.uddi.requester.dao.impl.RequesterDaoImpl" f:executor="attr:uddi.requester.Configexecutor"/>  
+        class="com.bboss.esb.uddi.requester.dao.impl.RequesterDaoImpl" f:executor="attr:uddi.requester.Configexecutor"/>  
 ```
 
-配置非常简单，指定了dao组件的名字uddi.requester.requesterDao（我们将通过这个名称将dao组件注入到业务组件中），实现类com.chinacreator.esb.uddi.requester.dao.impl.RequesterDaoImpl以及指定了属性executor的值attr:uddi.requester.Configexecutor，这是一个引用，引用uddi.requester.Configexecutor对应的数据库组件。
+配置非常简单，指定了dao组件的名字uddi.requester.requesterDao（我们将通过这个名称将dao组件注入到业务组件中），实现类com.bboss.esb.uddi.requester.dao.impl.RequesterDaoImpl以及指定了属性executor的值attr:uddi.requester.Configexecutor，这是一个引用，引用uddi.requester.Configexecutor对应的数据库组件。
 
 然后我们看看dao组件的实现类，从中我们可以看出dao中的方法是怎样通过ConfigSQLExecutor来操作访问数据库的：
 
 Java代码
 
 ```java
-package com.chinacreator.esb.uddi.requester.dao.impl;  
+package com.bboss.esb.uddi.requester.dao.impl;  
   
   
   
 import java.util.UUID;  
   
-import com.chinacreator.esb.datareuse.util.Constants;  
-import com.chinacreator.esb.uddi.requester.dao.RequesterDao;  
-import com.chinacreator.esb.uddi.requester.entity.Requester;  
+import com.bboss.esb.datareuse.util.Constants;  
+import com.bboss.esb.uddi.requester.dao.RequesterDao;  
+import com.bboss.esb.uddi.requester.entity.Requester;  
 import com.frameworkset.common.poolman.ConfigSQLExecutor;  
 import com.frameworkset.util.ListInfo;  
   
@@ -302,19 +302,19 @@ Xml代码
 
 ```xml
 <property name="uddi.requester.requesterService"  
-        class="com.chinacreator.esb.uddi.requester.service.impl.RequesterServiceImpl" f:requesterDao="attr:uddi.requester.requesterDao"/  
+        class="com.bboss.esb.uddi.requester.service.impl.RequesterServiceImpl" f:requesterDao="attr:uddi.requester.requesterDao"/  
 ```
 
-业务组件配置和dao组件配置差不多，首先是业务组件的名字uddi.requester.requesterService（该名称用来作为控制器引用业务组件的名称），组件的实现类com.chinacreator.esb.uddi.requester.service.impl.RequesterServiceImpl，该业务组件引用的dao组件requesterDao，attr:uddi.requester.requesterDao，这里引用的就是上节中介绍的dao组件，我们可以看看业务组件是怎么通过dao来完成具体的业务操作的：
+业务组件配置和dao组件配置差不多，首先是业务组件的名字uddi.requester.requesterService（该名称用来作为控制器引用业务组件的名称），组件的实现类com.bboss.esb.uddi.requester.service.impl.RequesterServiceImpl，该业务组件引用的dao组件requesterDao，attr:uddi.requester.requesterDao，这里引用的就是上节中介绍的dao组件，我们可以看看业务组件是怎么通过dao来完成具体的业务操作的：
 
 Java代码 
 
 ```java
-package com.chinacreator.esb.uddi.requester.service.impl;  
+package com.bboss.esb.uddi.requester.service.impl;  
   
-import com.chinacreator.esb.uddi.requester.dao.RequesterDao;  
-import com.chinacreator.esb.uddi.requester.entity.Requester;  
-import com.chinacreator.esb.uddi.requester.service.RequesterService;  
+import com.bboss.esb.uddi.requester.dao.RequesterDao;  
+import com.bboss.esb.uddi.requester.entity.Requester;  
+import com.bboss.esb.uddi.requester.service.RequesterService;  
 import com.frameworkset.util.ListInfo;  
   
 public class RequesterServiceImpl implements RequesterService {  
@@ -381,7 +381,7 @@ Xml代码
     path:add-requester="/uddi/requester/addRequester.jsp"  
     path:edit-requester="/uddi/requester/editRequester.jsp"  
     path:query-requester="/uddi/requester/RequesterListInfo.jsp"  
-    class="com.chinacreator.esb.uddi.requester.web.RequesterController"  
+    class="com.bboss.esb.uddi.requester.web.RequesterController"  
     f:fuzzySearch="true" f:requesterService="attr:uddi.requester.requesterService"  
     f:businessLineService="attr:businessLineService"/>  
 ```
@@ -403,7 +403,7 @@ path:main="/uddi/requester/main.jsp"
 
 我们把控制器节点上的path:前缀的属性当成是跳转页面地址配置，而把f:开头的属性作为控制组件的属性注入参数来处理
 
-3.控制器类配置class="com.chinacreator.esb.uddi.requester.web.RequesterController"
+3.控制器类配置class="com.bboss.esb.uddi.requester.web.RequesterController"
 
 4.需要注入到控制器的业务组件和其他属性配置：
 
@@ -419,7 +419,7 @@ f:fuzzySearch="true" f:requesterService="attr:uddi.requester.requesterService"
 Java代码
 
 ```java
-package com.chinacreator.esb.uddi.requester.web;  
+package com.bboss.esb.uddi.requester.web;  
   
 import java.io.IOException;  
 import java.io.UnsupportedEncodingException;  
@@ -436,14 +436,14 @@ import org.frameworkset.util.annotations.RequestParam;
 import org.frameworkset.web.servlet.ModelAndView;  
 import org.frameworkset.web.servlet.ModelMap;  
   
-import com.chinacreator.esb.AjaxResponseBean;  
-import com.chinacreator.esb.DropListEntity;  
-import com.chinacreator.esb.datareuse.businessline.service.BusinessLineService;  
-import com.chinacreator.esb.datareuse.util.Constants;  
-import com.chinacreator.esb.tools.StringTool;  
-import com.chinacreator.esb.uddi.requester.entity.Requester;  
-import com.chinacreator.esb.uddi.requester.service.RequesterService;  
-import com.chinacreator.security.AccessControl;  
+import com.bboss.esb.AjaxResponseBean;  
+import com.bboss.esb.DropListEntity;  
+import com.bboss.esb.datareuse.businessline.service.BusinessLineService;  
+import com.bboss.esb.datareuse.util.Constants;  
+import com.bboss.esb.tools.StringTool;  
+import com.bboss.esb.uddi.requester.entity.Requester;  
+import com.bboss.esb.uddi.requester.service.RequesterService;  
+import com.bboss.security.AccessControl;  
 import com.frameworkset.util.ListInfo;  
   
 public class RequesterController {  

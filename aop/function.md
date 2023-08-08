@@ -4,9 +4,9 @@
 
 ​       </ synchronize >
 
-​       < interceptor class="com.chinacreator.spi.interceptor.Insterceptor" />
+​       < interceptor class="com.bboss.spi.interceptor.Insterceptor" />
 
-​       < interceptor class="com.chinacreator.spi.interceptor.Insterceptor1" />
+​       < interceptor class="com.bboss.spi.interceptor.Insterceptor1" />
 
 ​      
 
@@ -38,9 +38,9 @@
 
 ##### 配置完毕后，使用业务组件 
 
-**import** com.chinacreator.spi.BaseSPIManager;
+**import** com.bboss.spi.BaseSPIManager;
 
-**import** com.chinacreator.spi.SPIException; 
+**import** com.bboss.spi.SPIException; 
 
 **public** **class** TestConstructor {
 

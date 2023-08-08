@@ -10,13 +10,13 @@
 
 ​       singlable="true">
 
-​       < provider type="A" class="com.chinacreator.spi.interceptor.A" />
+​       < provider type="A" class="com.bboss.spi.interceptor.A" />
 
-​       < interceptor class="com.chinacreator.spi.interceptor.Insterceptor"/>
+​       < interceptor class="com.bboss.spi.interceptor.Insterceptor"/>
 
 ​       <!—-其它拦截器
 
-< interceptor class="com.chinacreator.spi.interceptor.Insterceptor1"/>-->    
+< interceptor class="com.bboss.spi.interceptor.Insterceptor1"/>-->    
 
 ​    </ manager >
 
@@ -24,17 +24,17 @@
 
 将simplemanager-interceptor.xml文件配置在主文件manager-provider.xml文件中:
 
-< managerimport file="com/chinacreator/spi/interceptor/manager-interceptor.xml" />
+< managerimport file="com/bboss/spi/interceptor/manager-interceptor.xml" />
 
 这样我们就配置完毕了。 
 
 ##### 使用业务组件，拦截器作用于业务方法 
 
-**package** com.chinacreator.spi.interceptor; 
+**package** com.bboss.spi.interceptor; 
 
-**import** com.chinacreator.spi.BaseSPIManager;
+**import** com.bboss.spi.BaseSPIManager;
 
-**import** com.chinacreator.spi.SPIException; 
+**import** com.bboss.spi.SPIException; 
 
 **public** **class** TestInterceptor {
 

@@ -37,7 +37,7 @@ b.   采用事务管理模板组件来管理事务，bboss persistent持久层�
 声明式事务管理
 了解了bboss persistent持久层框架的事务管理功能后，我们就来详细地介绍bboss aop框架提供的声明式事务管理功能。bboss aop框架为声明式事务管理定义了一个数据库事务管理拦截器：
 
-com.chinacreator.spi.interceptor.TransactionInterceptor
+com.bboss.spi.interceptor.TransactionInterceptor
 
 通过该拦截器来管理业务组件中的数据库事务，这样应用程序只需要在bboss aop的配置文件中声明相应类型的数据库事务即可，而不需要在业务组件中显示地管理数据库事务。可以在业务方法中使用所有的bboss persistent持久层框架中的所有组件来操作数据库，这些操作都将在声明的事务环境中执行。
 
@@ -107,7 +107,7 @@ l         回滚事务的异常(可选，不配置时表示所有的异常都会
 
 组件接口
 
-package com.chinacreator.spi.transaction; 
+package com.bboss.spi.transaction; 
 
 public interface AI {   
 
@@ -177,7 +177,7 @@ public interface AI {
 
 组件实现
 
-package com.chinacreator.spi.transaction; 
+package com.bboss.spi.transaction; 
 
 import java.sql.SQLException; 
 
@@ -799,7 +799,7 @@ public class A1 implements AI{
 
 ​              < rollbackexceptions >
 
-​                  <exception class="com.chinacreator.spi.transaction.RollbackInstanceofException"
+​                  <exception class="com.bboss.spi.transaction.RollbackInstanceofException"
 
 ​                  type="IMPLEMENTS"/>
 
@@ -831,7 +831,7 @@ public class A1 implements AI{
 
 业务异常定义
 
-package com.chinacreator.spi.transaction;
+package com.bboss.spi.transaction;
 
  
 
@@ -849,7 +849,7 @@ public class Exception1 extends Exception {
 
 } 
 
-package com.chinacreator.spi.transaction; 
+package com.bboss.spi.transaction; 
 
 public class Exception3 extends Exception{
 
@@ -865,7 +865,7 @@ public class Exception3 extends Exception{
 
 配置业务组件，配置业务方法的声明式事务
 
-建立xml配置文件manager-transaction.xml,存放在包路径com.chinacreator.spi.transaction下，文件的内容如下： 
+建立xml配置文件manager-transaction.xml,存放在包路径com.bboss.spi.transaction下，文件的内容如下： 
 
 < ? xml version="1.0" encoding='gb2312'? >
 
@@ -879,11 +879,11 @@ public class Exception3 extends Exception{
 
 ​    < manager id="tx.a" singlable="true"  >    
 
-​       < provider type="DB"         class="com.chinacreator.spi.transaction.A1" />
+​       < provider type="DB"         class="com.bboss.spi.transaction.A1" />
 
 ​       <!-- <provider type="ldap" used="true"
 
-​           class="com.chinacreator.spi.tx.A2" /> -->
+​           class="com.bboss.spi.tx.A2" /> -->
 
 ​       <!-- 
 
@@ -973,11 +973,11 @@ public class Exception3 extends Exception{
 
 ​              < rollbackexceptions >
 
-​                  <exception class="com.chinacreator.spi.transaction.RollbackInstanceofException"
+​                  <exception class="com.bboss.spi.transaction.RollbackInstanceofException"
 
 ​                  type="INSTANCEOF"/>
 
-​                  <exception class="com.chinacreator.spi.transaction.Exception1"
+​                  <exception class="com.bboss.spi.transaction.Exception1"
 
 ​                  type="IMPLEMENTS"/>
 
@@ -991,7 +991,7 @@ public class Exception3 extends Exception{
 
 ​              <rollbackexceptions>
 
-​                  <exception class="com.chinacreator.spi.transaction.RollbackInstanceofException"
+​                  <exception class="com.bboss.spi.transaction.RollbackInstanceofException"
 
 ​                  type="INSTANCEOF"/>
 
@@ -1005,7 +1005,7 @@ public class Exception3 extends Exception{
 
 ​              < rollbackexceptions >
 
-​                  <exception class="com.chinacreator.spi.transaction.RollbackInstanceofException"
+​                  <exception class="com.bboss.spi.transaction.RollbackInstanceofException"
 
 ​                  type="IMPLEMENTS"/>
 
@@ -1039,7 +1039,7 @@ public class Exception3 extends Exception{
 
 ​              < rollbackexceptions >
 
-​                  <exception class="com.chinacreator.spi.transaction.RollbackInstanceofException"
+​                  <exception class="com.bboss.spi.transaction.RollbackInstanceofException"
 
 ​                  type="IMPLEMENTS"/>
 
@@ -1073,7 +1073,7 @@ public class Exception3 extends Exception{
 
 ​              < rollbackexceptions >
 
-​                  <exception class="com.chinacreator.spi.transaction.RollbackInstanceofException"
+​                  <exception class="com.bboss.spi.transaction.RollbackInstanceofException"
 
 ​                  type="IMPLEMENTS"/>
 
@@ -1095,7 +1095,7 @@ public class Exception3 extends Exception{
 
 将manager-transaction.xml配置到主文件manager-provider.xml中：
 
-< managerimport file="com/chinacreator/spi/transaction/manager-transaction.xml" /> 
+< managerimport file="com/bboss/spi/transaction/manager-transaction.xml" /> 
 
 配置完毕后就可以使用业务组件了，声明式事务将作用于业务方法。 
 

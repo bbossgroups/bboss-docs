@@ -52,7 +52,7 @@
 
 ​              目前系统中提供了以下缺省拦截器：
 
-​                 数据库事务管理拦截器（com.chinacreator.spi.
+​                 数据库事务管理拦截器（com.bboss.spi.
 
 ​                 interceptor.TransactionInterceptor）,支持对声明式事务的管理
 

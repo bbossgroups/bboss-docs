@@ -69,7 +69,7 @@ org_xzqm,org_tree_level,isdirectlyparty,isforeignparty,isjichaparty,isdirectguan
 | 31               | 机构的行政区号        |                  |
 | 0\|1\|1\|1       | 机构所在的递归层次    | 特别在下面做说明 |
 
-没有默认值的，都是必填项。对于机构所在的递归层次，插入数据的时候可以填为空值，然后通过程序com.chinacreator.sysmgrcore.purviewmanager.db.OrgQuery.java中的方法
+没有默认值的，都是必填项。对于机构所在的递归层次，插入数据的时候可以填为空值，然后通过程序com.bboss.sysmgrcore.purviewmanager.db.OrgQuery.java中的方法
 
 updateOrg(“0”)来自动填充该层次值。
 

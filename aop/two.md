@@ -18,13 +18,13 @@ bboss aop提供两种方式的依赖注入：
 
 首先定义两个组件接口和组件实现
 
-​    组件com.chinacreator.spi.reference.A和组件接口com.chinacreator.spi.reference.AI
+​    组件com.bboss.spi.reference.A和组件接口com.bboss.spi.reference.AI
 
-​    组件com.chinacreator.spi.reference.B和组件接口com.chinacreator.spi.reference.BI
+​    组件com.bboss.spi.reference.B和组件接口com.bboss.spi.reference.BI
 
    组件A中引用了组件接口BI的一个引用，另外A还引用了一个普通的java对象
 
-com.chinacreator.spi.reference.Test的变量test。
+com.bboss.spi.reference.Test的变量test。
 
    我们通过bboss aop框架来管理组件A和组件B，并且通过属性注入的方式初始化A对BI的引用属性，初始化Test变量。
 
@@ -48,11 +48,11 @@ com.chinacreator.spi.reference.Test的变量test。
 ​                    class：实现类代码
 
 ​            -->
-​            < provider type="DB"class="com.chinacreator.spi.reference.A" />
+​            < provider type="DB"class="com.bboss.spi.reference.A" />
 
 ​            < reference fieldname="b" refid="b" />
 
-​            < reference fieldname="test" class="com.chinacreator.spi.reference.Test"/>               
+​            < reference fieldname="test" class="com.bboss.spi.reference.Test"/>               
 
 ​    </ manager >     
 
@@ -65,7 +65,7 @@ com.chinacreator.spi.reference.Test的变量test。
 ​                        type：代表数据存储的类型,例如DB，LDAP,ACTIVEDIRECTORY等等
 ​                        class：实现类代码
 ​                                        -->
-​                < provider type="DB"                         class="com.chinacreator.spi.reference.B" />
+​                < provider type="DB"                         class="com.bboss.spi.reference.B" />
 
 ​            </ manager> 
 
@@ -75,7 +75,7 @@ com.chinacreator.spi.reference.Test的变量test。
 
 ​        < managerimport file="manager-provider-reference.xml" />
 
-配置文件写好后就可以通过com.chinacreator.spi.BaseSPIManager组件来获取AI的实例对象了：
+配置文件写好后就可以通过com.bboss.spi.BaseSPIManager组件来获取AI的实例对象了：
 
 ​            try {
 
@@ -97,7 +97,7 @@ com.chinacreator.spi.reference.Test的变量test。
 
   附带几个类的定义：
 
-package com.chinacreator.spi.reference;
+package com.bboss.spi.reference;
 
 public class A implements AI{
 
@@ -130,7 +130,7 @@ public class A implements AI{
 }
 
 
-package com.chinacreator.spi.reference;
+package com.bboss.spi.reference;
 
 public interface AI {
 
@@ -144,7 +144,7 @@ public interface AI {
 
 }
 
-package com.chinacreator.spi.reference;
+package com.bboss.spi.reference;
 
 public class B  implements BI{
 
@@ -164,7 +164,7 @@ public class B  implements BI{
 
 }
 
-package com.chinacreator.spi.reference;
+package com.bboss.spi.reference;
 
 public interface BI {
 
@@ -174,7 +174,7 @@ public interface BI {
 
 }
 
-package com.chinacreator.spi.reference;
+package com.bboss.spi.reference;
 
 public class Test {
 

@@ -64,7 +64,7 @@ singlable="true" //单列模式
 
 < manager-config >   
 
-​    <managerimport file=*"com/chinacreator/spi/rpc/service-assemble.xml"* />
+​    <managerimport file=*"com/bboss/spi/rpc/service-assemble.xml"* />
 
 </ manager-config >
 
@@ -82,7 +82,7 @@ singlable="true" //单列模式
 
 </ properties >
 
-​    <managerimport file=*"com/chinacreator/spi/rpc/service-assemble.xml"* />
+​    <managerimport file=*"com/bboss/spi/rpc/service-assemble.xml"* />
 
 </ manager-config >
 
@@ -100,11 +100,11 @@ mcast_addr="228.10.10.178"
 
 ##### 客服端程序编写
 
-**package** com.chinacreator.spi.rpc;
+**package** com.bboss.spi.rpc;
 
-**import** com.chinacreator.spi.BaseSPIManager;
+**import** com.bboss.spi.BaseSPIManager;
 
-**import** com.chinacreator.spi.SPIException; 
+**import** com.bboss.spi.SPIException; 
 
 **public** **class** Test {
 
@@ -210,7 +210,7 @@ mcast_addr="228.10.10.178"
 
 ##### 启动服务器
 
-分别在每台服务器上运行类com.chinacreator.remote.RunAop的主方法，既可以启动服务器。
+分别在每台服务器上运行类com.bboss.remote.RunAop的主方法，既可以启动服务器。
 
 注意，客服端不要启动服务器。
 

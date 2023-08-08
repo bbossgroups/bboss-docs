@@ -39,7 +39,7 @@ jg-protocol-ids.xml文件名称改为bboss-protocol-ids.xml
 
 为了避免不必要的麻烦，jgroups.jar包名称暂时没有改，如果存在包名称冲突用户可根据实际情况进行修改名称（一般不需要修改）
 
-系统管理平台、应用支持平台、数据交换平台、请求服务平台等系统升级框架到3.5时需要注意，升级完毕后需要修改src-sys/com/chinacreator/remote/Utils.java文件中的以下引用路径：
+系统管理平台、应用支持平台、数据交换平台、请求服务平台等系统升级框架到3.5时需要注意，升级完毕后需要修改src-sys/com/bboss/remote/Utils.java文件中的以下引用路径：
 
 Java代码
 
