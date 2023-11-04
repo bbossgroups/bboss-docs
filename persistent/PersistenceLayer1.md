@@ -1,7 +1,7 @@
 ### 持久层快速入门系列一
 
 持久层快速入门
-先在应用中导入bboss 持久层：bboss persistent最新版本号6.1.1，以实际为准，查看[最新版本号](https://repo1.maven.org/maven2/com/bbossgroups/bboss-persistent/)
+先在应用中导入bboss 持久层：bboss persistent最新版本号6.1.2，以实际为准，查看[最新版本号](https://repo1.maven.org/maven2/com/bbossgroups/bboss-persistent/)
 
 **maven坐标**
 
@@ -11,7 +11,7 @@ Xml代码
 <dependency>   
     <groupId>com.bbossgroups</groupId>   
     <artifactId>bboss-persistent</artifactId>   
-    <version>6.1.1</version>   
+    <version>6.1.2</version>   
 </dependency> 
 ```
 
@@ -20,7 +20,7 @@ Xml代码
 Java代码
 
 ```java
-compile 'com.bbossgroups:bboss-persistent:6.1.1'  
+compile 'com.bbossgroups:bboss-persistent:6.1.2'  
 ```
 
 bboss持久层操作实例
