@@ -15,7 +15,7 @@ bboss微服务运行容器使用介绍，通过简单的配置文件，配置主
   Java代码
 
   ```java
-  group: 'com.bbossgroups', name: 'bboss-bootstrap-rt', version: "6.1.2",transitive: true 
+  group: 'com.bbossgroups', name: 'bboss-bootstrap-rt', version: "6.1.3",transitive: true 
   ```
 
   **maven坐标**
@@ -26,7 +26,7 @@ bboss微服务运行容器使用介绍，通过简单的配置文件，配置主
   <dependency>  
       <groupId>com.bbossgroups</groupId>  
       <artifactId>bboss-bootstrap-rt</artifactId>  
-      <version>6.1.2</version>  
+      <version>6.1.3</version>  
   </dependency>  
   ```
 
