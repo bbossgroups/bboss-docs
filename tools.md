@@ -1,6 +1,13 @@
 ### bboss自动代码生成工具使用指南
 
-#   **工具在线试用**
+#   **工具介绍**
+
+工具包含以下功能
+1.数据库管理 数据库快速查询，数据库管理，数据库连接池监控
+2.代码生成 代码自动生成工具
+3.数据库连接池监控 活动链接、连接池配置（最大连接数、最小连接数、空闲连接数等）、正在使用链接监控
+4.bboss mvc、ioc、持久层配置、Elasticsearch客户端配置等等SPI组件监控
+5.虚拟机内存使用情况监控，FreeMemory、TotalMemory、MaxMemory
 
 [http://gencode.bbossgroups.com](http://gencode.bbossgroups.com/)
 
@@ -19,11 +26,40 @@
 
   更多的介绍参考文档：
 
-http://www.iteye.com/news/31078-bboss-gencode
+
+**自动代码生成框架功能特点：**
+
+- 提供友好的基于bootstrap的表单配置界面
+- 提供源码打包下载功能
+- 提供基于eclipse的代码格式化功能
+- 可以依据自动生成的使用说明文件快速将代码集成部署到基于bboss或者bboss平台开发的项目中
+- 支持mysql、oracle、sqlites、sqlserver等主流数据库。
+- 支持自定义前端UI界面风格，可以根据需要定制自己需要的界面风格模板
+
+
+
+**自动代码生成框架下载地址：**
+[bboss-gencode v6.1.3](https://gitee.com/bboss/bboss-gencode/archive/refs/tags/v6.1.3.zip)
+
+**自动代码生成框架源码托管地址：**
+
+https://gitee.com/bboss/bboss-gencode
+
+https://github.com/bbossgroups/bboss-gencode
+
+**自动代码生成框架构建运行说明：**
+1.安装ant构建环境和jdk 1.7及以上版本
+2.运行工程根目录下的build.bat指令
+3.构建成功后：
+windows环境下运行distrib/run/startup.bat
+linux/unix/mac os环境下运行distrib/run/startup.sh
+
+即可启动自动代码生成框架应用，在浏览器端（支持谷歌或者火狐浏览器）访问以下地址，可以在打开的界面中配置数据源，配置表单，生成源代码并打包下载生成的源码文件，浏览源码部署集成说明：
+[http://localhost:80/gencode](http://localhost/gencode)
 
 下面介绍具体用法。  
 
-# **第一步 工具安装**
+# 1. 工具安装
 
 从bboss官网下载安装包：[下载](http://www.bbossgroups.com/tool/download.htm?fileName=gencode.zip)
 下安装包后直接解压，解压后的目录结构为：
@@ -34,16 +70,32 @@ http://www.iteye.com/news/31078-bboss-gencode
 然后在chrome或者火狐浏览器下访问地址：
 http://localhost/gencode
 
-## 1. 配置源码存放目录
+## 1.1 配置源码存放目录
 
-可以在web.xml和config.properties中配置生成的源码存放目录以及配置数据库sqlite的存放目录，如果两个文件中都配置了，则优先加载config.properties中的配置。
+可以在application.properties中配置生成的源码存放目录以及配置数据库sqlite的存放目录。
 
-### 在config.properties中配置
+### 在application.properties中配置
 
-如果需要定制一些配置，可以修改解压目录下的config.properties文件：
-config.properties内容如下：  
+如果需要定制一些配置，可以修改解压目录下的resources/application.properties文件：
+resources/application.properties内容如下：  
 
-![](images/bboss/f6c1cc43-926d-3120-a9d3-f14193767240.gif)
+```properties
+mainclass=org.frameworkset.gencode.web.service.JettyStart
+port=80
+context=gencode
+#extlibs=/WebRoot/WEB-INF/lib
+#extresources=/WebRoot/WEB-INF/classes
+
+sqlitepath=C:/gencode/gencodedb
+sourcepath=C:/gencode/sourcecode
+#在idea调试时，多工程下面，需要配置webappbase下面包含WebRoot目录，避免找不到WebRoot目录，发布环境下去掉不需要配置
+#webappbase=C:/workspace/bbossgroups/bboss-gencode/gencode-web-app
+#linux、unix下面的路径
+#sqlitepath=/app/data/gencode/gencodedb
+#sourcepath=/app/data/gencode/sourcecode
+#在idea调试时，多工程下面，需要配置webappbase下面包含WebRoot目录，避免找不到WebRoot目录，发布环境下去掉不需要配置
+#webappbase=/app/data/gencode/tempjspjava
+```
 
   修改启动的端口和应用上下文
 port=80
@@ -89,7 +141,7 @@ context=gencode
 </servlet>
 ```
 
-##   2. 从github下载源码构建安装
+##   1.2. 从github下载源码构建安装
 
 https://github.com/bbossgroups/bboss-gencode
 svn源码下载地址：
@@ -120,31 +172,29 @@ gencode-4.10.8.war
 ![](images/bboss/4883fc8d-4d5a-332f-976a-36e4261ab232.png)
 
 即可启动自动代码生成框架应用，在浏览器端（支持谷歌或者火狐浏览器）访问以下地址，可以在界面中配置数据源，配置表单，生成源代码并打包下载生成的源码文件，浏览源码部署集成说明：
+
+输入以下地址，打开工具主界面：
+
+http://localhost/gencode/monitor/monitor_console.jsp
+
+![image-20231210113359563](images\gen-main.png)
+
+如果看到以上界面说明安装成功，进入代码生成页面：
+
 http://localhost/gencode  
-如果看到以下界面说明安装成功：
+
 
 ![](images/bboss/520da9f5-93c8-3d21-b90d-5d9289d54332.gif)
 
-以上都是在内置的jetty容器中运行自动代码生成工具，如果需要在tomcat等容器中运行，则需要将构建生成的gencode.war包部署到tomcat中即可，但是需要修改war包中文件WEB-INF/web.xml的相关内容：
-Xml代码
+以上都是在内置的jetty容器中运行自动代码生成工具，如果需要在tomcat等容器中运行，则需要将构建生成的gencode.war包部署到tomcat中即可。
 
-```xml
-<init-param>  
-            <param-name>iocLifeCycleEventListenerParams</param-name>  
-            <!-- 指定sqlite数据库文件路径参数sqlitepath和源代码存放目录路径参数sourcepath  
-            sourcepath：如果没有设置sourcepath参数，那么需要在代码配置界面上或者代码生成组件上指定源码存放路径  
-             -->  
-            <param-value>sqlitepath=d:/gencodedb|sourcepath=d:/sourcecode</param-value>  
-        </init-param> 
-```
+# 2. 数据源管理
 
-  参数iocLifeCycleEventListenerParams中维护了sqlitepath（sqlite数据库文件路径）和sourcepath（代码存放路径）两个参数，根据自己本机的路径修改即可。
+为了能够对数据库中的表生成代码和进行数据库管理，需要配置相应的数据源,参考下图：  
 
-# **第二步 添加数据源**
+![image-20231210104725726](C:\workspace\bbossgroups\bboss-docs\images\dsmanager.png)
 
-为了能够对数据库中的表生成代码，需要配置相应的数据源,参考下图：  
-
-![](images/bboss/36b7eb2e-d1f9-3c52-9290-3156aa8bdac7.gif)
+## 2.1.数据源管理
 
   点击新增DS即可，然修改相关属性（注意数据源名称不能重复，不能使用gencode这个内置数据源名称）。
 典型的数据源配置参考：
@@ -158,7 +208,21 @@ mysql
 
 同时也可以修改和删除已有数据源。  
 
-# **第三步 选择数据库表并生成代码**
+## 2.2.数据源启动和停止
+
+数据源需要启动后才能使用源。
+
+启动
+
+![image-20231210112555962](images\datasource-start.png)
+
+停止
+
+![image-20231210113122231](C:\workspace\bbossgroups\bboss-docs\images\datasource-stop.png)
+
+# 3.自动生成代码工具
+
+## 3.1 选择数据库表并生成代码
 
 选择数据源：
 
@@ -171,7 +235,7 @@ mysql
   然后点击进入表单配置，即可
 如果需要重新加载数据源中的表结构，可以点击刷新表结构
 
-# **第四步 配置表单**
+## 3.2 配置表单
 
 选择好表并进入表单界面：  
 
@@ -183,7 +247,7 @@ mysql
 
 ![](images/bboss/36016012-5df4-3c96-8b03-471b4a50ce86.gif)
 
-##   **基本信息配置**
+###   **3.2.1基本信息配置**
 
 模块名称 指定模块英文名称
 模块中文名称 指定模块中文名称
@@ -209,13 +273,13 @@ excel版本号 设置excel导出功能，暂未实现
 
 指定DB操作数据源 可以设置服务组件中通用dao执行DB操作的数据源，不指定时在poolman中配置的第一个数据源上执行所有DB操作
 
-## **版权信息配置**
+### **3.2.2版权信息配置**
 
 作者
 公司
 版本号
 
-## **字段信息配置**
+### **3.2.3字段信息配置**
 
 字段信息配置可以指定每个字段的配置：
 java类型
@@ -244,13 +308,13 @@ java类型
 
 ![](images/bboss/27e7e0c4-8128-3b88-80bc-45c5261ea013.gif)
 
-# **代码配置历史记录管理**
+## **3.3 代码配置历史记录管理**
 
 
 
 ![](images/bboss/662e9dc7-352f-346e-ada0-85a189aad6d2.gif)
 
-# **在线浏览代码**
+## **3.4 在线浏览代码**
 
 ![](images/bboss/d6e92a33-b752-3aaa-a9eb-351408ef7bd1.gif)
 
@@ -258,3 +322,37 @@ java类型
 
 ![](images/bboss/ceaac884-49e8-35ce-916f-7ec987bf01e4.gif)
 
+
+
+## 3.5 表单配置界面效果
+
+![点击查看原始大小图片](images\gencode-form5.gif)
+
+![点击查看原始大小图片](images\gencode-form6.gif)
+
+![点击查看原始大小图片](images\gencode-deploy.gif)
+
+![点击查看原始大小图片](images\gencode-form7.gif)
+![点击查看原始大小图片](images\gencode-formconf.gif)
+
+![点击查看原始大小图片](images\gencode-form3.gif)
+
+![点击查看原始大小图片](images\gencode-form2.gif)
+
+![点击查看原始大小图片](images\gencode-form1.gif)
+
+![点击查看原始大小图片](images\gencode-form0.gif)
+
+**自动生成的代码和配置文件片段：**
+
+![点击查看原始大小图片](images\gencode-simpl.gif)
+
+![点击查看原始大小图片](images\gencode-sql.gif)
+
+![点击查看原始大小图片](images\gencode-service.gif)
+
+![点击查看原始大小图片](\images\gencode-ioc.gif)
+
+![点击查看原始大小图片](images\gencode-0.gif)
+
+数据库管理
