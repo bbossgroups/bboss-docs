@@ -1,61 +1,27 @@
-### bboss自动代码生成工具使用指南
 
 #   **工具介绍**
 
 工具包含以下功能
-1.数据库管理 数据库快速查询，数据库管理，数据库连接池监控
-2.代码生成 代码自动生成工具
-3.数据库连接池监控 活动链接、连接池配置（最大连接数、最小连接数、空闲连接数等）、正在使用链接监控
-4.bboss mvc、ioc、持久层配置、Elasticsearch客户端配置等等SPI组件监控
-5.虚拟机内存使用情况监控，FreeMemory、TotalMemory、MaxMemory
 
-[http://gencode.bbossgroups.com](http://gencode.bbossgroups.com/)
+1. 数据库管理 数据库快速查询，数据库管理，数据库连接池监控
 
-在介绍之前首先了解一下bboss自动代码生成工具能帮助我们做哪些事情。
-通过自动代码生成框架，根据模板可以自动生成数据库表的增、删、改、分页查询、列表查询、国际化功能对应的java、jsp程序和配置文件，包括：
-1.mvc控制器
-2.业务组件
-3.PO实体类
-4.jsp文件 可以定制不同风格的界面模板，目前提供了一套bboss平台的基础ui风格和一套bboss普通ui风格模板
-5.cxf webservice服务类文件
-6.hessian服务类文件
-7.sql配置文件
-8.ioc/mvc组件装配部署和服务发布配置文件.
-9.国际化属性文件和国际化配置
-10.代码和配置文件集成配置部署readme说明文件  
+2. 代码生成 代码自动生成工具
 
-  更多的介绍参考文档：
-
-
-**自动代码生成框架功能特点：**
-
-- 提供友好的基于bootstrap的表单配置界面
-- 提供源码打包下载功能
-- 提供基于eclipse的代码格式化功能
-- 可以依据自动生成的使用说明文件快速将代码集成部署到基于bboss或者bboss平台开发的项目中
-- 支持mysql、oracle、sqlites、sqlserver等主流数据库。
-- 支持自定义前端UI界面风格，可以根据需要定制自己需要的界面风格模板
+3. 数据库连接池监控 活动链接、连接池配置（最大连接数、最小连接数、空闲连接数等）、正在使用链接监控
+4. bboss mvc、ioc、持久层配置、Elasticsearch客户端配置等等SPI组件监控
+5. 虚拟机内存使用情况监控，FreeMemory、TotalMemory、MaxMemory
 
 
 
-**自动代码生成框架下载地址：**
+**工具下载地址：**
+
 [bboss-gencode v6.1.3](https://gitee.com/bboss/bboss-gencode/archive/refs/tags/v6.1.3.zip)
 
-**自动代码生成框架源码托管地址：**
+工具源码地址
 
 https://gitee.com/bboss/bboss-gencode
 
 https://github.com/bbossgroups/bboss-gencode
-
-**自动代码生成框架构建运行说明：**
-1.安装ant构建环境和jdk 1.7及以上版本
-2.运行工程根目录下的build.bat指令
-3.构建成功后：
-windows环境下运行distrib/run/startup.bat
-linux/unix/mac os环境下运行distrib/run/startup.sh
-
-即可启动自动代码生成框架应用，在浏览器端（支持谷歌或者火狐浏览器）访问以下地址，可以在打开的界面中配置数据源，配置表单，生成源代码并打包下载生成的源码文件，浏览源码部署集成说明：
-[http://localhost:80/gencode](http://localhost/gencode)
 
 下面介绍具体用法。  
 
@@ -70,13 +36,71 @@ linux/unix/mac os环境下运行distrib/run/startup.sh
 然后在chrome或者火狐浏览器下访问地址：
 http://localhost/gencode
 
-## 1.1 配置源码存放目录
 
-可以在application.properties中配置生成的源码存放目录以及配置数据库sqlite的存放目录。
 
-### 在application.properties中配置
+##   1.1.从github下载源码构建安装
 
-如果需要定制一些配置，可以修改解压目录下的resources/application.properties文件：
+https://gitee.com/bboss/bboss-gencode
+
+https://github.com/bbossgroups/bboss-gencode
+
+
+源码下载完毕，解压到目录d:/bboss-gencode(指定自己的目录即可)，采用gradle进行构建：
+
+1.参考以下文档安装gradle并将gradle设置到环境变量
+
+构建参考文档：https://esdoc.bbossgroups.com/#/bboss-build
+
+2.在命令行执行
+
+cd d:/bboss-gencode
+
+以war包方式发布版本（可以部署到tomcat等容器中运行工具），则执行指令：
+
+gradle :gencode-web-app:releaseRuntimeWar
+
+以zip包方式发布版本（内置jetty容器，解压zip包，linux/mac/unix等环境运行startup.sh,windows环境运行里面的startup.bat即可），则执行指令：
+
+gradle :gencode-web-app:releaseRuntimeZip
+
+3.构建成功后(gradle :gencode-web-app:releaseRuntimeZip)：
+
+windows环境下运行d:/bboss-gencode/gencode-web-app/build/dist/gencode/startup.bat
+
+linux/unix/mac os环境下运行startup.sh
+
+同时在d:/bboss-gencode/gencode-web-app/build/distributions会发布出一个带jetty容器独立运行的zip包和可
+
+以部署到tomcat的war包：
+
+gencode-xxxx.zip
+
+gencode-xxxx.war
+
+xxxx是版本号，以最新实际版本为准。  
+
+![](images/bboss/4883fc8d-4d5a-332f-976a-36e4261ab232.png)
+
+启动工具应用，在浏览器端（支持谷歌或者火狐浏览器）访问以下地址，可以在界面中配置数据源，配置表单，生成源代码并打包下载生成的源码文件，浏览源码部署集成说明：
+
+输入以下地址，打开工具主界面：
+
+http://localhost/gencode/monitor/monitor_console.jsp
+
+![image-20231210113359563](images\gen-main.png)
+
+如果看到以上界面说明安装成功，进入代码生成页面：
+
+http://localhost/gencode  
+
+
+![](images/bboss/520da9f5-93c8-3d21-b90d-5d9289d54332.gif)
+
+以上都是在内置的jetty容器中运行自动代码生成工具，如果需要在tomcat等容器中运行，则需要将构建生成的gencode.war包部署到tomcat中即可。
+
+## 1.2 配置工具
+
+可以在application.properties中配置生成的源码存放目录以及配置数据库sqlite的存放目录。如果需要定制一些配置，可以修改解压目录下的resources/application.properties文件：
 resources/application.properties内容如下：  
 
 ```properties
@@ -107,104 +131,56 @@ context=gencode
 如果需要修改存放表单配置的sqlite数据库的路径（不设置的话默认为运行目录），就打开配置属性sqlitepath并修改：
 \#sqlitepath=d:/gencodedb  
 
-### 在web.xml中配置
-
-修改下面的iocLifeCycleEventListenerParams即可：sqlitepath=/opt/gencodedb|sourcepath=/opt/sourcecode
-
-```xml
-<servlet>
-   <servlet-name>mvcdispather</servlet-name>
-   <servlet-class>org.frameworkset.web.servlet.DispatchServlet</servlet-class>
-   <init-param>
-      <param-name>contextConfigLocation</param-name>
-      <!--如果有多个目录需要加载，请用,号分隔-->
-      <param-value>/WEB-INF/conf/bboss-*.xml,/WEB-INF/conf/gencode/bboss-*.xml</param-value>
-   </init-param>
-   <init-param>
-      <param-name>messagesources</param-name>
-      <param-value>/WEB-INF/conf/gencode/messages_gencode</param-value>
-</init-param> 
-<init-param>
-      <param-name>iocLifeCycleEventListeners</param-name>
-      <param-value>org.frameworkset.gencode.web.GencodeIocLifeCycleEventListener</param-value>
-   </init-param>
-   <init-param>
-      <param-name>iocLifeCycleEventListenerParams</param-name>
-      <!-- 指定sqlite数据库文件路径参数sqlitepath和源代码存放目录路径参数sourcepath
-      sourcepath：如果没有设置sourcepath参数，那么需要在代码配置界面上或者代码生成组件上指定源码存放路径
-      linux:sqlitepath=/opt/gencodedb|sourcepath=/opt/sourcecode
-      windows:sqlitepath=d:/gencodedb|sourcepath=d:/sourcecode
-       -->
-      <param-value>sqlitepath=/opt/gencodedb|sourcepath=/opt/sourcecode</param-value>
-   </init-param>
-   <load-on-startup>0</load-on-startup>
-</servlet>
-```
-
-##   1.2. 从github下载源码构建安装
-
-https://github.com/bbossgroups/bboss-gencode
-svn源码下载地址：
-https://github.com/bbossgroups/bboss-gencode/trunk
-源码下载完毕，解压到目录d:/bboss-gencode(指定自己的目录即可)，采用gradle进行构建：
-1.安装[gradle](https://docs.gradle.org/current/userguide/userguide_single.html#installation) 并将gradle设置到环境变量
-2.在命令行执行
-cd d:/bboss-gencode
-
-以war包方式发布版本（可以部署到tomcat等容器中运行工具），则执行指令：
-
-gradle :gencode-web-app:releaseRuntimeWar
-
-以zip包方式发布版本（内置jetty容器，解压zip包，linux/mac/unix等环节运行startup.sh,windows环境运行里面的startup.bat即可），则执行指令：
-
-gradle :gencode-web-app:releaseRuntimeZip
-
-3.构建成功后(gradle :gencode-web-app:releaseRuntimeZip)：
-windows环境下运行d:/bboss-gencode/gencode-web-app/build/dist/gencode/startup.bat
-linux/unix/mac os环境下运行startup.sh
-
-同时在d:/bboss-gencode/gencode-web-app/build/distributions会发布出一个带jetty容器独立运行的zip包和可以部署到tomcat的war包：
-gencode-4.10.8.zip
-gencode-4.10.8.war
-
-4.10.8是版本号，会根据版本变动。  
-
-![](images/bboss/4883fc8d-4d5a-332f-976a-36e4261ab232.png)
-
-即可启动自动代码生成框架应用，在浏览器端（支持谷歌或者火狐浏览器）访问以下地址，可以在界面中配置数据源，配置表单，生成源代码并打包下载生成的源码文件，浏览源码部署集成说明：
-
-输入以下地址，打开工具主界面：
-
-http://localhost/gencode/monitor/monitor_console.jsp
-
-![image-20231210113359563](images\gen-main.png)
-
-如果看到以上界面说明安装成功，进入代码生成页面：
-
-http://localhost/gencode  
-
-
-![](images/bboss/520da9f5-93c8-3d21-b90d-5d9289d54332.gif)
-
-以上都是在内置的jetty容器中运行自动代码生成工具，如果需要在tomcat等容器中运行，则需要将构建生成的gencode.war包部署到tomcat中即可。
-
 # 2. 数据源管理
 
 为了能够对数据库中的表生成代码和进行数据库管理，需要配置相应的数据源,参考下图：  
 
-![image-20231210104725726](C:\workspace\bbossgroups\bboss-docs\images\dsmanager.png)
+![image-20231210104725726](images\dsmanager.png)
 
 ## 2.1.数据源管理
 
   点击新增DS即可，然修改相关属性（注意数据源名称不能重复，不能使用gencode这个内置数据源名称）。
 典型的数据源配置参考：
+
 oradle
+
 数据源驱动: oracle.jdbc.driver.OracleDriver
-数据源地址：jdbc:oracle:thin:@202.197.40.177:1521:ora177
+
+数据源地址：
+
+```properties
+jdbc:oracle:thin:@2.197.40.177:1521:ora177
+```
 
 mysql
-数据源驱动: com.mysql.jdbc.Driver
-数据源地址：jdbc:mysql://localhost:3306/myproject?useUnicode=true&characterEncoding=utf-8
+
+数据源驱动: com.mysql.cj.jdbc.Driver
+
+数据源地址：
+
+```properties
+jdbc:mysql://localhost:3306/myproject?useUnicode=true&characterEncoding=utf-8
+```
+
+postgresql
+
+驱动：org.postgresql.Driver
+
+数据源地址：
+
+```properties
+jdbc:postgresql://101.13.66.127:17700/bboss?currentSchema=bboss
+```
+
+clickhouse
+
+驱动：com.github.housepower.jdbc.ClickHouseDriver
+
+数据源地址
+
+```properties
+jdbc:clickhouse://10.13.6.4:29000,10.13.6.7:29000,10.13.6.6:29000/bboss
+```
 
 同时也可以修改和删除已有数据源。  
 
@@ -218,9 +194,35 @@ mysql
 
 停止
 
-![image-20231210113122231](C:\workspace\bbossgroups\bboss-docs\images\datasource-stop.png)
+![image-20231210113122231](images\datasource-stop.png)
 
 # 3.自动生成代码工具
+
+在介绍之前首先了解一下bboss自动代码生成工具能帮助我们做哪些事情。
+
+通过自动代码生成框架，根据模板可以自动生成数据库表的增、删、改、分页查询、列表查询、国际化功能对应的java、jsp程序和配置文件，包括：
+
+1. mvc控制器
+2. 业务组件
+3. PO实体类
+4. jsp文件 可以定制不同风格的界面模板，目前提供了一套bboss平台的基础ui风格和一套bboss普通ui风格模板
+5. cxf webservice服务类文件
+6. hessian服务类文件
+7. sql配置文件
+8. ioc/mvc组件装配部署和服务发布配置文件.
+9. 国际化属性文件和国际化配置
+10. 代码和配置文件集成配置部署readme说明文件  
+
+**自动代码生成框架功能特点：**
+
+- 提供友好的基于bootstrap的表单配置界面
+- 提供源码打包下载功能
+- 提供基于eclipse的代码格式化功能
+- 可以依据自动生成的使用说明文件快速将代码集成部署到基于bboss或者bboss平台开发的项目中
+- 支持mysql、oracle、sqlites、sqlserver等主流数据库。
+- 支持自定义前端UI界面风格，可以根据需要定制自己需要的界面风格模板
+
+
 
 ## 3.1 选择数据库表并生成代码
 
@@ -355,4 +357,38 @@ java类型
 
 ![点击查看原始大小图片](images\gencode-0.gif)
 
-数据库管理
+# 4.数据库管理工具
+
+## 4.1快速查询
+
+![image-20231211153458224](images\datasource\quickquery.png)
+
+选择数据源
+
+选择表
+
+设置记录数
+
+设置查询条件
+
+## 4.2 数据库管理
+
+![image-20231211154214224](images\datasource\dm.png)
+
+可以选择数据源，执行各种类型sql：查询、修改、删除、插入以及建表、删表、建库等等
+
+
+
+## 4.3 连接池监控
+
+![image-20231211154453711](images\datasource\pm.png)
+
+可以查看所有已经启动的数据源情况
+
+数据源详情
+
+![image-20231211154609239](images\datasource\dmdetail.png)
+
+实时链接信息
+
+![image-20231211154748190](images\datasource\connections.png)

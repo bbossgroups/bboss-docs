@@ -8,7 +8,7 @@
 - [bboss持久层操作hive实例](hive.md)
 - [FileContentCache介绍](FileContentCache.md)
 - [gradle导入eclipse](eclipse.md)
-- [bboss自动代码生成工具使用指南](tools.md)
+- [bboss监控管理工具使用指南](tools.md)
 - [bboss应用程序运行容器使用介绍](container.md)
 - [bboss框架配置监控介绍](control.md)
 - [bboss热部署应用资源销毁监听器ApplicationLifeListener使用说明](monitor.md)
