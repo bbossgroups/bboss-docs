@@ -15,7 +15,7 @@
 
 **工具下载地址：**
 
-[bboss-gencode v6.1.5](https://gitee.com/bboss/bboss-gencode/archive/refs/tags/v6.1.5.zip)
+[bboss-gencode v6.1.5](https://doc.bbossgroups.com/files/gencode.zip)
 
 工具源码地址
 
@@ -27,7 +27,7 @@ https://github.com/bbossgroups/bboss-gencode
 
 # 1. 工具安装
 
-从bboss官网下载安装包：[下载](http://www.bbossgroups.com/tool/download.htm?fileName=gencode.zip)
+从bboss官网下载安装包：[下载](https://doc.bbossgroups.com/files/gencode.zip)
 下安装包后直接解压，解压后的目录结构为：
 
 ![](images/bboss/82c791eb-376b-3d10-b8fa-15e383c3aead.gif)
