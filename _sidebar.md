@@ -96,6 +96,7 @@
   - [ModelAndView使用方法-一个关于校验码生成的bbossmvc restful示例1](mvc/example.md)
 - 持久层
   - [bboss高性能db批处理功能使用方法](persistent/db.md)
+  - [Clickhouse客户端负载均衡和容灾功能使用介绍](persistent/datasource-cluster.md)
   - [bboss 持久层公共sql片段定义和引用方法](persistent/sql.md)
   - [最新版本mysql jdbc驱动包获取表定义信息异常处理方法](persistent/jdbc.md)
   - [持久层入门1](persistent/PersistenceLayer1.md)
