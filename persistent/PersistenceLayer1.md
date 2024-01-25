@@ -1,6 +1,6 @@
-### 持久层快速入门系列一
+# 持久层快速入门系列一
 
-持久层快速入门
+# 1.导入bboss
 先在应用中导入bboss 持久层：bboss persistent最新版本号6.1.5，以实际为准，查看[最新版本号](https://repo1.maven.org/maven2/com/bbossgroups/bboss-persistent/)
 
 **maven坐标**
@@ -23,9 +23,11 @@ Java代码
 compile 'com.bbossgroups:bboss-persistent:6.1.5'  
 ```
 
-bboss持久层操作实例
+# 2.bboss持久层操作实例
 
-**启动数据源，dbname为test**
+## 2.1 启动数据源
+
+启动数据源，dbname为test
 
 Java代码
 
@@ -39,7 +41,10 @@ try{
                 );  
 ```
 
-**在数据源上执行查询，dbname为test：**       
+## 2.2 在数据源上执行查询
+
+在数据源上执行查询，dbname为test：
+
 Java代码 
 
 ```java
@@ -53,7 +58,7 @@ List<HashMap> datas = SQLExecutor.queryListWithDBName(HashMap.class,"test", "sel
         }  
 ```
 
-一个简单的加载sql配置文件的dao实例：
+## 2.3 一个简单的加载sql配置文件的dao实例
 
 sql配置文件，文件必须在classes路径下：com/test/sql/test.xml
 
@@ -69,7 +74,7 @@ Xml代码
 </properties> 
 ```
 
-创建一个加载配置文件的通用dao：
+## 2.4 创建一个加载配置文件的通用dao：
 Java代码
 
 ```java
@@ -102,7 +107,9 @@ List<HashMap> datas = dao.queryList(HashMap.class, "tdSmUserJobOrgSelect");
 
 **注意：sql配置文件中的sql语句支持热加载，在线修改实时生效，对于开发和调试非常方便**
 
+# 3.获取bboss持久层连接池信息
 动态获取bboss持久层配置的所以连志池的名称和配置信息：
+
 Java代码 
 
 ```java
@@ -117,7 +124,13 @@ import com.frameworkset.common.poolman.DBUtil;
 }  
 ```
 
+# 4.设置sql配置文件保存文件目录
+默认情况下sql配置文件都在classes path目录下面，如果想将sql保存到外部文件目录，则可以通过全局方法指定sql文件存放目录：
+```java
+String sqlMappingDir = "d:/sqlconf";
+PoolManConfiguration.setSqlMappingDir(sqlMappingDir);
 
+```
 更多bboss 持久层文档，请参考：http://yin-bp.iteye.com/blog/2181720
 
 
