@@ -333,7 +333,7 @@ include.files=xxx.properties,dd.properties,cc.properties
 
 ```properties
 app.id=db-elasticsearch-xxljob
-apollo.meta=http://10.13.11.7:8080
+apollo.meta=http://10.103.11.7:8080
 ```
 
 直接通过PropertiesContainer加载apollo配置：
