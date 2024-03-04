@@ -226,7 +226,12 @@ MongoCollection<Document> dbcollectoin  = MongoDBHelper.getDBCollection("testmg1
 
 ## 5.高阶应用
 
-bboss家族中有部分模块基于bboss MongoDB组件来实现MongoDB操作，例如：
+MongoDB组件高阶应用：
 
 1. bboss etl及流批一体化计算引擎[MongoDB输入插件](https://esdoc.bbossgroups.com/#/datatran-plugins?id=_17-mongodb%e9%87%87%e9%9b%86%e6%8f%92%e4%bb%b6)
 2. bboss etl及流批一体化计算引擎[MongoDB输出插件](https://esdoc.bbossgroups.com/#/datatran-plugins?id=_28-mongodb%e8%be%93%e5%87%ba%e6%8f%92%e4%bb%b6)
+3. bboss etl及流批一体化计算引擎[MongoDB CDC插件](https://esdoc.bbossgroups.com/#/datatran-plugins?id=_18-mongodb-cdc%e6%8f%92%e4%bb%b6)
+
+本文涉及案例源码下载地址
+
+https://gitee.com/bboss/bestpractice/tree/master/testmongo
