@@ -130,7 +130,7 @@ maven
 </dependency> 
 ```
 
-**BBOSS_VERSION**对应bboss的版本号，最新版本为**6.1.6**，可以到maven中央库获取最新的版本
+**BBOSS_VERSION**对应bboss的版本号，最新版本为**6.1.7**，可以到maven中央库获取最新的版本
 
 https://central.sonatype.com/artifact/com.bbossgroups/bboss-persistent
 
