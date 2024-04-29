@@ -1,12 +1,13 @@
 # Clickhouse客户端负载均衡和容灾功能使用介绍
 
- 本文讲解如何基于bboss和Clickhouse native jdbc实现Clickhouse客户端负载均衡和容灾功能，主要内容如下：
+ 本文讲解如何基于bboss和Clickhouse native jdbc（第三方，基于tcp端口）、Clickhouse jdbc（官方，基于http端口）实现Clickhouse客户端负载均衡和容灾功能，主要内容如下：
 
 1. Clickhouse native jdbc介绍
 2. 基于Clickhouse native jdbc实现负载均衡和灾备功能
 3. 应用案例
+4. Clickhouse jdbc使用介绍
 
-现就上面三个点进行讲解。
+
 
 ## 1.Clickhouse native java介绍
 
@@ -272,11 +273,86 @@ https://gitee.com/bboss/bboss-datatran-demo/blob/main/src/main/java/org/framewor
 jdbc:clickhouse://101.13.6.4:29000,101.13.6.7:29000,101.13.6.6:29000/visualops?b.balance=roundbin&b.enableBalance=true
 ```
 
-## 3.3 在bboss持久层中使用
+### 3.3 在bboss持久层中使用
 
 ```java
 	//操作Clickhouse
         List<Map> datas = SQLExecutor.queryList(Map.class,"select * from testtable");
+        System.out.println(SimpleStringUtil.object2json(datas));
+
+        datas = SQLExecutor.queryList(Map.class,"show tables");
+        System.out.println(SimpleStringUtil.object2json(datas));
+
+        datas = SQLExecutor.queryList(Map.class,"show tables");
+        System.out.println(SimpleStringUtil.object2json(datas));
+```
+
+# 4.Clickhouse jdbc使用
+
+官方驱动Clickhouse jdbc基于http/https协议端口连接Clickhouse，支持负载均衡和容灾功能，jdbc url实例如下：
+
+jdbc:ch://(http://10.13.6.4:28123),(http://10.13.6.7:28123),(http://10.13.6.6:28123)/visualops?failover=1&load_balancing_policy=random
+
+## 4.1 导入驱动
+
+gradle
+
+```groovy
+ api 'com.clickhouse:clickhouse-jdbc:0.5.0:http'
+    api (
+            [group: 'org.apache.httpcomponents.client5', name: 'httpclient5', version: "5.4-alpha2", transitive: true]
+    )
+    {
+        exclude group: 'org.apache.httpcomponents.core5', module: 'httpcore5'
+        exclude group: 'org.slf4j', module: 'slf4j-api'
+    }
+//            <dependency>
+//            <groupId>org.apache.httpcomponents.client5</groupId>
+//            <artifactId>httpclient5</artifactId>
+//    <exclusions>
+//            <exclusion>
+//            <groupId>org.apache.httpcomponents.core5</groupId>
+//                    <artifactId>httpcore5</artifactId>
+//            </exclusion>
+//                <exclusion>
+//                    <groupId>org.slf4j</groupId>
+//    <artifactId>slf4j-api</artifactId>
+//                </exclusion>
+//            </exclusions>
+//            <optional>true</optional>
+//    </dependency>
+    api 'org.apache.httpcomponents.core5:httpcore5:5.3-alpha2'
+```
+
+## 4.1 启动数据源及访问Clickhouse实例
+
+```java
+   DBConf tempConf = new DBConf();
+        tempConf.setPoolname("test");
+        tempConf.setDriver("com.clickhouse.jdbc.ClickHouseDriver");
+        //在url中指定启用负载均衡机制以及负载均衡算法，默认具备ClickHouseDriver的灾备功能
+        tempConf.setJdbcurl( "jdbc:ch://(http://10.13.6.4:28123),(http://10.13.6.7:28123),(http://10.13.6.6:28123)/visualops?failover=1&load_balancing_policy=random");
+        tempConf.setUsername("default");
+        tempConf.setPassword(null);
+        tempConf.setValidationQuery("select 1 ");
+        //tempConf.setTxIsolationLevel("READ_COMMITTED");
+        tempConf.setJndiName("jndi-test");
+        PropertiesContainer propertiesContainer = PropertiesUtil.getPropertiesContainer();
+        int initialConnections = propertiesContainer.getIntProperty("initialConnections",5);
+        tempConf.setInitialConnections(initialConnections);
+        int minimumSize = propertiesContainer.getIntProperty("minimumSize",5);
+        tempConf.setMinimumSize(minimumSize);
+        int maximumSize = propertiesContainer.getIntProperty("maximumSize",10);
+        tempConf.setMaximumSize(maximumSize);
+        tempConf.setUsepool(true);
+        tempConf.setExternal(false);
+        tempConf.setEncryptdbinfo(false);
+        boolean showsql = propertiesContainer.getBooleanProperty("showsql",true);
+        tempConf.setShowsql(showsql);
+        tempConf.setQueryfetchsize(null);    
+        SQLManager.startPool(tempConf);
+		//操作Clickhouse
+        List<Map> datas = SQLExecutor.queryList(Map.class,"show tables");
         System.out.println(SimpleStringUtil.object2json(datas));
 
         datas = SQLExecutor.queryList(Map.class,"show tables");
