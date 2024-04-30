@@ -231,7 +231,7 @@ https://gitee.com/bboss/bestpractice/blob/master/persistent/src/com/frameworkset
 DBInputConfig dbInputConfig = new DBInputConfig();
     dbInputConfig.setDbName("source")
         .setDbDriver("com.github.housepower.jdbc.ClickHouseDriver") //数据库驱动程序，必须导入相关数据库的驱动jar包
-                .setDbUrl("jdbc:clickhouse://101.13.6.4:29000,101.13.6.7:29000,101.13.6.6:29000/visualops") // jdbc_port = 29000
+                .setDbUrl("jdbc:clickhouse://101.13.6.4:29000,101.13.6.7:29000,101.13.6.6:29000/bboss") // jdbc_port = 29000
                 .setDbUser("default")
                 .setDbPassword("")
                 .setBalance(DBConf.BALANCE_RANDOM)//指定负载均衡算法
@@ -249,7 +249,7 @@ DBInputConfig dbInputConfig = new DBInputConfig();
 DBOutputConfig dbOutputConfig = new DBOutputConfig();
     dbOutputConfig.setDbName("target")
         .setDbDriver("com.github.housepower.jdbc.ClickHouseDriver") //数据库驱动程序，必须导入相关数据库的驱动jar包
-        .setDbUrl("jdbc:clickhouse://101.13.6.4:29000,101.13.6.7:29000,101.13.6.6:29000/visualops") // jdbc_port = 29000
+        .setDbUrl("jdbc:clickhouse://101.13.6.4:29000,101.13.6.7:29000,101.13.6.6:29000/bboss") // jdbc_port = 29000
         .setDbUser("default")
         .setDbPassword("")
         .setValidateSQL("select 1")
@@ -270,7 +270,7 @@ https://gitee.com/bboss/bboss-datatran-demo/blob/main/src/main/java/org/framewor
 也可以在jdbc url地址后面增加b.balance和b.enableBalance参数来设置和启用负载均衡和灾备机制：
 
 ```shell
-jdbc:clickhouse://101.13.6.4:29000,101.13.6.7:29000,101.13.6.6:29000/visualops?b.balance=roundbin&b.enableBalance=true
+jdbc:clickhouse://101.13.6.4:29000,101.13.6.7:29000,101.13.6.6:29000/bboss?b.balance=roundbin&b.enableBalance=true
 ```
 
 ### 3.3 在bboss持久层中使用
@@ -291,7 +291,7 @@ jdbc:clickhouse://101.13.6.4:29000,101.13.6.7:29000,101.13.6.6:29000/visualops?b
 
 官方驱动Clickhouse jdbc基于http/https协议端口连接Clickhouse，支持负载均衡和容灾功能，jdbc url实例如下：
 
-jdbc:ch://(http://10.13.6.4:28123),(http://10.13.6.7:28123),(http://10.13.6.6:28123)/visualops?failover=1&load_balancing_policy=random
+jdbc:ch://(http://101.13.6.4:28123),(http://101.13.6.7:28123),(http://101.13.6.6:28123)/bboss?failover=1&load_balancing_policy=random
 
 ## 4.1 导入驱动
 
@@ -331,7 +331,7 @@ gradle
         tempConf.setPoolname("test");
         tempConf.setDriver("com.clickhouse.jdbc.ClickHouseDriver");
         //在url中指定启用负载均衡机制以及负载均衡算法，默认具备ClickHouseDriver的灾备功能
-        tempConf.setJdbcurl( "jdbc:ch://(http://10.13.6.4:28123),(http://10.13.6.7:28123),(http://10.13.6.6:28123)/visualops?failover=1&load_balancing_policy=random");
+        tempConf.setJdbcurl( "jdbc:ch://(http://101.13.6.4:28123),(http://101.13.6.7:28123),(http://101.13.6.6:28123)/bboss?failover=1&load_balancing_policy=random");
         tempConf.setUsername("default");
         tempConf.setPassword(null);
         tempConf.setValidationQuery("select 1 ");
