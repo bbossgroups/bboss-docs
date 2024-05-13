@@ -11,7 +11,7 @@ Xml代码
 <dependency>  
     <groupId>com.bbossgroups.plugins</groupId>  
     <artifactId>bboss-plugin-log4j</artifactId>  
-    <version>6.2.7</version>  
+    <version>6.2.8</version>  
 </dependency>
 ```
 
@@ -19,7 +19,7 @@ gradle坐标
 Java代码
 
 ```java
-compile 'com.bbossgroups.plugins:bboss-plugin-log4j:6.2.7'  
+compile 'com.bbossgroups.plugins:bboss-plugin-log4j:6.2.8'  
 ```
 
 在log4j.xml文件中配置扩展插件NormalRollingFileAppender
