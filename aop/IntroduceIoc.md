@@ -11,13 +11,13 @@ Xml代码
 <dependency>  
     <groupId>com.bbossgroups</groupId>  
     <artifactId>bboss-core</artifactId>  
-    <version>6.1.8</version>  
+    <version>6.1.9</version>  
 </dependency>  
 ```
 
   **gradle坐标：**
 
-compile group: 'com.bbossgroups', name: 'bboss-core', version: '6.1.8'
+compile group: 'com.bbossgroups', name: 'bboss-core', version: '6.1.9'
 
 
 
