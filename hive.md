@@ -10,7 +10,7 @@ dependency
 
 artifactId   bboss-persistent   /artifactId  
 
-version  6.1.9  /version  /dependency   dependency  
+version  6.2.0  /version  /dependency   dependency  
 
 groupId   org.apache.hive  /groupId 
 
