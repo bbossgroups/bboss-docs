@@ -7,11 +7,11 @@ bboss持久层在v5.0.3.5中新增简单的高效的db批处理功能，本文�
 <dependency>
     <groupId>com.bbossgroups</groupId>
     <artifactId>bboss-persistent</artifactId>
-    <version>6.2.0</version>
+    <version>6.2.1</version>
 </dependency>
 
 **gradle坐标**
-compile 'com.bbossgroups:bboss-persistent:6.2.0'
+compile 'com.bbossgroups:bboss-persistent:6.2.1'
 
 **轻量级批处理方法**
 
