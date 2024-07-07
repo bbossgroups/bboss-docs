@@ -11,13 +11,13 @@ Xml代码
 <dependency>  
     <groupId>com.bbossgroups</groupId>  
     <artifactId>bboss-core</artifactId>  
-    <version>6.2.1</version>  
+    <version>6.2.2</version>  
 </dependency>  
 ```
 
   **gradle坐标：**
 
-compile group: 'com.bbossgroups', name: 'bboss-core', version: '6.2.1'
+compile group: 'com.bbossgroups', name: 'bboss-core', version: '6.2.2'
 
 
 
@@ -325,7 +325,7 @@ include.files=xxx.properties,dd.properties,cc.properties
  <dependency>
             <groupId>com.bbossgroups.plugins</groupId>
             <artifactId>bboss-plugin-apollo</artifactId>
-            <version>6.2.8</version>
+            <version>6.3.0</version>
         </dependency>
 ```
 
