@@ -15,7 +15,7 @@ FileContentCache采用方式三对文件内容进行缓存，同时提供了对�
 
 **bboss文件缓存组件FileContentCache使用**
 
-bboss文件缓存组件FileContentCache使用非常简单，直接看[示例](https://github.com/bbossgroups/bboss/blob/master/bboss-util/test/org/frameworkset/util/FileContentCacheTest.java)代码:
+bboss文件缓存组件FileContentCache使用非常简单，直接看[示例](https://gitee.com/bboss/bboss/tree/master/bboss-util/test/org/frameworkset/util/FileContentCacheTest.java)代码:
 
 Java代码
 
@@ -44,16 +44,20 @@ try {
 ```
 
 **bboss文件缓存组件FileContentCache包下载**
-bboss文件缓存组件FileContentCache jar包下载地址：[下载](https://github.com/bbossgroups/bboss/blob/master/bboss-core/lib/frameworkset-util.jar?raw=true)
 
-运行时需要的依赖包可以到以下地址找到：
-https://github.com/bbossgroups/bboss/tree/master/bboss-util/lib
+```xml
+<dependency>
+    <groupId>com.bbossgroups</groupId>
+    <artifactId>bboss-util</artifactId>
+    <version>6.2.2</version>
+</dependency>
+```
+
+源码目录：
+https://gitee.com/bboss/bboss/tree/master/bboss-util
 
 **bboss文件缓存组件FileContentCache应用案例**
 bboss文件缓存组件FileContentCache在bboss相关的应用中得到很好的应用：
-应用1：[bboss官网中查看demo程序文件源码功能](http://www.bbossgroups.com/detail.htm?demoname=index)
-
-应用2：[自动代码生成工程在线查看生成的文件源码功能](http://gencode.bbossgroups.com/)
 
 bboss持久层sql配置文件热加载机制、bboss国际化属性配置文件热加载机制、bboss平台模块菜单配置文件热加载机制也是基于文件缓存组件使用的daemon扫描线程组件实现的。
 
