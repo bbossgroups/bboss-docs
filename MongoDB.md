@@ -45,7 +45,7 @@ maven
 <dependency>  
     <groupId>com.bbossgroups</groupId>  
     <artifactId>bboss-data</artifactId>  
-    <version>6.2.5</version>  
+    <version>6.2.6</version>  
 </dependency>  
 ```
 
