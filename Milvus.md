@@ -335,6 +335,25 @@ XinferenceResponse result = HttpRequestProxy.sendJsonBody("embedding_model_xinfe
         }
 ```
 
+代码运行结果：
+
+```json
+Search results:
+ID: 10015, Score: 0.893054, {log_id=10015, collecttime=1730728149266, log_content=系统管理员 新增了机构 aaa}
+ID: 10013, Score: 0.893054, {log_id=10013, collecttime=1730728148165, log_content=系统管理员 新增了机构 aaa}
+ID: 10018, Score: 0.893054, {log_id=10018, collecttime=1730728155011, log_content=系统管理员 新增了机构 aaa}
+ID: 10017, Score: 0.893054, {log_id=10017, collecttime=1730728153214, log_content=系统管理员 新增了机构 aaa}
+ID: 10016, Score: 0.893054, {log_id=10016, collecttime=1730728151482, log_content=系统管理员 新增了机构 aaa}
+ID: 5, Score: 0.893054, {log_id=5, collecttime=1730728153539, log_content=系统管理员 新增了机构 aaa}
+ID: 2206, Score: 0.893054, {log_id=2206, collecttime=1730728312139, log_content=系统管理员 新增了机构 aaa}
+ID: 1115, Score: 0.893054, {log_id=1115, collecttime=1730728163302, log_content=系统管理员 新增了机构 aaa}
+ID: 66, Score: 0.871805, {log_id=66, collecttime=1730728257720, log_content=系统管理员新增子机构3eqr}
+```
+
+完整源码地址：
+
+https://gitee.com/bboss/bboss-datatran-demo/blob/main/src/main/java/org/frameworkset/datatran/imp/milvus/MilvusTest.java
+
 ## 5.参考资料
 
 Milvus java客户端官方文档
