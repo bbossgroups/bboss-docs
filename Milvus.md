@@ -50,13 +50,15 @@ maven
 通过以下代码初始化了一个名称为chan_fqa的Milvus数据源，后续的用该名称来引用对应的Milvus数据源来执行各种Milvus操作。
 
 ```java
-  //初始化milvus数据源服务，用来操作向量数据库
-                        MilvusConfig milvusConfig = new MilvusConfig();
-                        milvusConfig.setName("chan_fqa");//数据源名称
-                        milvusConfig.setDbName("chan_fqa");//Milvus数据库名称
-                        milvusConfig.setUri("http://172.24.176.18:19530");//Milvus数据库地址
-                        milvusConfig.setToken("");//认证token：root:xxxx
-                        ResourceStartResult resourceStartResult =  MilvusHelper.init(milvusConfig);//加载配置初始化Milvus数据源
+        //1. 初始化milvus数据源chan_fqa，用来操作向量数据库，一个milvus数据源只需要定义一次即可，后续通过名称chan_fqa反复引用，多线程安全
+        // 可以通过以下方法定义多个Milvus数据源，只要name不同即可，通过名称引用对应的数据源
+        MilvusConfig milvusConfig = new MilvusConfig();
+        milvusConfig.setName("chan_fqa");//数据源名称
+        milvusConfig.setDbName("chan_fqa");//Milvus数据库名称
+        milvusConfig.setUri("http://172.24.176.18:19530");//Milvus数据库地址
+        milvusConfig.setToken("");//认证token：root:xxxx
+
+        MilvusHelper.init(milvusConfig);//启动初始化Milvus数据源
 ```
 
 ### 2.2 使用数据源创建向量表
@@ -248,10 +250,97 @@ XinferenceResponse result = HttpRequestProxy.sendJsonBody("embedding_model_xinfe
         
 ```
 
-## 4.参考资料
+## 4.向量检索
+
+采用余弦相似度实现向量检索功能：
+
+```java
+        /**
+         * 参考文档：https://milvus.io/api-reference/java/v2.4.x/v2/Vector/search.md
+         */
+        //1. 初始化milvus数据源chan_fqa，用来操作向量数据库，一个milvus数据源只需要定义一次即可，后续通过名称chan_fqa反复引用，多线程安全
+        // 可以通过以下方法定义多个Milvus数据源，只要name不同即可，通过名称引用对应的数据源
+        MilvusConfig milvusConfig = new MilvusConfig();
+        milvusConfig.setName("chan_fqa");//数据源名称
+        milvusConfig.setDbName("ucr_chan_fqa");//Milvus数据库名称
+        milvusConfig.setUri("http://172.24.176.18:19530");//Milvus数据库地址
+        milvusConfig.setToken("");//认证token：root:xxxx
+
+        MilvusHelper.init(milvusConfig);//启动初始化Milvus数据源
+        
+       
+        
+        //2. 初始化Xinference向量模型服务embedding_model，一个服务组只需要定义一次即可，后续通过名称embedding_model反复引用，多线程安全
+        // 可以通过以下方法定义多个服务，只要name不同即可，通过名称引用对应的服务
+         
+        Map properties = new HashMap();
+
+        //定义Xinference数据向量化模型服务，embedding_model为的向量模型服务数据源名称
+        properties.put("http.poolNames","embedding_model");
+
+        properties.put("embedding_model.http.hosts","172.24.176.18:9997");//设置向量模型服务地址，这里调用的xinference发布的模型服务
+
+        properties.put("embedding_model.http.timeoutSocket","60000");
+        properties.put("embedding_model.http.timeoutConnection","40000");
+        properties.put("embedding_model.http.connectionRequestTimeout","70000");
+        properties.put("embedding_model.http.maxTotal","100");
+        properties.put("embedding_model.http.defaultMaxPerRoute","100");
+        //启动Xinference向量模型服务
+        HttpRequestProxy.startHttpPools(properties);
+        
+        String collectionName = "demo";//向量表名称
+        //3. 在向量数据源chan_fqa的向量表demo上执行向量检索
+        List<List<SearchResp.SearchResult>> searchResults = MilvusHelper.executeRequest("chan_fqa", milvusClientV2 -> {
+            Map eparams = new HashMap();
+            eparams.put("input","新增了机构");//content向量字段查询条件转换为向量
+            eparams.put("model","custom-bge-large-zh-v1.5");//指定Xinference向量模型名称
+
+            //调用的 xinference 发布的向量模型模型服务，将查询条件转换为向量
+            XinferenceResponse result = HttpRequestProxy.sendJsonBody("embedding_model",eparams,"/v1/embeddings",XinferenceResponse.class);
+            if(result != null){
+                List<Data> data = result.getData();
+                if(data != null && data.size() > 0 ) {
+                    //获取条件转换的向量数据
+                    float[] embedding = data.get(0).getEmbedding();
+
+                    //构建检索参数
+                    Map searchParams = new LinkedHashMap();
+                    searchParams.put("metric_type","COSINE");//采用余弦相似度算法
+                    searchParams.put("radius",0.85);//返回content与查询条件相似度为0.85以上的记录
+                    String[] array = {"log_id","collecttime","log_content"};//定义要返回的字段清单
+                    SearchResp searchR = milvusClientV2.search(SearchReq.builder()
+                            .collectionName(collectionName)
+                            .data(Collections.singletonList(new FloatVec(embedding)))
+                             .annsField("content")//指定向量字段
+                            .filter("log_id < 100000")//指定过滤条件，可以进行条件组合，具体参考文档：https://milvus.io/api-reference/java/v2.4.x/v2/Vector/search.md
+                             .searchParams(searchParams)
+                            .topK(10)
+                            .outputFields(Arrays.asList(array))
+                            .build());
+                    return searchR.getSearchResults();//返回检索结果
+                    
+                }
+            }
+            
+            return null;
+        });
+        //打印结果
+        System.out.println("\nSearch results:");
+        if(searchResults != null) {
+            for (List<SearchResp.SearchResult> results : searchResults) {
+                for (SearchResp.SearchResult searchResult : results) {
+                    System.out.printf("ID: %d, Score: %f, %s\n", (long) searchResult.getId(), searchResult.getScore(), searchResult.getEntity().toString());
+                }
+            }
+        }
+```
+
+## 5.参考资料
 
 Milvus java客户端官方文档
 
 https://milvus.io/api-reference/java/v2.4.x/v2/Client/MilvusClientV2Pool.md
+
+https://milvus.io/api-reference/java/v2.4.x/v2/Vector/search.md
 
 bboss datatran [Milvus输出插件使用文档](https://esdoc.bbossgroups.com/#/datatran-plugins?id=_212-milvus%e5%90%91%e9%87%8f%e6%95%b0%e6%8d%ae%e5%ba%93%e8%be%93%e5%87%ba%e6%8f%92%e4%bb%b6)
