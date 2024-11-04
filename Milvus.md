@@ -47,13 +47,13 @@ maven
 
 ### 2.1 初始化Milvus数据源
 
-通过以下代码初始化了一个名称为ucr_chan_fqa的Milvus数据源，后续的用该名称来引用对应的Milvus数据源来执行各种Milvus操作。
+通过以下代码初始化了一个名称为chan_fqa的Milvus数据源，后续的用该名称来引用对应的Milvus数据源来执行各种Milvus操作。
 
 ```java
   //初始化milvus数据源服务，用来操作向量数据库
                         MilvusConfig milvusConfig = new MilvusConfig();
-                        milvusConfig.setName("ucr_chan_fqa");//数据源名称
-                        milvusConfig.setDbName("ucr_chan_fqa");//Milvus数据库名称
+                        milvusConfig.setName("chan_fqa");//数据源名称
+                        milvusConfig.setDbName("chan_fqa");//Milvus数据库名称
                         milvusConfig.setUri("http://172.24.176.18:19530");//Milvus数据库地址
                         milvusConfig.setToken("");//认证token：root:xxxx
                         ResourceStartResult resourceStartResult =  MilvusHelper.init(milvusConfig);//加载配置初始化Milvus数据源
@@ -65,7 +65,7 @@ maven
 
 ```java
 //如果向量表不存在，则创建向量表
-MilvusHelper.executeRequest("ucr_chan_fqa", new MilvusFunction<Void>() {
+MilvusHelper.executeRequest("chan_fqa", new MilvusFunction<Void>() {
     @Override
     public Void execute(MilvusClientV2 milvusClientV2) {
         if(!milvusClientV2.hasCollection(HasCollectionReq.builder()//判断向量表是否存在，如果不存在则创建向量表collectionName
@@ -96,10 +96,10 @@ MilvusHelper.executeRequest("ucr_chan_fqa", new MilvusFunction<Void>() {
 
 ### 2.3 添加或者修改向量数据
 
-在数据源ucr_chan_fqa上执行批量添加或者修改向量数据：
+在数据源chan_fqa上执行批量添加或者修改向量数据：
 
 ```java
-Object result = MilvusHelper.executeRequest("ucr_chan_fqa", new MilvusFunction<Object>() {
+Object result = MilvusHelper.executeRequest("chan_fqa", new MilvusFunction<Object>() {
     @Override
     public Object execute(MilvusClientV2 milvusClientV2) {
         // get the collection detail
@@ -193,10 +193,62 @@ Object result = MilvusHelper.executeRequest("ucr_chan_fqa", new MilvusFunction<O
 ### 2.4 获取向量表结构
 
 ```java
-List<String> fields = MilvusHelper.loadCollectionSchema("ucr_chan_fqa",collectionName);
+List<String> fields = MilvusHelper.loadCollectionSchema("chan_fqa",collectionName);
 ```
 
-## 3.参考资料
+## 3.数据向量化
+
+下面介绍两种模式来实现数据向量化处理：
+
+调用的Langchain-Chatchat封装的xinference发布的模型服务
+
+直接调用的xinference发布的模型服务来实现数据向量化
+
+代码如下：
+
+```java
+String content = "admin(系统管理员) 登陆[公共开发平台]";
+//初始化向量模型服务
+Map properties = new HashMap();
+
+//定义两个为的向量模型服务数据源：embedding_model_xinference,embedding_model_lanchat
+properties.put("http.poolNames","embedding_model_xinference,embedding_model_lanchat");
+
+properties.put("embedding_model_xinference.http.hosts","172.24.176.18:9997");//设置向量模型服务地址，这里调用的xinference发布的模型服务
+
+properties.put("embedding_model_xinference.http.timeoutSocket","60000");
+properties.put("embedding_model_xinference.http.timeoutConnection","40000");
+properties.put("embedding_model_xinference.http.connectionRequestTimeout","70000");
+properties.put("embedding_model_xinference.http.maxTotal","100");
+properties.put("embedding_model_xinference.http.defaultMaxPerRoute","100");
+
+properties.put("embedding_model_lanchat.http.hosts","127.0.0.1:7861");//设置向量模型服务地址，这里调用的xinference发布的模型服务
+
+properties.put("embedding_model_lanchat.http.timeoutSocket","60000");
+properties.put("embedding_model_lanchat.http.timeoutConnection","40000");
+properties.put("embedding_model_lanchat.http.connectionRequestTimeout","70000");
+properties.put("embedding_model_lanchat.http.maxTotal","100");
+properties.put("embedding_model_lanchat.http.defaultMaxPerRoute","100");
+HttpRequestProxy.startHttpPools(properties);
+
+Map params = new HashMap();
+        params.put("text",content);
+        //调用的Langchain-Chatchat封装的xinference发布的模型服务，将LOG_CONTENT转换为向量数据---lanchat返回结果
+        BaseResponse baseResponse = HttpRequestProxy.sendJsonBody("embedding_model_lanchat",params,"/py-api/knowledge_base/kb_embedding_textv1",BaseResponse.class);
+   if(baseResponse.getCode() == 200){
+            float[] embedding = baseResponse.getData();//获取向量数据
+        }
+//设置Xinference向量化模型参数
+params = new HashMap();
+        params.put("input",content);//需要向量化的文本
+        params.put("model","custom-bge-large-zh-v1.5");//设置Xinference部署的向量模型名称
+//调用的xinference发布的模型服务
+XinferenceResponse result = HttpRequestProxy.sendJsonBody("embedding_model_xinference",params,"/v1/embeddings",XinferenceResponse.class);//-------与lanchat返回结果一致
+        float[] embedding = result.getData().get(0).getEmbedding();
+        
+```
+
+## 4.参考资料
 
 Milvus java客户端官方文档
 
