@@ -291,7 +291,11 @@ jdbc:clickhouse://101.13.6.4:29000,101.13.6.7:29000,101.13.6.6:29000/bboss?b.bal
 
 官方驱动Clickhouse jdbc基于http/https协议端口连接Clickhouse，支持负载均衡和容灾功能，jdbc url实例如下：
 
+```json
 jdbc:ch://(http://101.13.6.4:28123),(http://101.13.6.7:28123),(http://101.13.6.6:28123)/bboss?failover=1&load_balancing_policy=random
+```
+
+
 
 ## 4.1 导入驱动
 

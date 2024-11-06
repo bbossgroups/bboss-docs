@@ -24,6 +24,8 @@ public interface MilvusFunction<T> {
 }
 ```
 
+文中涉及的Milvus客户端，Xinference LLM管理平台，bboss httpproxy微服务框架可以通过章节【5.参考资料】了解。
+
 ## 1.导入bboss Milvus组件
 
 gradle
@@ -45,7 +47,9 @@ maven
 
 ## 2.bboss Milvus组件使用
 
-### 2.1 初始化Milvus数据源
+### 2.1 初始化和关闭Milvus数据源
+
+#### 初始化Milvus数据源
 
 通过以下代码初始化了一个名称为chan_fqa的Milvus数据源，后续的用该名称来引用对应的Milvus数据源来执行各种Milvus操作。
 
@@ -58,7 +62,23 @@ maven
         milvusConfig.setUri("http://172.24.176.18:19530");//Milvus数据库地址
         milvusConfig.setToken("");//认证token：root:xxxx
 
-        MilvusHelper.init(milvusConfig);//启动初始化Milvus数据源
+        ResourceStartResult resourceStartResult =  MilvusHelper.init(milvusConfig);//启动初始化Milvus数据源
+```
+
+#### 关闭Milvus数据源
+
+可以通过以下方法关闭Milvus数据源并释放资源
+
+通过数据源名称关闭
+
+```java
+MilvusHelper.shutdown("chan_fqa");
+```
+
+通过ResourceStartResult参数关闭  
+
+```java
+MilvusHelper.shutdown((MilvusStartResult) resourceStartResult);
 ```
 
 ### 2.2 使用数据源创建向量表
@@ -214,9 +234,10 @@ String content = "admin(系统管理员) 登陆[公共开发平台]";
 Map properties = new HashMap();
 
 //定义两个为的向量模型服务数据源：embedding_model_xinference,embedding_model_lanchat
+//bboss-httproxy使用介绍，可以浏览本文参考资料链接了解
 properties.put("http.poolNames","embedding_model_xinference,embedding_model_lanchat");
 
-properties.put("embedding_model_xinference.http.hosts","172.24.176.18:9997");//设置向量模型服务地址，这里调用的xinference发布的模型服务
+properties.put("embedding_model_xinference.http.hosts","172.24.176.18:9997");//设置向量模型服务地址(这里调用的xinference发布的模型服务),多个地址逗号分隔，可以实现点到点负载和容灾
 
 properties.put("embedding_model_xinference.http.timeoutSocket","60000");
 properties.put("embedding_model_xinference.http.timeoutConnection","40000");
@@ -224,7 +245,7 @@ properties.put("embedding_model_xinference.http.connectionRequestTimeout","70000
 properties.put("embedding_model_xinference.http.maxTotal","100");
 properties.put("embedding_model_xinference.http.defaultMaxPerRoute","100");
 
-properties.put("embedding_model_lanchat.http.hosts","127.0.0.1:7861");//设置向量模型服务地址，这里调用的xinference发布的模型服务
+properties.put("embedding_model_lanchat.http.hosts","127.0.0.1:7861");//设置向量模型服务地址(这里调用的xinference发布的模型服务),多个地址逗号分隔，可以实现点到点负载和容灾
 
 properties.put("embedding_model_lanchat.http.timeoutSocket","60000");
 properties.put("embedding_model_lanchat.http.timeoutConnection","40000");
@@ -276,9 +297,10 @@ XinferenceResponse result = HttpRequestProxy.sendJsonBody("embedding_model_xinfe
         Map properties = new HashMap();
 
         //定义Xinference数据向量化模型服务，embedding_model为的向量模型服务数据源名称
+		//bboss-httproxy使用介绍，可以浏览本文参考资料链接了解
         properties.put("http.poolNames","embedding_model");
 
-        properties.put("embedding_model.http.hosts","172.24.176.18:9997");//设置向量模型服务地址，这里调用的xinference发布的模型服务
+        properties.put("embedding_model.http.hosts","172.24.176.18:9997");//设置向量模型服务地址(这里调用的xinference发布的模型服务),多个地址逗号分隔，可以实现点到点负载和容灾
 
         properties.put("embedding_model.http.timeoutSocket","60000");
         properties.put("embedding_model.http.timeoutConnection","40000");
@@ -363,3 +385,11 @@ https://milvus.io/api-reference/java/v2.4.x/v2/Client/MilvusClientV2Pool.md
 https://milvus.io/api-reference/java/v2.4.x/v2/Vector/search.md
 
 bboss datatran [Milvus输出插件使用文档](https://esdoc.bbossgroups.com/#/datatran-plugins?id=_212-milvus%e5%90%91%e9%87%8f%e6%95%b0%e6%8d%ae%e5%ba%93%e8%be%93%e5%87%ba%e6%8f%92%e4%bb%b6)
+
+[bboss http负载均衡器使用指南](https://esdoc.bbossgroups.com/#/httpproxy)
+
+Xinference参考文档
+
+https://inference.readthedocs.io/en/latest/getting_started/installation.html
+
+https://inference.readthedocs.io/en/latest/getting_started/using_xinference.html
