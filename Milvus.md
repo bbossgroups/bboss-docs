@@ -218,7 +218,7 @@ Object result = MilvusHelper.executeRequest("chan_fqa", new MilvusFunction<Objec
 List<String> fields = MilvusHelper.loadCollectionSchema("chan_fqa",collectionName);
 ```
 
-## 3.数据向量化
+### 2.5.数据向量化
 
 下面介绍两种模式来实现数据向量化处理：
 
@@ -271,7 +271,7 @@ XinferenceResponse result = HttpRequestProxy.sendJsonBody("embedding_model_xinfe
         
 ```
 
-## 4.向量检索
+### 2.6.向量检索
 
 采用余弦相似度实现向量检索功能：
 
@@ -376,7 +376,17 @@ ID: 66, Score: 0.871805, {log_id=66, collecttime=1730728257720, log_content=系�
 
 https://gitee.com/bboss/bboss-datatran-demo/blob/main/src/main/java/org/frameworkset/datatran/imp/milvus/MilvusTest.java
 
-## 5.参考资料
+### 2.7 数据ETL中的应用
+
+bboss datatran使用Milvus组件实现ETL Milvus输出插件，输入插件从其他数据源采集数据，经过向量化处理后，保存到Milvus向量数据库，可参考以下文档了解具体使用方法：
+
+[Milvus输出插件使用文档](https://esdoc.bbossgroups.com/#/datatran-plugins?id=_212-milvus%e5%90%91%e9%87%8f%e6%95%b0%e6%8d%ae%e5%ba%93%e8%be%93%e5%87%ba%e6%8f%92%e4%bb%b6)
+
+参考案例源码文件：
+
+https://gitee.com/bboss/bboss-datatran-demo/blob/main/src/main/java/org/frameworkset/datatran/imp/milvus/Db2MilvusXinferencedemo.java
+
+## 3.参考资料
 
 Milvus java客户端官方文档
 
