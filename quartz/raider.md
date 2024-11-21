@@ -6,6 +6,12 @@
 
 /resources/org/frameworkset/task/quarts-task.xml
 
+组件源码地址
+
+https://gitee.com/bboss/bboss/tree/master/bboss-schedule
+
+https://github.com/bbossgroups/bboss/tree/master/bboss-schedule
+
 摘要
 
 1.resources下的quartz.properties文件为quartz引擎的默认配置，同时也可在bboss quartz引擎xml家配置文件中配置quartz引擎的配置参数覆盖默认配置（这里不做介绍）
