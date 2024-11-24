@@ -5,6 +5,7 @@
 - [向量数据库Milvus客户端组件使用](Milvus.md)
 - [bboss平台管理员配置指南](guide.md)
 - [kafka组件使用介绍](kafka.md)
+- [Rocketmq组件使用介绍](Rocketmq.md)
 - [log4j滚动日志文件扩展插件使用介绍](log4j.md)
 - [插件结合使用](plug-in.md)
 - [bboss持久层操作hive实例](hive.md)
