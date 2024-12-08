@@ -1,6 +1,6 @@
 * [首页](https://www.bbossgroups.com)
 * [Elasticsearch客户端文档](https://esdoc.bbossgroups.com/)   
-* [支持和Star](supportus.md)🚀   
+* [支持和Star](https://esdoc.bbossgroups.com/#/supportus)🚀   
 * 视频教程
   * [Elasticsearch Bboss Stream ETL介绍](https://www.bilibili.com/video/BV1Rs4y1i7EK)
   * [Bboss 数据采集ETL培训](https://www.bilibili.com/video/BV1hc411M7DX)
