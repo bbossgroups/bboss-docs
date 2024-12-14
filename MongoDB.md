@@ -35,7 +35,7 @@ MongoDBHelper.closeDB("testmg1");
 gradle
 
 ```java
-compile 'com.bbossgroups:bboss-data:6.2.7' 
+compile 'com.bbossgroups:bboss-data:6.2.8' 
 ```
 
 maven
@@ -45,7 +45,7 @@ maven
 <dependency>  
     <groupId>com.bbossgroups</groupId>  
     <artifactId>bboss-data</artifactId>  
-    <version>6.2.7</version>  
+    <version>6.2.8</version>  
 </dependency>  
 ```
 

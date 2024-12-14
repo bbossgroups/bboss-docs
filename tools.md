@@ -15,7 +15,7 @@
 
 **工具下载地址：**
 
-[bboss-gencode v6.2.6](https://doc.bbossgroups.com/files/gencode.zip)
+[bboss-gencode v6.2.7](https://doc.bbossgroups.com/files/gencode.zip)
 
 工具源码地址
 
