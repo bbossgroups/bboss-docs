@@ -215,10 +215,10 @@ Xml代码
         #if($bukrs && $bukrs.size() > 0) 
             and BUKRS in ( 
                #foreach($group in $bukrs)   
-                      #if($velocityCount == 0)   
-                          #[bukrs[$velocityCount]]   
+                      #if($foreach.index == 0)   
+                          #[bukrs[$foreach.index]]   
                       #else   
-                           ,#[bukrs[$velocityCount]]   
+                           ,#[bukrs[$foreach.index]]   
                        #end   
                   #end   
                ) 
@@ -226,10 +226,10 @@ Xml代码
         #if($prctr && $prctr.size() > 0) 
             and PRCTR in (  
                 #foreach($group in $prctr)   
-                          #if($velocityCount == 0)   
-                              #[prctr[$velocityCount]]   
+                          #if($foreach.index == 0)   
+                              #[prctr[$foreach.index]]   
                           #else   
-                               ,#[prctr[$velocityCount]]   
+                               ,#[prctr[$foreach.index]]   
                            #end   
                    #end   
                 ) 
@@ -237,10 +237,10 @@ Xml代码
         #if($belnr && $belnr.size() > 0) 
             and BELNR in (  
                 #foreach($group in $belnr)   
-                          #if($velocityCount == 0)   
-                              #[belnr[$velocityCount]]   
+                          #if($foreach.index == 0)   
+                              #[belnr[$foreach.index]]   
                           #else   
-                               ,#[belnr[$velocityCount]]   
+                               ,#[belnr[$foreach.index]]   
                            #end   
                    #end    
                    ) 
@@ -274,19 +274,19 @@ and BUKRS in (
 
    #foreach($group in $bukrs) 
 
-​                       #if($velocityCount == 0) 
+​                       #if($foreach.index == 0) 
 
-​                           #[bukrs[$velocityCount]] 
+​                           #[bukrs[$foreach.index]] 
 
 ​                       #else 
 
-​                            ,#[bukrs[$velocityCount]] 
+​                            ,#[bukrs[$foreach.index]] 
 
 ​                        #end 
 
 ​                   #end 
 
-首先通过if语句判断bukrs 存在并且里面有元素（size>0）,如果条件成立则拼接in条件，采用foreach语句来循环设置每个元素到in条件#[bukrs[$velocityCount]]  ，其中velocityCount是循环变量，如果不是第一个在元素前面添加逗号，这样bboss持久层框架在执行的时候会将这些变量元素转换为预编译sql来执行。
+首先通过if语句判断bukrs 存在并且里面有元素（size>0）,如果条件成立则拼接in条件，采用foreach语句来循环设置每个元素到in条件#[bukrs[$foreach.index]]  ，其中foreach.index是循环变量，如果不是第一个在元素前面添加逗号，这样bboss持久层框架在执行的时候会将这些变量元素转换为预编译sql来执行。
 
 最后看看整个代码流程：表单提交->控制方法参数绑定->控制方法调用ConfigSQLExecutor来执行这sql语句
 

@@ -57,7 +57,7 @@ Elasticsearch聚合查询案例分享
                             "terms": {
                                 "applicationName.keyword": [ ##指定并统计多个应用的数据
                                 #foreach($application in $channelApplications)
-                                   #if($velocityCount > 0),#end $application.applicationName
+                                   #if($foreach.index > 0),#end $application.applicationName
                                 #end
                                 ]
                             }

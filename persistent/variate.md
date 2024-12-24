@@ -81,7 +81,7 @@ Xml代码
 <property name="selectGroupInfoByNames">  
         <![CDATA[ 
                     select #foreach($filed in $groupfileds)  
-                    #if($velocityCount == 0) 
+                    #if($foreach.index == 0) 
                         $filed 
                     #else 
                         ,$filed 
@@ -90,31 +90,16 @@ Xml代码
          
         from td_sm_group g where g.group_name in ( 
             #foreach($group in $groups) 
-                            #if($velocityCount == 0) 
-                                #[groups[$velocityCount]] 
+                            #if($foreach.index == 0) 
+                                #[groups[$foreach.index]] 
                             #else 
-                                ,#[groups[$velocityCount]] 
+                                ,#[groups[$foreach.index]] 
                             #end 
                         #end 
                         )       ]]>  
     </property>  
 ```
-
-需要注意的是，需要把resources/velocity.properties文件相关配置项按照以下配置配置：
-
-**directive.foreach.counter.name = velocityCount**
-
-**directive.foreach.counter.initial.value = 0**
-
-  说明：
-
-directive.foreach.counter.name
-
-用来定义foreach循环递增变量名称，通过velocity.properties文件中全局指定这个变量名称，默认为velocityCount，项目开发之初就要确定这个变量名称，后续不能更改。
-
-directive.foreach.counter.initial.value
-
-用来定义循环变量velocityCount(名称由directive.foreach.counter.name属性指定)的初始值，默认从1开始，项目开发之初应将其调整为0
+ 
 
 **2.bean类型变量属性引用处理实例**
 
