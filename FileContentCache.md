@@ -49,7 +49,7 @@ try {
 <dependency>
     <groupId>com.bbossgroups</groupId>
     <artifactId>bboss-util</artifactId>
-    <version>6.2.8</version>
+    <version>6.2.9</version>
 </dependency>
 ```
 
