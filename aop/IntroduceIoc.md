@@ -317,7 +317,30 @@ mainclass=#[mainclassevn:org.frameworkset.elasticsearch.imp.DB2CSVFile]
 include.files=xxx.properties,dd.properties,cc.properties
 ```
 
-## 10.与apollo的集成
+## 10.根据名称前缀获取参数集
+
+根据属性名称前缀获取属性集方法：
+
+```java
+/**
+ * 根据属性名称前缀获取属性集
+
+ * @param propertyPrex 属性名称前缀
+ * @param truncated 返回的key是否截取掉前缀
+ * @return
+ */
+public Map<String,Object> getExternalProperties(String propertyPrex,boolean truncated)
+```
+
+使用方法：
+
+```java
+PropertiesContainer propertiesContainer = new PropertiesContainer();  
+        propertiesContainer.addConfigPropertiesFile("application.properties");  
+Map<String,Object> params =  propertiesContainer.getExternalProperties("http.kerberos",true);
+```
+
+## 11.与apollo集成
 
 与apollo配置中心集成，需要额外导入以下maven坐标：
 
@@ -396,3 +419,6 @@ public class PropertiesContainerChangeListener extends PropertiesChangeListener 
 
 通过changeReload属性设置是否监听属性变化，如果有变化实时加载变化后的属性
 
+## 12.与nacos集成
+
+与nacos集成参考文档：https://esdoc.bbossgroups.com/#/nacos-config
