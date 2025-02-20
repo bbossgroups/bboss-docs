@@ -348,7 +348,7 @@ Map<String,Object> params =  propertiesContainer.getExternalProperties("http.ker
  <dependency>
             <groupId>com.bbossgroups.plugins</groupId>
             <artifactId>bboss-plugin-apollo</artifactId>
-            <version>6.3.8</version>
+            <version>6.3.9</version>
         </dependency>
 ```
 

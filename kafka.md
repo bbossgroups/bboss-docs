@@ -28,7 +28,7 @@ bboss kafka组件作用
     <dependency>  
       <groupId>com.bbossgroups.plugins</groupId>  
       <artifactId>bboss-plugin-kafka2x</artifactId>  
-      <version>6.3.8</version>  
+      <version>6.3.9</version>  
   </dependency>
   ```
 
@@ -37,7 +37,7 @@ bboss kafka组件作用
   Java代码
 
   ```java
-compile 'com.bbossgroups.plugins:bboss-plugin-kafka2x:6.3.8' 
+compile 'com.bbossgroups.plugins:bboss-plugin-kafka2x:6.3.9' 
   ```
 
   kafka依赖包需要额外导入，下面给出示例，kafka2x变量可以指定为具体的kafka客户端版本号，例如：
