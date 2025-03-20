@@ -12,14 +12,16 @@ MinioHelper提供单例静态方法,来获取Minio实例，支持多Minio数据�
 Minio minio = MinioHelper.getMinio(minioFileConfig.getName());//获取指定名称的Minio数据源
 
 ```
-通过minio提供的方法执行所有的Minio操作。
+通过minio提供的方法执行所有的Minio操作。本文示例代码对应的源文件：
+
+https://gitee.com/bboss/elasticsearch-file2ftp/blob/main/src/main/java/org/frameworkset/elasticsearch/imp/minio/MinioTest.java
 
 ## 1.导入bboss Minio组件
 
 gradle
 
 ```java
-compile 'com.bbossgroups:bboss-data:6.3.0' 
+compile 'com.bbossgroups:bboss-data:6.3.1' 
 ```
 
 maven
@@ -29,7 +31,7 @@ maven
 <dependency>  
     <groupId>com.bbossgroups</groupId>  
     <artifactId>bboss-data</artifactId>  
-    <version>6.3.0</version>  
+    <version>6.3.1</version>  
 </dependency>  
 ```
 
