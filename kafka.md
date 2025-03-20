@@ -21,23 +21,21 @@ bboss kafka组件作用
 # 1.导入bboss kafka组件
 
   maven坐标
-  Xml代码
-
+  
+  kafka4.0.0及以上版本使用版本号：6.5.0-jdk17
   ```xml
   
     <dependency>  
       <groupId>com.bbossgroups.plugins</groupId>  
       <artifactId>bboss-plugin-kafka2x</artifactId>  
-      <version>6.3.9</version>  
-  </dependency>
+      <version>6.5.0</version>
+    </dependency>
   ```
 
   **gradle坐标**
 
-  Java代码
-
   ```java
-compile 'com.bbossgroups.plugins:bboss-plugin-kafka2x:6.3.9' 
+compile 'com.bbossgroups.plugins:bboss-plugin-kafka2x:6.5.0' 
   ```
 
   kafka依赖包需要额外导入，下面给出示例，kafka2x变量可以指定为具体的kafka客户端版本号，例如：
@@ -48,7 +46,7 @@ compile 'com.bbossgroups.plugins:bboss-plugin-kafka2x:6.3.9'
 
   3.4.0
 
-  
+  kafka 4.0.0：客户端版本号kafka_2.12为3.9.0，其他包为4.0.0，实际以官方发布版本号为准
 
   kafka_2.12包可以根据实际情况调整为对应的kafka版本号，例如：
 
