@@ -3,6 +3,7 @@
 - [bboss redis组件使用实例](redis.md)
 - [bboss MongoDB组件使用实例](MongoDB.md)
 - [向量数据库Milvus客户端组件使用](Milvus.md)
+- [OSS对象数据库Minio客户端组件使用](Minio.md)
 - [bboss平台管理员配置指南](guide.md)
 - [kafka组件使用介绍](kafka.md)
 - [Rocketmq组件使用介绍](Rocketmq.md)
