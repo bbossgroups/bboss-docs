@@ -1,6 +1,12 @@
 # Mino客户端组件使用介绍
 
-bboss提供一个简单的OSS对象存储库Mino操作组件，基于Mino java客户端进行封装
+bboss提供一个简单的OSS对象存储库Mino操作组件，基于Mino java客户端进行封装，可以非常方便地：
+
+- 管理Mino数据源
+
+- 操作和访问Minio进行文件上传、下载、删除以及遍历等操作
+
+提供两个组件说明如下：
 
 ```java
 org.frameworkset.nosql.minio.MinioHelper
@@ -12,9 +18,13 @@ MinioHelper提供单例静态方法,来获取Minio实例，支持多Minio数据�
 Minio minio = MinioHelper.getMinio(minioFileConfig.getName());//获取指定名称的Minio数据源
 
 ```
+
+
 通过minio提供的方法执行所有的Minio操作。本文示例代码对应的源文件：
 
-https://gitee.com/bboss/elasticsearch-file2ftp/blob/main/src/main/java/org/frameworkset/elasticsearch/imp/minio/MinioTest.java
+Github地址 https://github.com/bbossgroups/elasticsearch-file2ftp/blob/main/src/main/java/org/frameworkset/elasticsearch/imp/minio/MinioTest.java
+
+码云地址 https://gitee.com/bboss/elasticsearch-file2ftp/blob/main/src/main/java/org/frameworkset/elasticsearch/imp/minio/MinioTest.java
 
 ## 1.导入bboss Minio组件
 
