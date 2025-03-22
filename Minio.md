@@ -36,7 +36,6 @@ compile 'com.bbossgroups:bboss-data:6.3.1'
 
 maven
 
-
 ```xml
 <dependency>  
     <groupId>com.bbossgroups</groupId>  
@@ -44,6 +43,30 @@ maven
     <version>6.3.1</version>  
 </dependency>  
 ```
+导入Mino客户端包：
+gradle 排除不必要的依赖包
+
+```java
+api (group: 'io.minio', name: 'minio', version: '8.5.17'){
+    exclude group: 'com.fasterxml.jackson.jaxrs', module: 'jackson-jaxrs-json-provider'
+    exclude group: 'com.fasterxml.jackson.dataformat', module: 'jackson-dataformat-csv'
+    exclude group: 'com.fasterxml.jackson.module', module: 'jackson-module-scala_2.12'
+    exclude group: 'com.fasterxml.jackson.datatype', module: 'jackson-datatype-jdk8'
+    exclude group: 'com.fasterxml.jackson.core', module: 'jackson-databind'
+    exclude group: 'com.fasterxml.jackson.core', module: 'jackson-annotations'
+    exclude group: 'com.fasterxml.jackson.core', module: 'jackson-core'
+}
+```
+maven 自行参考gradle排除不必要的依赖
+
+```xml
+<dependency>  
+    <groupId>io.minio</groupId>  
+    <artifactId>minio</artifactId>  
+    <version>8.5.17</version>  
+</dependency>  
+```
+
 
 ## 2.bboss Minio组件使用
 
@@ -54,7 +77,7 @@ maven
 通过以下代码初始化了一个名称为chan_fqa的Minio数据源，后续的用该名称来引用对应的Minio数据源来执行各种Minio操作。
 
 ```java
-        //1. 初始化Minio数据源chan_fqa，用来操作向量数据库，一个Minio数据源只需要定义一次即可，后续通过名称chan_fqa反复引用，多线程安全
+        //1. 初始化Minio数据源chan_fqa，用来操作Minio数据库，一个Minio数据源只需要定义一次即可，后续通过名称chan_fqa反复引用，多线程安全
         // 可以通过以下方法定义多个Minio数据源，只要name不同即可，通过名称引用对应的数据源
         MinioConfig minioConfig = new MinioConfig();
 
@@ -101,18 +124,16 @@ minio.createBucket(bucket);
 使用Minio上传文件，返回自动创建的key或者提取指定的key，后续可以通过key获取bucket下的文件。如果对应的key已经存在则修改文件，否则创建文件：
 
 ```java
-File file = new File("/data/header/user.jpg");
-         
+        
         try {
         
             long s = System.currentTimeMillis();
-          	String bucket = "user_header_imgs";            
-            String key = minio.saveOssFile(file,bucket);//保存文件，返回自动创建的key，可以通过key获取bucket下创建的文件
+          	String bucket = "user_header_imgs";  
+            String key = minio.uploadObject("C:/data/filedown/xxxaaaa.txt",bucket);//保存文件，返回自动创建的key，可以通过key获取bucket下创建的文件
             //String key = "xxxaaaa";
-            //key = minio.saveOssFile(file,bucket,key);//指定key，如果不指定，自动生成一个key
+            //key = minio.uploadObject("C:/data/filedown/xxxaaaa.txt",bucket,key);//指定key，如果不指定，自动生成一个key
             long e = System.currentTimeMillis();
-            String msg = "Send file "+filePath+" to minio bucket "+bucket+" complete,耗时:"+
-            logger.info(msg);
+           
              
         } catch (Exception e) {
             throw new Exception("Send File failed:",e);
@@ -127,7 +148,7 @@ minio提供了多种上传文件到Minio服务的方法，具体查看接口方�
 String bucket = "user_header_imgs";
 String key = "xxxaaaa";
 String fileName = "/data/imgs/jack.jpg";
-minio.getOssFile(  bucket,  key,   fileName) ;
+minio.downloadObject(bucket,key,fileName);
 ```
 
  minio提供了一系列获取oss对象的方法，可以查看接口定义，选择合适的方法实现获取oss对象内容。
@@ -135,7 +156,9 @@ minio.getOssFile(  bucket,  key,   fileName) ;
 ### 2.5 删除文件对象
 
 ```java
-minio.deleteOssFile("filedown","HN_BOSS_TRADE_202501092032_000001.txt");//bucket,  key
+String bucket = "user_header_imgs";
+String key = "xxxaaaa";
+minio.deleteOssFile(bucket,key);//bucket,  key
 ```
 
 ### 2.6 获取原生MinioClient
@@ -146,7 +169,7 @@ MinioClient minioClient = minio.getMinioClient()
 
 ### 2.7 在ETL中的应用
 
-bboss datatran使用Minio组件实现文件输出插件将生成的文件上传到Minio服务器。使用bboss输入插件从各种数据源采集数据，通过文件输出插件将数据写入文件，然后调用Minio组件将生成的文件上传到Minio服务器，使用参考文档：
+[bboss datatran](https://esdoc.bbossgroups.com/#/db-es-tool)使用Minio组件实现文件输出插件将生成的文件上传到Minio服务器。使用bboss输入插件从各种数据源采集数据，通过文件输出插件将数据写入文件，然后调用Minio组件将生成的文件上传到Minio服务器，使用参考文档：
 
 [文件输出插件对接OSS对象库Minio](https://esdoc.bbossgroups.com/#/datatran-plugins?id=_233-导出并上传oss)
 
