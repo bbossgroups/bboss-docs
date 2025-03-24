@@ -1,21 +1,22 @@
 # Mino客户端组件使用介绍
 
-bboss提供一个简单的OSS对象存储库Mino操作组件，基于Mino java客户端进行封装，可以非常方便地：
+bboss提供一个简单实用的OSS对象存储库Mino操作组件，基于Mino java客户端封装，可以非常方便地实现：
 
-- 管理Mino数据源
-
+- Mino数据源管理（初始化和销毁），支持多数据源管理
 - 操作和访问Minio进行文件上传、下载、删除以及遍历等操作
 
-提供两个组件说明如下：
+![](images\minio.png)
+
+两个主要组件：MinioHelper和Minio
 
 ```java
-org.frameworkset.nosql.minio.MinioHelper
+org.frameworkset.nosql.minio.MinioHelper  //用于管理Mino数据源（支持多数据源管理），创建和获取单实例多线程安全的Minio对象
 ```
 
-MinioHelper提供单例静态方法,来获取Minio实例，支持多Minio数据源
+MinioHelper用于管理Mino数据源（支持多数据源管理），创建和获取单实例多线程安全的Minio对象，支持多Minio数据源
 
 ```java
-Minio minio = MinioHelper.getMinio(minioFileConfig.getName());//获取指定名称的Minio数据源
+Minio minio = MinioHelper.getMinio("test");//获取指定名称数据源的Minio，单实例多线程安全
 
 ```
 
@@ -26,7 +27,11 @@ Github地址 https://github.com/bbossgroups/elasticsearch-file2ftp/blob/main/src
 
 码云地址 https://gitee.com/bboss/elasticsearch-file2ftp/blob/main/src/main/java/org/frameworkset/elasticsearch/imp/minio/MinioTest.java
 
+
+
 ## 1.导入bboss Minio组件
+
+导入bboss Minio和Mino客户端包，版本号均以官方发布最新版本号为准：
 
 gradle
 
@@ -43,8 +48,8 @@ maven
     <version>6.3.1</version>  
 </dependency>  
 ```
-导入Mino客户端包：
-gradle 排除不必要的依赖包
+导入Mino客户端包：需排除不必要的依赖包，避免冲突
+gradle
 
 ```java
 api (group: 'io.minio', name: 'minio', version: '8.5.17'){
@@ -169,11 +174,19 @@ MinioClient minioClient = minio.getMinioClient()
 
 ### 2.7 在ETL中的应用
 
-[bboss datatran](https://esdoc.bbossgroups.com/#/db-es-tool)使用Minio组件实现文件输出插件将生成的文件上传到Minio服务器。使用bboss输入插件从各种数据源采集数据，通过文件输出插件将数据写入文件，然后调用Minio组件将生成的文件上传到Minio服务器，使用参考文档：
+[bboss etl&流处理](https://esdoc.bbossgroups.com/#/db-es-tool)框架中的文件输出插件，可以非常方便地使用Minio组件将生成的文件上传到Minio服务器。
+
+![](images\file-oss-minio.jpg)
+
+通过bboss输入插件从各种类型的数据源采集数据，经过加工处理后，再通过文件输出插件将数据写入文件，然后调用Minio组件将生成的文件上传到Minio服务器，使用参考文档：
 
 [文件输出插件对接OSS对象库Minio](https://esdoc.bbossgroups.com/#/datatran-plugins?id=_233-导出并上传oss)
 
+**视频教程推荐**
 
+[视频 | bboss开发环境搭建教程](https://mp.weixin.qq.com/s?__biz=MzA3MzE0MDUyNw==&mid=2247484503&idx=1&sn=59bd7cbab0ff9d89377289228a93e84b&scene=21#wechat_redirect)
+
+[视频 | Bboss ETL和流处理作业发布部署运行教程](https://mp.weixin.qq.com/s?__biz=MzA3MzE0MDUyNw==&mid=2247484515&idx=1&sn=580dbbaf86f2ed2360ae71724b9678a6&scene=21#wechat_redirect)
 
 
 

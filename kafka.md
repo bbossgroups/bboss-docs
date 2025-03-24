@@ -22,7 +22,7 @@ bboss kafka组件作用
 
   maven坐标
   
-  kafka4.0.0及以上版本使用版本号：6.5.0-jdk17
+
   ```xml
   
     <dependency>  
