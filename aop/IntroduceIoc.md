@@ -11,13 +11,13 @@ Xml代码
 <dependency>  
     <groupId>com.bbossgroups</groupId>  
     <artifactId>bboss-core</artifactId>  
-    <version>6.2.9</version>  
+    <version>6.3.0</version>  
 </dependency>  
 ```
 
   **gradle坐标：**
 
-compile group: 'com.bbossgroups', name: 'bboss-core', version: '6.2.9'
+compile group: 'com.bbossgroups', name: 'bboss-core', version: '6.3.0'
 
 
 
@@ -348,7 +348,7 @@ Map<String,Object> params =  propertiesContainer.getExternalProperties("http.ker
  <dependency>
             <groupId>com.bbossgroups.plugins</groupId>
             <artifactId>bboss-plugin-apollo</artifactId>
-            <version>6.5.0</version>
+            <version>6.5.1</version>
         </dependency>
 ```
 

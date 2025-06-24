@@ -20,7 +20,7 @@ RedisTool.getInstance(String redisDatasourceName);//获取指定名称的redis�
 gradle
 
 ```java
-compile 'com.bbossgroups:bboss-data:6.3.1' 
+compile 'com.bbossgroups:bboss-data:6.3.2' 
 ```
 
 maven
@@ -30,7 +30,7 @@ maven
 <dependency>  
     <groupId>com.bbossgroups</groupId>  
     <artifactId>bboss-data</artifactId>  
-    <version>6.3.1</version>  
+    <version>6.3.2</version>  
 </dependency>  
 ```
 

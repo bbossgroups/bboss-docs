@@ -7,9 +7,9 @@ maven坐标
 <dependency>
     <groupId>com.bbossgroups</groupId>
     <artifactId>bboss-persistent</artifactId>
-    <version>6.2.9</version>
+    <version>6.3.0</version>
 </dependency>
-compile 'com.bbossgroups:bboss-persistent:6.2.9'
+compile 'com.bbossgroups:bboss-persistent:6.3.0'
 
 直接看实例：
 

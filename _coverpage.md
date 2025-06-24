@@ -1,6 +1,6 @@
 ![logo](images/logo.png)
 
-# BBoss 6.2.9
+# BBoss 6.3.0
 
 > The best java framework.基于Apache License 2.0开源
 
