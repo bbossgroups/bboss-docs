@@ -289,10 +289,10 @@ jdbc:clickhouse://101.13.6.4:29000,101.13.6.7:29000,101.13.6.6:29000/bboss?b.bal
 
 # 4.Clickhouse jdbc使用
 
-官方驱动Clickhouse jdbc基于http/https协议端口连接Clickhouse，支持负载均衡和容灾功能，jdbc url实例如下：
+官方驱动Clickhouse jdbc基于http/https协议端口连接Clickhouse，支持负载均衡功能，jdbc url实例如下：
 
 ```json
-jdbc:ch://(http://101.13.6.4:28123),(http://101.13.6.7:28123),(http://101.13.6.6:28123)/bboss?failover=1&load_balancing_policy=random
+jdbc:clickhouse:http://192.168.137.1:28123,192.168.137.1:28125,192.168.137.1:28126/visualops?b.enableBalance=true&b.balance=roundbin
 ```
 
 
@@ -302,30 +302,12 @@ jdbc:ch://(http://101.13.6.4:28123),(http://101.13.6.7:28123),(http://101.13.6.6
 gradle
 
 ```groovy
- api 'com.clickhouse:clickhouse-jdbc:0.5.0:http'
-    api (
-            [group: 'org.apache.httpcomponents.client5', name: 'httpclient5', version: "5.4-alpha2", transitive: true]
-    )
-    {
-        exclude group: 'org.apache.httpcomponents.core5', module: 'httpcore5'
-        exclude group: 'org.slf4j', module: 'slf4j-api'
-    }
-//            <dependency>
-//            <groupId>org.apache.httpcomponents.client5</groupId>
-//            <artifactId>httpclient5</artifactId>
-//    <exclusions>
-//            <exclusion>
-//            <groupId>org.apache.httpcomponents.core5</groupId>
-//                    <artifactId>httpcore5</artifactId>
-//            </exclusion>
-//                <exclusion>
-//                    <groupId>org.slf4j</groupId>
-//    <artifactId>slf4j-api</artifactId>
-//                </exclusion>
-//            </exclusions>
-//            <optional>true</optional>
-//    </dependency>
-    api 'org.apache.httpcomponents.core5:httpcore5:5.3-alpha2'
+ api(
+                [group: 'com.clickhouse', name: 'clickhouse-jdbc', version: "0.9.1", transitive: true],
+		)
+        {
+            exclude group: 'org.slf4j', module: 'slf4j-api'
+        }
 ```
 
 ## 4.1 启动数据源及访问Clickhouse实例
@@ -334,8 +316,8 @@ gradle
    DBConf tempConf = new DBConf();
         tempConf.setPoolname("test");
         tempConf.setDriver("com.clickhouse.jdbc.ClickHouseDriver");
-        //在url中指定启用负载均衡机制以及负载均衡算法，默认具备ClickHouseDriver的灾备功能
-        tempConf.setJdbcurl( "jdbc:ch://(http://101.13.6.4:28123),(http://101.13.6.7:28123),(http://101.13.6.6:28123)/bboss?failover=1&load_balancing_policy=random");
+        //在url中指定启用负载均衡机制以及负载均衡算法
+        tempConf.setJdbcurl( "jdbc:clickhouse:http://192.168.137.1:28123,192.168.137.1:28125,192.168.137.1:28126/visualops?b.enableBalance=true&b.balance=roundbin");
         tempConf.setUsername("default");
         tempConf.setPassword(null);
         tempConf.setValidationQuery("select 1 ");
