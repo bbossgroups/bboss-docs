@@ -584,3 +584,5 @@ Xinference参考文档
 https://inference.readthedocs.io/en/latest/getting_started/installation.html
 
 https://inference.readthedocs.io/en/latest/getting_started/using_xinference.html
+
+[Elasticsearch向量检索](https://esdoc.bbossgroups.com/#/Elasticsearch-embedding?id=elasticsearch向量检索)
