@@ -56,6 +56,7 @@
   - [bboss-aop 实践(1) xml配置文件语法](aop/xml.md)
 - mvc
   - [mvc快速入门教程](mvc/quickstart.md)
+  - [Deepseek流式问答案例](mvc/chatstream.md)
   - [持久层数据源引用外部属性配置介绍](mvc/persistent.md) 
   - [mvc控制器方法跳转地址设置](mvc/controller.md) 
   - [json插件设置日期类型格式方法](mvc/json.md) 
