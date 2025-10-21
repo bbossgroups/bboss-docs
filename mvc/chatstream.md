@@ -1,4 +1,4 @@
-# bboss MVC Deepseek问答功能使用文档
+# 基于bboss mvc和Deepseek实现智能问答教程
 
 ## 1. 功能概述
 
