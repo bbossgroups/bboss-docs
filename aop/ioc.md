@@ -12,7 +12,7 @@ Xml代码
 <dependency>  
     <groupId>com.bbossgroups</groupId>  
     <artifactId>bboss-core</artifactId>  
-    <version>6.3.1</version>  
+    <version>6.3.2</version>  
 </dependency> 
 ```
 
@@ -20,7 +20,7 @@ Xml代码
 Java代码
 
 ```java
-compile group: 'com.bbossgroups', name: 'bboss-core', version: '6.3.1'  
+compile group: 'com.bbossgroups', name: 'bboss-core', version: '6.3.2'  
 ```
 
 ### **2.编写组件实现**
