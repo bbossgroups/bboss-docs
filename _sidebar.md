@@ -103,6 +103,7 @@
   - [bboss高性能db批处理功能使用方法](persistent/db.md)
   - [Clickhouse客户端负载均衡和容灾功能使用介绍](persistent/datasource-cluster.md)
   - [bboss 持久层公共sql片段定义和引用方法](persistent/sql.md)
+  - [Sql模板变量设置字段sql数据类型](persistent/sqltypeconfig.md)
   - [最新版本mysql jdbc驱动包获取表定义信息异常处理方法](persistent/jdbc.md)
   - [持久层入门1](persistent/PersistenceLayer1.md)
   - [boss与spring中配置和引用数据源及bboss doc组件方法](persistent/spring.md)

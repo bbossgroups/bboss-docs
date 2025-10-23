@@ -15,11 +15,11 @@ Xml代码
   where y.yjlx='2'  
   #if($ldxxbhs && $ldxxbhs.size() > 0) 
   and y.ldxxbh in ( 
-  #foreach($ldxxbh in $ldxxbhs) 
-        #if($foreach.index == 0),#end #[ldxxbhs[$foreach.index]] 
-             
-   #end       
+      #foreach($ldxxbh in $ldxxbhs) 
+            #if($foreach.index > 0),#end #[ldxxbhs[$foreach.index]] 
+       #end
   ) 
+  #end  
   ]]>  
 </property>  
 ```
