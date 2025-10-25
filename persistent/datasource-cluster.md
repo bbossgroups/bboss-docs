@@ -303,7 +303,7 @@ gradle
 
 ```groovy
  api(
-                [group: 'com.clickhouse', name: 'clickhouse-jdbc', version: "0.9.1", transitive: true],
+                [group: 'com.clickhouse', name: 'clickhouse-jdbc', version: "0.9.2", transitive: true],
 		)
         {
             exclude group: 'org.slf4j', module: 'slf4j-api'
