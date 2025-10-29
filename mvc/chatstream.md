@@ -1,15 +1,21 @@
-# 基于bboss mvc和Deepseek实现智能问答教程
+# 基于bboss mvc实现AI智能问答教程
 
 ## 1. 功能概述
 
-本文件介绍基于bboss MVC框架和Deepseek大模型的实现流式智能问答功能，支持实时流式响应展示，提供良好的用户体验。
+本文件介绍基于bboss MVC框架和LLM模型、视觉模型的实现流式智能问答功能，支持实时流式响应展示，提供良好的用户体验。
 
 本文采用的技术：
 
 - bboss mvc：支持flux/mono 两种restful服务
 - bboss httpproxy：基于httpclient5和reactor core实现，支持流式服务调用
-- Deepseek模型服务：基于Deepseek官方云服务
 - 前端SSE：html5+sse流式交互调用
+- 简单的会话记忆功能
+- LLM模型
+  - Deepseek模型服务：基于Deepseek官方云服务
+  - 硅基流动通义千问模型服务
+- 视觉模型
+  - 阿里百炼通义千问视觉模型
+  - 硅基流动通义千问视觉模型
 
 本文案例工程源码地址：基于gradle管理
 
@@ -62,18 +68,42 @@ https://gitee.com/bboss/bbootdemo/blob/master/src/main/java/org/frameworkset/web
 
 ### 3.1 应用配置  
 
+在配置文件中配置了三个模型服务：deepseek,guiji,qwenvlplus
+
 [application.properties](https://gitee.com/bboss/bbootdemo/blob/master/src/main/resources/application.properties)
 
 ```properties
-# Deepseek API配置
-http.hosts=https://api.deepseek.com
-http.apiKeyId = sk-9fca957909d94ed5a9f7852be1aefa2a
+http.poolNames = deepseek,guiji,qwenvlplus
+##deepseek http连接池配置
 
-# HTTP连接池配置
-http.timeoutConnection = 5000000
-http.timeoutSocket = 50000
-http.maxTotal = 200
-http.defaultMaxPerRoute = 200
+deepseek.http.maxTotal = 200
+deepseek.http.defaultMaxPerRoute = 200
+ 
+# ha proxy 集群负载均衡地址配置,多个地址用逗号分隔
+deepseek.http.hosts=https://api.deepseek.com
+# https服务必须带https://协议头,多个地址用逗号分隔
+#http.hosts=https://192.168.137.1:808,https://192.168.137.1:809,https://192.168.137.1:810
+#基于apiKeyId认证配置（主要用于各种大模型服务对接认证）
+deepseek.http.apiKeyId = sk-0148357efb4c4951a8689ab9d69436ca
+
+##硅基流动 http连接池配置
+
+guiji.http.maxTotal = 200
+guiji.http.defaultMaxPerRoute = 200
+
+# ha proxy 集群负载均衡地址配置,多个地址用逗号分隔
+guiji.http.hosts=https://api.siliconflow.cn
+#基于apiKeyId认证配置（主要用于各种大模型服务对接认证）
+guiji.http.apiKeyId = sk-lewchdqpuxkhogbeahjcvkwflbsiloeefcvapznuuqfeqrtj
+
+##qwenvlplus http连接池配置--通义千问视觉模型
+
+qwenvlplus.http.maxTotal = 200
+qwenvlplus.http.defaultMaxPerRoute = 200
+# ha proxy 集群负载均衡地址配置,多个地址用逗号分隔
+qwenvlplus.http.hosts=https://dashscope.aliyuncs.com
+#基于apiKeyId认证配置（主要用于各种大模型服务对接认证）
+qwenvlplus.http.apiKeyId = sk-c70e31afd98b45f3856692097e1121b7
 ```
 
 可从Deepseek官方申请apiKey：https://platform.deepseek.com/api_keys
@@ -106,18 +136,22 @@ web.port=80
 ### 4.1 后端处理流程
 
 1. 系统启动时，`ReactorController`通过`afterPropertiesSet()`方法加载配置并启动HTTP连接池
-2. 用户从前端发送问题到`/reactor/deepseekChatServerEventBackuppress.api`接口
-3. 控制器接收问题内容，构造Deepseek API请求参数
-4. 通过`HttpRequestProxy.streamChatCompletion()`方法发送流式请求到Deepseek API
-5. 将响应以流式方式返回给前端
+2. 用户从前端发送问题到`/reactor/deepseekBackuppressSession.api`接口
+3. 控制器接收问题内容，构造对应模型请求参数，例如：Deepseek API请求参数
+4. 如果图片识别请求，则接收图片url或者图片base64编码串，调用视觉模型识别图片内容，以响应模式返回给前端
+5. 通过`HttpRequestProxy.streamChatCompletion()`方法发送流式请求到Deepseek API
+6. 将响应以流式方式返回给前端
+7. 记录历史会话记录
+8. 在问题答案之前、之后放置附加信息：例如Rag知识链接、网站资料链接等
 
 ### 4.2 前端交互流程
 
 1. 用户在输入框输入问题，点击发送或按回车键
-2. 前端通过Fetch API发送POST请求到后端接口
-3. 显示"正在思考中..."提示
-4. 接收后端流式响应数据
-5. 实时解析并展示Markdown格式的回答内容
+2. 如果是视觉模型，则可选择本地图片和图片URL地址
+3. 前端通过Fetch API发送POST请求到后端接口
+4. 显示"正在思考中..."提示
+5. 接收后端流式响应数据
+6. 实时解析并展示Markdown格式的回答内容
 
 ## 5. API接口说明
 
@@ -125,7 +159,7 @@ web.port=80
 
 示例：背压案例接口
 
-- **URL**: `/reactor/deepseekChatServerEventBackuppress.api`
+- **URL**: `/reactor/deepseekBackuppressSession.api`
 
 - **方法**: POST
 
@@ -133,11 +167,9 @@ web.port=80
 
 - **请求参数**:
   ```json
-  {
-    "message": "用户问题内容"
-  }
+  {"message":"介绍bboss","reset":true,"selectedModel":"deepseek"}
   ```
-
+  
 - **响应格式**: 流式文本数据
 
 其他接口访问源码文件了解
@@ -151,33 +183,259 @@ web.port=80
 具体实现以实际代码为准--背压案例，更多细节访问源码了解：https://gitee.com/bboss/bbootdemo/blob/master/src/main/java/org/frameworkset/web/react/ReactorController.java
 
 ```java
- public Flux<List<ServerEvent>> deepseekChatServerEventBackuppress(@RequestBody Map<String,Object> questions) {
+// 使用静态变量存储会话记忆（实际项目中建议使用缓存或数据库）
+    static List<Map<String, Object>> sessionMemory = new ArrayList<>();
+
+     /**
+     * 背压案例 - 带会话记忆功能（完善版）
+     * http://127.0.0.1/demoproject/chatBackuppressSession.html
+     * @param questions
+     * @return
+     */
+    public Flux<List<ServerEvent>> deepseekBackuppressSession(@RequestBody Map<String,Object> questions) {
+
+        String selectedModel = (String)questions.get("selectedModel");
+        Boolean reset = (Boolean) questions.get("reset");
+        if(reset != null && reset){
+            sessionMemory.clear();
+        }
         String message = (String)questions.get("message");
         Map<String, Object> requestMap = new HashMap<>();
-        requestMap.put("model", "deepseek-chat");
-
-        List<Map<String, String>> messages = new ArrayList<>();
-        Map<String, String> userMessage = new HashMap<>();
+        if(selectedModel.equals("deepseek")) {
+            requestMap.put("model", "deepseek-chat");
+        }
+        else {
+            requestMap.put("model", "Qwen/Qwen3-Next-80B-A3B-Instruct");//指定模型
+        }
+    
+        // 构建消息历史列表，包含之前的会话记忆
+        List<Map<String, Object>> messages = new ArrayList<>(sessionMemory);
+        
+        // 添加当前用户消息
+        Map<String, Object> userMessage = new HashMap<>();
         userMessage.put("role", "user");
         userMessage.put("content", message);
         messages.add(userMessage);
-
+    
         requestMap.put("messages", messages);
         requestMap.put("stream", true);
         requestMap.put("max_tokens", 2048);
         requestMap.put("temperature", 0.7);
-        Flux<ServerEvent> flux = HttpRequestProxy.streamChatCompletionEvent("/chat/completions",requestMap);
-
+        Flux<ServerEvent> flux = HttpRequestProxy.streamChatCompletionEvent(selectedModel,"/chat/completions",requestMap);
+    
+        // 用于累积完整的回答
+        StringBuilder completeAnswer = new StringBuilder();
+    
         return flux.doOnNext(chunk -> {
+           
             if(!chunk.isDone()) {
-                logger.info(chunk.getData()); //调试打印Deepseek回复片段
+                logger.info(chunk.getData());
             }
-        }).limitRate(5) // 限制请求速率
-                .buffer(3) ;   // 每3个元素缓冲一次;
+            
+        })
+        .limitRate(5) // 限制请求速率
+        .buffer(3) // 每3个元素缓冲一次
+        .doOnNext(bufferedEvents -> {
+            // 处理模型响应并更新会话记忆
+            for(ServerEvent event : bufferedEvents) {
+                //答案前后都可以添加链接和标题
+                if(event.isFirst() || event.isDone()){
+                    event.addExtendData("url","https://www.bbossgroups.com");
+                    event.addExtendData("title","bboss官网");
+                }
+                if(!event.isDone() ) {
+                    // 累积回答内容
+                    if(event.getData() != null) {
+                        completeAnswer.append(event.getData());
+                    }
+                } else  {
+                    
+                    if( completeAnswer.length() > 0) {
+                        // 当收到完成信号且有累积内容时，将完整回答添加到会话记忆
+                        Map<String, Object> assistantMessage = new HashMap<>();
+                        assistantMessage.put("role", "assistant");
+                        assistantMessage.put("content", completeAnswer.toString());
+                        sessionMemory.add(assistantMessage);
+
+                        // 维护记忆窗口大小为20
+                        if (sessionMemory.size() > 20) {
+                            sessionMemory.remove(0);
+                        }
+                    }
+                    
+                    
+                }
+            }
+        });
+    }
+
+    /**
+     * 带会话记忆功能
+     * http://127.0.0.1/demoproject/chatBackuppressSession.html
+     * @param questions
+     * @return
+     */
+    public Flux<List<ServerEvent>>  qwenvl(@RequestBody Map<String,Object> questions) throws InterruptedException {
+        String selectedModel = (String)questions.get("selectedModel");
+        Boolean reset = (Boolean) questions.get("reset");
+        if(reset != null && reset){
+            sessionMemory.clear();
+        }
+        String message  = null;
+        message = (String)questions.get("message");
+        if(SimpleStringUtil.isEmpty( message)){
+            message = "介绍图片内容并计算结果";
+        }
+
+        String imageBase64  = (String)questions.get("imageBase64");
+        String imageUrl = (String)questions.get("imageUrl");
+        if(imageUrl != null) {
+            imageUrl = imageUrl.trim();
+        }
+        
+
+        List contents = new ArrayList<>();
+        Map contentData = null;
+        if(SimpleStringUtil.isNotEmpty(imageUrl)) {
+            contentData = new LinkedHashMap();
+            contentData.put("type", "image_url");
+            String _imageUrl = imageUrl;
+            contentData.put("image_url", new HashMap<String, String>() {{
+
+                put("url", _imageUrl);
+            }});
+            contents.add(contentData);
+        }
+        if(SimpleStringUtil.isNotEmpty(imageBase64)) {
+            contentData = new LinkedHashMap();
+            contentData.put("type", "image_url");
+            String _imageUrl = imageBase64;
+            contentData.put("image_url", new HashMap<String, String>() {{
+
+                put("url", _imageUrl);
+            }});
+            contents.add(contentData);
+        }
 
 
+        contentData = new LinkedHashMap();
+        contentData.put("type", "text");
+        contentData.put("text", message);;
+        contents.add(contentData);
+
+
+        Map<String, Object> requestMap = new HashMap<>();
+        if(selectedModel.equals("qwenvlplus")) {
+            requestMap.put("model", "qwen3-vl-plus");
+        }
+        else{
+
+            requestMap.put("model", "Qwen/Qwen3-VL-32B-Thinking");
+        }
+
+        
+        // 构建消息历史列表，包含之前的会话记忆
+        List<Map<String, Object>> messages = new ArrayList<>(sessionMemory);
+//        List<Map<String, Object>> messages = new ArrayList<>();
+        Map<String, Object> userMessage = new HashMap<>();
+        userMessage.put("role", "user");
+        userMessage.put("content", contents);
+        messages.add(userMessage);
+
+
+
+        requestMap.put("messages", messages);
+        requestMap.put("stream", true);
+
+        // enable_thinking 参数开启思考过程，thinking_budget 参数设置最大推理过程 Token 数
+        Map extra_body = new LinkedHashMap();
+        extra_body.put("enable_thinking",true);
+        extra_body.put("thinking_budget",81920);
+        requestMap.put("extra_body",extra_body);
+
+        // 用于累积完整的回答
+        StringBuilder completeAnswer = new StringBuilder();
+        Flux<List<ServerEvent>> flux = null;
+        if(selectedModel.equals("qwenvlplus")){
+            flux = HttpRequestProxy.streamChatCompletionEvent("qwenvlplus","/compatible-mode/v1/chat/completions",requestMap).limitRate(5) // 限制请求速率
+                .buffer(3);
+        }
+        else{
+            flux = HttpRequestProxy.streamChatCompletionEvent("guiji","/chat/completions",requestMap).limitRate(5) // 限制请求速率
+                    .buffer(3);
+        }
+        flux = flux.doOnNext(bufferedEvents -> {
+                    // 处理模型响应并更新会话记忆
+                    for(ServerEvent event : bufferedEvents) {
+                        //答案前后都可以添加链接和标题
+                        if(event.isFirst() || event.isDone()){
+                            event.addExtendData("url","https://www.bbossgroups.com");
+                            event.addExtendData("title","bboss官网");
+                        }
+                        if(!event.isDone() ) {
+                             
+                            // 累积回答内容
+                            if(event.getData() != null) {
+                                completeAnswer.append(event.getData());
+                            }
+                        } else  {
+                            
+                            if( completeAnswer.length() > 0) {
+                                // 当收到完成信号且有累积内容时，将完整回答添加到会话记忆
+                                Map<String, Object> assistantMessage = new HashMap<>();
+                                assistantMessage.put("role", "assistant");
+                                assistantMessage.put("content", completeAnswer.toString());
+                                sessionMemory.add(assistantMessage);
+
+                                // 维护记忆窗口大小为20
+                                if (sessionMemory.size() > 20) {
+                                    sessionMemory.remove(0);
+                                }
+                            }
+
+
+                        }
+                    }
+                });
+        
+        return flux;
     }
 ```
+
+#### 答案前后嵌入自定义数据
+
+答案前后都可以添加链接和标题
+                
+
+```java
+if(event.isFirst() || event.isDone()){
+                    event.addExtendData("url","https://www.bbossgroups.com");
+                    event.addExtendData("title","bboss官网");
+                }
+```
+
+前端页面嵌入自定义数据：
+
+```javascript
+if(line.first && line.extendDatas){
+                                                let title = line.extendDatas["title"];
+                                                let url = line.extendDatas["url"];
+                                                accumulatedContent += `<a href="${url}" target="_blank">${title}</a><br><br>`;
+                                                //将链接作为一个超链接追加到答案的末尾
+                                                this.updateBotMessage(botMessageElement, accumulatedContent);
+                                            }
+                                            if (line.data) {
+                                                accumulatedContent += line.data;
+                                                this.updateBotMessage(botMessageElement, accumulatedContent);
+                                            }
+                                            if(line.done && line.extendDatas){
+                                                let title = line.extendDatas["title"];
+                                                let url = line.extendDatas["url"];
+                                                //将链接作为一个超链接追加到答案的末尾
+                                                this.updateBotMessage(botMessageElement, accumulatedContent +`<br><br><a href="${url}" target="_blank">${title}</a>`);
+                                            }
+```
+
 
 
 #### Deepseek服务数据源初始化
@@ -204,64 +462,74 @@ public Mono<User> getUser(String id){
 
 #### 背压Flux服务JavaScript客户端类
 
-更多内容，访问页面源码了解：https://gitee.com/bboss/bbootdemo/blob/master/WebRoot/chatBackuppress.html
+发送消息和接收答案的实现如下
+
+更多内容访问页面源码了解：https://gitee.com/bboss/bbootdemo/blob/master/WebRoot/chatBackuppressSession.html
 
 ```javascript
-class ReactiveChatClient {
-        constructor() {
-            this.eventSource = null;
-            this.abortController = null;
-            this.isStreaming = false;
-
-            this.chatContainer = document.getElementById('chat-container');
-            this.questionInput = document.getElementById('question-input');
-            this.sendBtn = document.getElementById('send-btn');
-            this.cancelBtn = document.getElementById('cancel-btn');
-
-            // 配置marked选项
-            marked.setOptions({
-                breaks: true,
-                gfm: true
-            });
-
-            this.initEventListeners();
-        }
-
-        initEventListeners() {
-            this.sendBtn.addEventListener('click', () => this.sendMessage());
-            this.cancelBtn.addEventListener('click', () => this.cancelStream());
-            this.questionInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    this.sendMessage();
-                }
-            });
-        }
-
-        sendMessage() {
+sendMessage() {
             const message = this.questionInput.value.trim();
+            const reset = this.resetCheckbox.checked;
             if (!message || this.isStreaming) return;
 
             // 显示用户消息
-            this.displayMessage(message, 'user');
+            // this.displayMessage(message, 'user');
+            this.displayUserMessage(message);
             this.questionInput.value = '';
 
             // 显示机器人正在输入指示器
             const indicatorId = this.showTypingIndicator();
 
             // 修改为POST请求URL
-            const url = `/metrics/reactor/deepseekChatServerEventBackuppress.api`;
+            //Deepseek服务地址
+            const deepseekurl = `/demoproject/reactor/deepseekBackuppressSession.api`;
+            //千问视觉模型服务地址
+            const vlurl = `/demoproject/reactor/qwenvl.api`;
+            // 替换原来的 let url = deepseekurl; 这一行
+            let url;
+            const selectedModel = this.modelSelect.value;
+            if (selectedModel === 'deepseek') {
+                url = deepseekurl;
+            }
+            if (selectedModel === 'guiji') {
+                url = deepseekurl;
+            }
+            else if (selectedModel === 'qwenvlplus'  || this.modelSelect.value === 'qwenvl-guiji') {
+                url = vlurl;
+            }
 
             // 创建AbortController用于取消请求
             this.abortController = new AbortController();
             this.isStreaming = true;
 
-            // 使用fetch API进行POST流式请求
+            // 构建请求体
+            const requestBody = {
+                message: message,
+                reset: reset,
+                selectedModel: selectedModel
+            };
+
+            // 根据模型类型添加相应的图片参数
+            if (selectedModel === 'qwenvlplus'  || this.modelSelect.value === 'qwenvl-guiji') {
+                // 如果是URL模式且有输入URL，则使用URL
+                if (this.imageUrlInput.value.trim()) {
+                    requestBody.imageUrl = this.imageUrlInput.value.trim();
+                }
+                // 如果是上传图片模式且有上传图片，则使用base64数据
+                else if (this.imageBase64Data) {
+                    requestBody.imageBase64 = this.imageBase64Data;
+                }
+            }
+
+            this.clearImage();
+            // 使用fetch API进行POST流式请求，包含reset参数
             fetch(url, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ message: message }),
+                // 在sendMessage方法中，修改fetch请求的body部分
+                body: JSON.stringify(requestBody),
                 signal: this.abortController.signal
             })
                 .then(response => {
@@ -277,10 +545,8 @@ class ReactiveChatClient {
                     const decoder = new TextDecoder();
                     let botMessageElement = this.createBotMessageElement();
                     let accumulatedContent = '';
-                    // 在ReactiveChatClient类中添加行缓冲区属性
-// 添加处理单行数据的方法
-
                     let lineBuffer = '';
+
                     // 修改readStream函数实现逐行处理
                     const readStream = () => {
                         reader.read().then(({ done, value }) => {
@@ -289,17 +555,26 @@ class ReactiveChatClient {
                                 if (lineBuffer.trim()) {
                                     try {
                                         const jsonData = JSON.parse(lineBuffer.trim());
-                                        //jsonData为数组类型，遍历其中元素
                                         for (let i = 0; i < jsonData.length; i++) {
-                                            //处理jsonData中的数据
                                             const line = jsonData[i];
+                                            if(line.first && line.extendDatas){
+                                                let title = line.extendDatas["title"];
+                                                let url = line.extendDatas["url"];
+                                                accumulatedContent += `<a href="${url}" target="_blank">${title}</a><br><br>`;
+                                                //将链接作为一个超链接追加到答案的末尾
+                                                this.updateBotMessage(botMessageElement, accumulatedContent);
+                                            }
                                             if (line.data) {
                                                 accumulatedContent += line.data;
                                                 this.updateBotMessage(botMessageElement, accumulatedContent);
                                             }
+                                            if(line.done && line.extendDatas){
+                                                let title = line.extendDatas["title"];
+                                                let url = line.extendDatas["url"];
+                                                //将链接作为一个超链接追加到答案的末尾
+                                                this.updateBotMessage(botMessageElement, accumulatedContent +`<br><br><a href="${url}" target="_blank">${title}</a>`);
+                                            }
                                         }
-                                        
-                                        
                                     } catch (e) {
                                         // 如果不是JSON格式，作为普通文本处理
                                         accumulatedContent += lineBuffer;
@@ -307,6 +582,10 @@ class ReactiveChatClient {
                                     }
                                 }
                                 this.isStreaming = false;
+                                // 发送完成后，如果reset被选中，则取消选中
+                                if (reset) {
+                                    this.resetCheckbox.checked = false;
+                                }
                                 return;
                             }
 
@@ -332,15 +611,26 @@ class ReactiveChatClient {
                                 if (line.trim()) {
                                     try {
                                         const jsonData = JSON.parse(line.trim());
-                                        //jsonData为数组类型，遍历其中元素
                                         for (let i = 0; i < jsonData.length; i++) {
-                                            //处理jsonData中的数据
                                             const lineData = jsonData[i];
+                                            if(lineData.first && lineData.extendDatas){
+                                                let title = lineData.extendDatas["title"];
+                                                let url = lineData.extendDatas["url"];
+                                                accumulatedContent += `<a href="${url}" target="_blank">${title}</a><br><br>`;
+                                                //将链接作为一个超链接追加到答案的开头
+                                                this.updateBotMessage(botMessageElement, accumulatedContent);
+                                            }
                                             if (lineData.data) {
                                                 accumulatedContent += lineData.data;
                                                 this.updateBotMessage(botMessageElement, accumulatedContent);
                                             }
-                                        }                                        
+                                            if(lineData.done && lineData.extendDatas){
+                                                let title = lineData.extendDatas["title"];
+                                                let url = lineData.extendDatas["url"];
+                                                //将链接作为一个超链接追加到答案的末尾
+                                                this.updateBotMessage(botMessageElement, accumulatedContent +`<br><br><a href="${url}" target="_blank">${title}</a>`);
+                                            }
+                                        }
                                     } catch (e) {
                                         // 如果不是JSON格式，作为普通文本处理
                                         accumulatedContent += line;
@@ -374,80 +664,6 @@ class ReactiveChatClient {
                     }
                 });
         }
-
-        cancelStream() {
-            if (this.isStreaming && this.abortController) {
-                this.abortController.abort();
-                this.isStreaming = false;
-                this.displayErrorMessage('请求已被用户取消');
-            }
-        }
-
-        displayMessage(content, sender) {
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `message ${sender}-message`;
-
-            if (sender === 'bot') {
-                // 对于机器人消息，解析Markdown
-                messageDiv.innerHTML = marked.parse(content);
-            } else {
-                // 用户消息保持纯文本
-                messageDiv.textContent = content;
-            }
-
-            this.chatContainer.appendChild(messageDiv);
-            this.scrollToBottom();
-        }
-
-        createBotMessageElement() {
-            const messageDiv = document.createElement('div');
-            messageDiv.className = 'message bot-message';
-            this.chatContainer.appendChild(messageDiv);
-            this.scrollToBottom();
-            return messageDiv;
-        }
-
-        updateBotMessage(element, content) {
-            // 实时更新Markdown内容
-            element.innerHTML = marked.parse(content);
-            this.scrollToBottom();
-        }
-
-        showTypingIndicator() {
-            const indicator = document.createElement('div');
-            indicator.className = 'message bot-message typing-indicator';
-            indicator.id = 'typing-' + Date.now();
-            indicator.textContent = '正在思考中...';
-            this.chatContainer.appendChild(indicator);
-            this.scrollToBottom();
-            return indicator.id;
-        }
-
-        removeTypingIndicator(id) {
-            const indicator = document.getElementById(id);
-            if (indicator) {
-                indicator.remove();
-            }
-        }
-
-        displayErrorMessage(message) {
-            const errorDiv = document.createElement('div');
-            errorDiv.className = 'message bot-message';
-            errorDiv.style.color = 'red';
-            errorDiv.textContent = message;
-            this.chatContainer.appendChild(errorDiv);
-            this.scrollToBottom();
-        }
-
-        scrollToBottom() {
-            this.chatContainer.scrollTop = this.chatContainer.scrollHeight;
-        }
-    }
-
-    // 初始化应用
-    document.addEventListener('DOMContentLoaded', () => {
-        new ReactiveChatClient();
-    });
 ```
 
 #### Mono服务Javascript客户端类
@@ -479,9 +695,9 @@ class ReactiveChatClient {
 
 启动Main类后，打开浏览器输入地址，体验问答功能：
 
-http://127.0.0.1/demoproject/chatpost.html
+http://127.0.0.1/demoproject/chatBackuppressSession.html
 
-![](..\images\stream\result.png)
+![](https://esdoc.bbossgroups.com/images/httpproxy/testpage.png)
 
 ### 8.2 打包发布
 
@@ -501,7 +717,7 @@ linux环境：release.sh
 
 ## 9. 扩展建议
 
-1. 可增加对话历史记录功能
-2. 可支持多种大模型切换
+1. 可增持久化加对话历史记录功能
+2. 增加语音和视频大模型功能
 3. 可添加用户认证和权限控制
 4. 可优化前端UI界面和交互体验
