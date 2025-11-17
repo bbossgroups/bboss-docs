@@ -1,4 +1,14 @@
-# 基于bboss mvc实现AI智能问答教程
+# 基于bboss mvc和bboss ai客户端实现AI智能问答教程
+bboss ai java客户端目前支持以下功能：
+
+- 文本对话
+- 图像识别
+- 图像生成
+- 语音识别
+- 语音生成
+- 视频生成
+
+本文着重介绍基于Deepseek实现AI智能问答功能，其他功能可通过下面的[案例地址](https://gitee.com/bboss/bbootdemo)下载部署到本地体验
 
 ## 1. 功能概述
 
