@@ -26,7 +26,7 @@ maven坐标 Xml代码
     <dependency>  
       <groupId>com.bbossgroups.plugins</groupId>  
       <artifactId>bboss-plugin-rocketmq</artifactId>  
-      <version>6.5.3</version>  
+      <version>6.5.5</version>  
   </dependency>
 ```
 
@@ -35,7 +35,7 @@ maven坐标 Xml代码
 Java代码
 
 ```java
-compile 'com.bbossgroups.plugins:bboss-plugin-rocketmq:6.5.3' 
+compile 'com.bbossgroups.plugins:bboss-plugin-rocketmq:6.5.5' 
 ```
 
 组件默认依赖的[Rocketmq client 5.3.1](https://central.sonatype.com/artifact/org.apache.rocketmq/rocketmq-client)版本的依赖包，无需额外导入。

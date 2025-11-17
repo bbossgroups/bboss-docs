@@ -31,7 +31,7 @@ public interface MilvusFunction<T> {
 gradle
 
 ```java
-compile 'com.bbossgroups:bboss-data:6.3.5' 
+compile 'com.bbossgroups:bboss-data:6.3.6' 
 ```
 
 maven
@@ -41,7 +41,7 @@ maven
 <dependency>  
     <groupId>com.bbossgroups</groupId>  
     <artifactId>bboss-data</artifactId>  
-    <version>6.3.5</version>  
+    <version>6.3.6</version>  
 </dependency>  
 ```
 
