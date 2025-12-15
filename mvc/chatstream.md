@@ -27,6 +27,8 @@ bboss ai java客户端目前支持以下功能：
   - 阿里百炼通义千问视觉模型
   - 硅基流动通义千问视觉模型
 
+## 2.案例下载
+
 本文案例工程源码地址：基于gradle管理
 
 https://gitee.com/bboss/bbootdemo
@@ -35,9 +37,9 @@ https://gitee.com/bboss/bbootdemo
 
 https://esdoc.bbossgroups.com/#/bboss-build
 
-## 2. 核心组件
+## 3. 核心组件
 
-### 2.1 后端Flux控制器
+### 3.1 后端Flux控制器
 
 https://gitee.com/bboss/bbootdemo/blob/master/src/main/java/org/frameworkset/web/react/ReactorController.java
 
@@ -50,11 +52,11 @@ public class ReactorController implements InitializingBean
 - `deepseekBackuppressSession(@RequestBody Map<String,Object> questions)`: 背压及带记忆窗口多轮会话Deepseek问答请求服务
 - `afterPropertiesSet()`: 初始化Deepseek大模型HTTP连接池配置,基于bboss-http5
 
-### 2.2 后端Mono控制器
+### 3.2 后端Mono控制器
 
 https://gitee.com/bboss/bbootdemo/blob/master/src/main/java/org/frameworkset/web/react/MonoController.java
 
-### 2.3 前端页面
+### 3.3 前端页面
 
 实现流式问答交互的前端界面，包含：
 - 用户输入框
@@ -74,9 +76,9 @@ https://gitee.com/bboss/bbootdemo/blob/master/src/main/java/org/frameworkset/web
 
 [mono.html](https://gitee.com/bboss/bbootdemo/blob/master/WebRoot/mono.html) 基于mono的响应是案例
 
-## 3. 配置说明
+## 4. 配置说明
 
-### 3.1 应用配置  
+### 4.1 模型服务配置  
 
 在配置文件中配置了三个模型服务：deepseek,guiji,qwenvlplus
 
@@ -116,7 +118,15 @@ qwenvlplus.http.hosts=https://dashscope.aliyuncs.com
 qwenvlplus.http.apiKeyId = sk-c70e31afd98b45f3856692097e1121b7
 ```
 
-可从Deepseek官方申请apiKey：https://platform.deepseek.com/api_keys
+### 4.2 模型apiKey申请
+
+apiKey申请：
+
+Deepseek官方apiKey申请：https://platform.deepseek.com/api_keys
+
+硅基流动apiKey申请：https://cloud.siliconflow.cn/me/account/ak
+
+通义apiKey申请：https://bailian.console.aliyun.com/
 
 在`application.properties`中增加服务Webroot目录（在idea开发调试时需要配置，打包发布运行时需注释掉web.docBase配置）、启动端口以及应用上下文路径配置：
 
@@ -128,7 +138,7 @@ web.port=80
 
 
 
-### 3.2 Mvc路由配置 
+### 4.3 Mvc服务路由配置 
 
  [bboss-socket.xml](https://gitee.com/bboss/bbootdemo/blob/master/WebRoot/WEB-INF/conf/bboss-socket.xml)
 
@@ -141,9 +151,9 @@ web.port=80
 
 将/reactor/mono/*.api路径映射到MonoController控制器
 
-## 4. 使用流程
+## 5. 使用流程
 
-### 4.1 后端处理流程
+### 5.1 后端处理流程
 
 1. 系统启动时，`ReactorController`通过`afterPropertiesSet()`方法加载配置并启动HTTP连接池
 2. 用户从前端发送问题到`/reactor/deepseekBackuppressSession.api`接口
@@ -154,7 +164,7 @@ web.port=80
 7. 记录历史会话记录
 8. 在问题答案之前、之后放置附加信息：例如Rag知识链接、网站资料链接等
 
-### 4.2 前端交互流程
+### 5.2 前端交互流程
 
 1. 用户在输入框输入问题，点击发送或按回车键
 2. 如果是视觉模型，则可选择本地图片和图片URL地址
@@ -163,9 +173,9 @@ web.port=80
 5. 接收后端流式响应数据
 6. 实时解析并展示Markdown格式的回答内容
 
-## 5. API接口说明
+## 6. API接口说明
 
-### 5.1 Deepseek问答接口
+### 6.1 Deepseek问答接口
 
 示例：背压案例接口
 
@@ -184,9 +194,9 @@ web.port=80
 
 其他接口访问源码文件了解
 
-## 6. 核心实现代码案例
+## 7. 核心实现代码案例
 
-### 6.1 后端核心实现
+### 7.1 后端核心实现
 
 #### Flux Deepseek问答接口
 
@@ -468,7 +478,7 @@ public Mono<User> getUser(String id){
 }
 ```
 
-### 6.3 前端核心实现
+### 7.3 前端核心实现
 
 #### 背压Flux服务JavaScript客户端类
 
@@ -680,7 +690,7 @@ sendMessage() {
 
 直接访问页面了解：https://gitee.com/bboss/bbootdemo/blob/master/WebRoot/mono.html
 
-## 7. 技术特点
+## 8. 技术特点
 
 1. **流式响应**: 使用Reactor `Flux`和Mono实现流式数据传输，支持实时展示回答内容
 2. **Markdown支持**: 前端集成`marked.js`库，支持Markdown格式内容渲染
@@ -688,7 +698,7 @@ sendMessage() {
 4. **连接池管理**: 后端使用HTTP连接池管理与Deepseek API的连接
 5. **错误处理**: 完善的异常处理和用户提示机制
 
-## 8. 部署与运行
+## 9. 部署与运行
 
 部署运行步骤：
 
@@ -697,7 +707,7 @@ sendMessage() {
 3. 启动应用后访问`http://localhost/demoproject/chatBackuppressSession.html`
 4. 在输入框中输入问题，即可与Deepseek模型进行问答交互
 
-### 8.1 开发调试
+### 9.1 开发调试
 
 在idea中启动服务：直接运行或者Debug test目录下的org.frameworkset.test.Main类即可
 
@@ -709,7 +719,7 @@ http://127.0.0.1/demoproject/chatBackuppressSession.html
 
 ![](https://esdoc.bbossgroups.com/images/httpproxy/testpage.png)
 
-### 8.2 打包发布
+### 9.2 打包发布
 
 运行源码工程目录下的指令：
 
@@ -725,9 +735,6 @@ linux环境：release.sh
 
 ![](..\images\stream\run.png)
 
-## 9. 扩展建议
+## 10.参考资料
 
-1. 可增持久化加对话历史记录功能
-2. 增加语音和视频大模型功能
-3. 可添加用户认证和权限控制
-4. 可优化前端UI界面和交互体验
+[多智能体协同：轻松搞定智能体工具调用](https://esdoc.bbossgroups.com/#/jobflow-deepseek-fuctioncall?id=多智能体协同：轻松搞定智能体工具调用)
