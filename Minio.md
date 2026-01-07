@@ -182,6 +182,34 @@ MinioClient minioClient = minio.getMinioClient()
 
 [文件输出插件对接OSS对象库Minio](https://esdoc.bbossgroups.com/#/datatran-plugins?id=_233-导出并上传oss)
 
+## 3.基于S3协议对接Minio
+
+```java
+ OSSConfig ossConfig = new OSSConfig();
+        ossConfig.setName("miniotest");
+        ossConfig.setAccessKeyId("N3XNZFqSZfpthypuoOzL");
+        ossConfig.setSecretAccesskey("2hkDSEll1Z7oYVfhr0uLEam7r0M4UWT8akEBqO97");
+        ossConfig.setEndpoint("http://172.24.176.18:9000");
+
+        ossConfig.setConnectTimeout(5000l);
+//            ossConfig.setHttpClient(OSSFileConfig.getHttpClient());
+        ossConfig.setMaxFilePartSize(10*1024*1024*1024);
+        ossConfig.setReadTimeout(5000l);
+        ossConfig.setWriteTimeout(5000l);
+        ossConfig.setSocketTimeout(5000l);
+        ossConfig.setConnectionAcquisitionTimeout(5000l);
+        ossConfig.setConnectionMaxIdleTime(5000l);
+        ossConfig.setPathStyleAccess(true);
+        ossConfig.setPoolMaxIdleConnections(10);
+        ossConfig.setTcpKeepAlive(true);
+        ossConfig.setRegion("east-r-a1");
+        boolean result = OSSHelper.init(ossConfig);
+        OSSClient ossClient = OSSHelper.getOSSClientDS(ossConfig.getName());
+        //获取bulket下文件的分享路径
+        String shareUrl = ossClient.getInternalDownloadUrl("etlfiles","HN_BOSS_TRADE000001_202503211019_000001.txt",100);
+        System.out.println(shareUrl);
+```
+
 **视频教程推荐**
 
 [视频 | bboss开发环境搭建教程](https://mp.weixin.qq.com/s?__biz=MzA3MzE0MDUyNw==&mid=2247484503&idx=1&sn=59bd7cbab0ff9d89377289228a93e84b&scene=21#wechat_redirect)
