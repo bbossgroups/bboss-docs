@@ -9,7 +9,18 @@ bboss ai java客户端目前支持以下功能：
 - 视频生成
 
 本文着重介绍基于Deepseek实现AI智能问答功能，其他功能可通过下面的[案例地址](https://gitee.com/bboss/bbootdemo)下载部署到本地体验
-
+在工程中导入以下maven坐标即可
+```xml
+<dependency>
+   <groupId>com.bbossgroups</groupId>
+   <artifactId>bboss-ai</artifactId>
+   <version>6.5.3</version>
+</dependency>
+```
+如果是gradle工程，导入方法如下：
+```groovy
+api 'com.bbossgroups:bboss-ai: 6.5.3'
+```
 ## 1. 功能概述
 
 本文件介绍基于bboss MVC框架和LLM模型、视觉模型的实现流式智能问答功能，支持实时流式响应展示，提供良好的用户体验。
