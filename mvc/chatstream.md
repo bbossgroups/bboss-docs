@@ -1,5 +1,5 @@
 # 基于bboss mvc和bboss ai客户端实现AI智能问答教程
-bboss ai java客户端目前支持以下功能：
+[bboss ai](https://esdoc.bbossgroups.com/#/bboss-ai) java客户端目前支持以下功能：
 
 - 文本对话
 - 图像识别
@@ -7,9 +7,11 @@ bboss ai java客户端目前支持以下功能：
 - 语音识别
 - 语音生成
 - 视频生成
+- 视频识别
 
 本文着重介绍基于Deepseek实现AI智能问答功能，其他功能可通过下面的[案例地址](https://gitee.com/bboss/bbootdemo)下载部署到本地体验
 在工程中导入以下maven坐标即可
+
 ```xml
 <dependency>
    <groupId>com.bbossgroups</groupId>
@@ -75,15 +77,9 @@ https://gitee.com/bboss/bbootdemo/blob/master/src/main/java/org/frameworkset/web
 - 实时消息展示区域
 - Markdown格式支持
 
-前端清单
+前端清单 
 
-[chatpost.html](https://gitee.com/bboss/bbootdemo/blob/master/WebRoot/chatpost.html)  简单文本stream 响应案例
-
-[chatBackuppress.html](https://gitee.com/bboss/bbootdemo/blob/master/WebRoot/chatBackuppress.html) 背压stream案例
-
-[chatBackuppressSession.html](https://gitee.com/bboss/bbootdemo/blob/master/WebRoot/chatBackuppressSession.html)  多轮会话记忆的背压stream案例
-
-[chatpostServerEvent.html](https://gitee.com/bboss/bbootdemo/blob/master/WebRoot/chatpostServerEvent.html)  基于ServerEvent的简单stream案例
+[chatBackuppressSession.html](https://gitee.com/bboss/bbootdemo/blob/master/WebRoot/chatBackuppressSession.html)  多轮会话记忆的背压stream案例 
 
 [mono.html](https://gitee.com/bboss/bbootdemo/blob/master/WebRoot/mono.html) 基于mono的响应是案例
 
@@ -107,7 +103,7 @@ deepseek.http.hosts=https://api.deepseek.com
 # https服务必须带https://协议头,多个地址用逗号分隔
 #http.hosts=https://192.168.137.1:808,https://192.168.137.1:809,https://192.168.137.1:810
 #基于apiKeyId认证配置（主要用于各种大模型服务对接认证）
-deepseek.http.apiKeyId = sk-0148357efb4c4951a8689ab9d69436ca
+deepseek.http.apiKeyId = sk-0148357efb4c4951b9d69436ca
 
 ##硅基流动 http连接池配置
 
@@ -117,7 +113,7 @@ guiji.http.defaultMaxPerRoute = 200
 # ha proxy 集群负载均衡地址配置,多个地址用逗号分隔
 guiji.http.hosts=https://api.siliconflow.cn
 #基于apiKeyId认证配置（主要用于各种大模型服务对接认证）
-guiji.http.apiKeyId = sk-lewchdqpuxkhogbeahjcvkwflbsiloeefcvapznuuqfeqrtj
+guiji.http.apiKeyId = sk-lewchdqpuxkhloeefcvapznuuqfeqrtj
 
 ##qwenvlplus http连接池配置--通义千问视觉模型
 
@@ -126,7 +122,7 @@ qwenvlplus.http.defaultMaxPerRoute = 200
 # ha proxy 集群负载均衡地址配置,多个地址用逗号分隔
 qwenvlplus.http.hosts=https://dashscope.aliyuncs.com
 #基于apiKeyId认证配置（主要用于各种大模型服务对接认证）
-qwenvlplus.http.apiKeyId = sk-c70e31afd98b45f3856692097e1121b7
+qwenvlplus.http.apiKeyId = sk-c70e31b45f3856692097e1121b7
 ```
 
 ### 4.2 模型apiKey申请
@@ -227,49 +223,110 @@ web.port=80
 
         String selectedModel = (String)questions.get("selectedModel");
         Boolean reset = (Boolean) questions.get("reset");
+        Boolean deepThink = (Boolean) questions.get("deepThink");
+        Boolean enableStream = (Boolean) questions.get("enableStream");
+
+        //重置会议记忆窗口
         if(reset != null && reset){
             sessionMemory.clear();
         }
         String message = (String)questions.get("message");
-        Map<String, Object> requestMap = new HashMap<>();
-        if(selectedModel.equals("deepseek")) {
-            requestMap.put("model", "deepseek-chat");
-        }
-        else {
-            requestMap.put("model", "Qwen/Qwen3-Next-80B-A3B-Instruct");//指定模型
-        }
-    
-        // 构建消息历史列表，包含之前的会话记忆
-        List<Map<String, Object>> messages = new ArrayList<>(sessionMemory);
+        ChatAgentMessage chatAgentMessage = new ChatAgentMessage();
+        chatAgentMessage.setPrompt( message);//当前消息
         
-        // 添加当前用户消息
-        Map<String, Object> userMessage = new HashMap<>();
-        userMessage.put("role", "user");
-        userMessage.put("content", message);
-        messages.add(userMessage);
-    
-        requestMap.put("messages", messages);
-        requestMap.put("stream", true);
-        requestMap.put("max_tokens", 2048);
-        requestMap.put("temperature", 0.7);
-        Flux<ServerEvent> flux = HttpRequestProxy.streamChatCompletionEvent(selectedModel,"/chat/completions",requestMap);
+        //设置模型服务地址
+//        String completionsUrl =  null;
+        String model = null;
+        if(selectedModel.equals("deepseek")) {
+            if(deepThink == null || !deepThink) {
+                model = "deepseek-chat";
+            }
+            else {
+                model = "deepseek-reasoner";
+            }
+//            completionsUrl =   "/chat/completions"; //Deepseek LLM模型服务地址
+            
+        }
+        else if(selectedModel.equals("minimax")){
+            model = "MiniMax-M2.7";
+        }
+
+        else if(selectedModel.equals("hunyuan")){
+            model = "hunyuan-2.0-thinking-20251109";
+        }
+        else if(selectedModel.equals("jiutian")){
+//            completionsUrl =  "/largemodel/moma/api/v3/chat/completions";
+            model = "jiutian-lan-comv3";
+        }
+        else if(selectedModel.equals("kimi")){
+//            completionsUrl =  "/v1/chat/completions";
+            
+            
+            if(deepThink == null || !deepThink) {
+                model = "kimi-k2-turbo-preview";
+                chatAgentMessage.addMapParameter("thinking","type","disabled");//kimi-k2.5禁用思维模式
+            }
+            else {
+                model = "kimi-k2-thinking";                
+            }
+
+            chatAgentMessage.setSystemPrompt("你是 Kimi。");
+            model = "kimi-k2.5";
+        }
+        else if(selectedModel.equals("zhipu")){
+//            completionsUrl =  "/api/paas/v4/chat/completions";
+
+            model = "glm-4.7";
+            if(deepThink != null && deepThink) {
+                chatAgentMessage.addMapParameter("thinking","type","enabled");
+            }
+            else{
+                chatAgentMessage.addMapParameter("thinking","type","disabled");
+            }
+        }
+        
+        else {
+            model = "qwen3.5-plus";
+            chatAgentMessage.addParameter("enable_thinking",deepThink == null?false:deepThink);
+//            completionsUrl =  "/compatible-mode/v1/chat/completions";//通义千问LLM模型服务地址
+            
+            
+        }
+        //设置模型
+        chatAgentMessage.setModel( model);
+        //设置历史消息
+        chatAgentMessage.setSessionMemory(sessionMemory).setSessionSize(50)
+        //不配置以下参数时，默认值设置如下
+                .setStream( enableStream)
+                .setMaxTokens( 8192);
+//                .addParameter("temperature", 0.7);//kimi 2.5不能设置temperature参数
+ 
+       
+       
+        
+        //提交会话请求：由enableStream参数控制流式异步/同步会话模式，true 异步  false 同步
+        AIAgent aiAgent = new AIAgent();
+        Flux<ServerEvent> flux = aiAgent.streamChat(selectedModel,chatAgentMessage);
     
         // 用于累积完整的回答
         StringBuilder completeAnswer = new StringBuilder();
     
         return flux.doOnNext(chunk -> {
            
-            if(!chunk.isDone()) {
-                logger.info(chunk.getData());
+            //调试模式：输出流水会话片段到日志文件中
+            if(logger.isDebugEnabled()) {
+                if (!chunk.isDone()) {
+                    logger.debug(chunk.getData());
+                }
             }
             
         })
-        .limitRate(5) // 限制请求速率
-        .buffer(3) // 每3个元素缓冲一次
+        .limitRate(5) //背压：限制请求速率
+        .buffer(3) //缓冲：每3个元素缓冲一次
         .doOnNext(bufferedEvents -> {
             // 处理模型响应并更新会话记忆
             for(ServerEvent event : bufferedEvents) {
-                //答案前后都可以添加链接和标题
+                //答案前后都可以添加链接和标题，实现相关知识资料链接
                 if(event.isFirst() || event.isDone()){
                     event.addExtendData("url","https://www.bbossgroups.com");
                     event.addExtendData("title","bboss官网");
@@ -283,15 +340,9 @@ web.port=80
                     
                     if( completeAnswer.length() > 0) {
                         // 当收到完成信号且有累积内容时，将完整回答添加到会话记忆
-                        Map<String, Object> assistantMessage = new HashMap<>();
-                        assistantMessage.put("role", "assistant");
-                        assistantMessage.put("content", completeAnswer.toString());
-                        sessionMemory.add(assistantMessage);
-
-                        // 维护记忆窗口大小为20
-                        if (sessionMemory.size() > 20) {
-                            sessionMemory.remove(0);
-                        }
+                        chatAgentMessage.addSessionMessage(completeAnswer.toString());
+                        
+                       
                     }
                     
                     
@@ -309,92 +360,155 @@ web.port=80
     public Flux<List<ServerEvent>>  qwenvl(@RequestBody Map<String,Object> questions) throws InterruptedException {
         String selectedModel = (String)questions.get("selectedModel");
         Boolean reset = (Boolean) questions.get("reset");
+        Boolean enableStream = (Boolean) questions.get("enableStream");
         if(reset != null && reset){
             sessionMemory.clear();
         }
+        Boolean deepThink = (Boolean) questions.get("deepThink");
+        // enable_thinking 参数开启思考过程，thinking_budget 参数设置最大推理过程 Token 数
+        if(deepThink == null)
+            deepThink = true;
         String message  = null;
         message = (String)questions.get("message");
         if(SimpleStringUtil.isEmpty( message)){
             message = "介绍图片内容并计算结果";
         }
+        ImageVLAgentMessage imageVLAgentMessage = new ImageVLAgentMessage();
+        imageVLAgentMessage.setPrompt(message);
+        String model= null;
+//        String completionsUrl = null;
 
-        String imageBase64  = (String)questions.get("imageBase64");
+  
+        if(selectedModel.equals("qwenvlplus")) {
+//            completionsUrl = "/compatible-mode/v1/chat/completions";
+            model = "qwen3-vl-plus";
+            imageVLAgentMessage.addParameter("enable_thinking", deepThink);
+            imageVLAgentMessage.addParameter("thinking_budget", 81920);
+        }
+        else if(selectedModel.equals("volcengine")){//字节豆包
+//            completionsUrl =  "/api/v3/chat/completions";
+            model = "doubao-seed-2-0-pro-260215";
+            //支持思考程度可调节（reasoning effort）：分为 minimal、low、medium、high 四种模式，其中minimal为不思考
+            imageVLAgentMessage.addParameter("reasoning_effort", "medium");
+            imageVLAgentMessage.addParameter("max_completion_tokens", 65535);
+             
+        }
+        else if(selectedModel.equals("kimi")){//kimi
+//            completionsUrl =  "/v1/chat/completions";
+//            model = "moonshot-v1-8k-vision-preview";
+            model = "kimi-k2.5";
+
+            imageVLAgentMessage.setSystemPrompt("你是 Kimi。");
+            //支持思考程度可调节（reasoning effort）：分为 minimal、low、medium、high 四种模式，其中minimal为不思考
+//            imageVLAgentMessage.setTemperature(0.6);
+
+        }
+        else if(selectedModel.equals("zhipu")){//字节豆包
+//            completionsUrl =  "/api/paas/v4/chat/completions";
+            model = "glm-4.6v";
+            //支持思考程度可调节（reasoning effort）：分为 minimal、low、medium、high 四种模式，其中minimal为不思考
+            if(deepThink != null && deepThink) {
+                imageVLAgentMessage.setThinking(true);
+            }
+            else{
+                imageVLAgentMessage.setThinking(false);
+            }
+        }else if(selectedModel.equals("hunyuan")){//kimi
+//            completionsUrl =  "/v1/chat/completions";
+//            model = "moonshot-v1-8k-vision-preview";
+            model = "hunyuan-vision";
+
+            imageVLAgentMessage.setSystemPrompt("你是图片识别专家。");
+            if(deepThink != null && deepThink) {
+                imageVLAgentMessage.setThinking(true);
+            }
+            else{
+                imageVLAgentMessage.setThinking(false);
+            }
+            //支持思考程度可调节（reasoning effort）：分为 minimal、low、medium、high 四种模式，其中minimal为不思考
+//            imageVLAgentMessage.setTemperature(0.6);
+
+        }
+        
+        else if(selectedModel.equals("jiutian")){//字节豆包
+            //九天模型参考文档：https://jiutian.10086.cn/portal/common-helpcenter#/document/1160?platformCode=DMX_TYZX
+//            completionsUrl =  "/largemodel/moma/api/v3/image/text";
+            model = "LLMImage2Text";
+            //支持思考程度可调节（reasoning effort）：分为 minimal、low、medium、high 四种模式，其中minimal为不思考
+           
+
+        }
+         
+        else{ //硅基流动图片识别服务
+            model = "Qwen/Qwen3-VL-32B-Thinking";
+//            completionsUrl =  "/chat/completions";
+            
+        }
+
+        if(enableStream) {
+            imageVLAgentMessage.setStream( enableStream);
+            if(selectedModel.equals("qwenvlplus")) {
+                imageVLAgentMessage.addMapParameter("stream_options", "include_usage", true);
+            }
+        }
+        imageVLAgentMessage.setModel( model);
+        // 构建消息历史列表，包含之前的会话记忆
+        imageVLAgentMessage.setSessionMemory(sessionMemory);
+        imageVLAgentMessage.setSessionSize(50);
+
+        List<String> imagesBase64  = (List)questions.get("imagesBase64");
         String imageUrl = (String)questions.get("imageUrl");
         if(imageUrl != null) {
             imageUrl = imageUrl.trim();
         }
-        
 
-        List contents = new ArrayList<>();
-        Map contentData = null;
+
+   
+
         if(SimpleStringUtil.isNotEmpty(imageUrl)) {
-            contentData = new LinkedHashMap();
-            contentData.put("type", "image_url");
-            String _imageUrl = imageUrl;
-            contentData.put("image_url", new HashMap<String, String>() {{
-
-                put("url", _imageUrl);
-            }});
-            contents.add(contentData);
+            imageVLAgentMessage.addImageUrl(imageUrl);
         }
-        if(SimpleStringUtil.isNotEmpty(imageBase64)) {
-            contentData = new LinkedHashMap();
-            contentData.put("type", "image_url");
-            String _imageUrl = imageBase64;
-            contentData.put("image_url", new HashMap<String, String>() {{
-
-                put("url", _imageUrl);
-            }});
-            contents.add(contentData);
+        if(SimpleStringUtil.isNotEmpty(imagesBase64)) {
+            for(String tmp:imagesBase64) {
+                imageVLAgentMessage.addImageUrl(tmp);
+//                Map<String, Object> requestMap = new HashMap<>();
+//                requestMap.put("model", "LLMImage2Text");
+//                requestMap.put("image",tmp);
+//                requestMap.put("prompt", message);
+//                requestMap.put("stream", true);
+//                String rsp = HttpRequestProxy.httpPostforString("jiutian", "/largemodel/moma/api/v3/image/text", requestMap);
+//                logger.info(rsp);
+            }
+            
+            
         }
+ 
 
-
-        contentData = new LinkedHashMap();
-        contentData.put("type", "text");
-        contentData.put("text", message);;
-        contents.add(contentData);
-
-
-        Map<String, Object> requestMap = new HashMap<>();
-        if(selectedModel.equals("qwenvlplus")) {
-            requestMap.put("model", "qwen3-vl-plus");
-        }
-        else{
-
-            requestMap.put("model", "Qwen/Qwen3-VL-32B-Thinking");
-        }
-
+       
         
-        // 构建消息历史列表，包含之前的会话记忆
-        List<Map<String, Object>> messages = new ArrayList<>(sessionMemory);
-//        List<Map<String, Object>> messages = new ArrayList<>();
-        Map<String, Object> userMessage = new HashMap<>();
-        userMessage.put("role", "user");
-        userMessage.put("content", contents);
-        messages.add(userMessage);
-
-
-
-        requestMap.put("messages", messages);
-        requestMap.put("stream", true);
-
-        // enable_thinking 参数开启思考过程，thinking_budget 参数设置最大推理过程 Token 数
-        Map extra_body = new LinkedHashMap();
-        extra_body.put("enable_thinking",true);
-        extra_body.put("thinking_budget",81920);
-        requestMap.put("extra_body",extra_body);
-
+        
+//        imageVLAgentMessage.setModelType(AIConstants.AI_MODEL_TYPE_QWEN);
+ 
         // 用于累积完整的回答
         StringBuilder completeAnswer = new StringBuilder();
         Flux<List<ServerEvent>> flux = null;
-        if(selectedModel.equals("qwenvlplus")){
-            flux = HttpRequestProxy.streamChatCompletionEvent("qwenvlplus","/compatible-mode/v1/chat/completions",requestMap).limitRate(5) // 限制请求速率
+        AIAgent aiAgent = new AIAgent();
+       
+        
+        
+        flux = aiAgent.streamImageParser(selectedModel,imageVLAgentMessage)
+                .doOnNext(chunk -> {
+
+//                    if(!chunk.isDone()) {
+//                        logger.info(chunk.getData());
+//                        
+//                    }
+          
+
+                })
+
+                .limitRate(5) // 限制请求速率
                 .buffer(3);
-        }
-        else{
-            flux = HttpRequestProxy.streamChatCompletionEvent("guiji","/chat/completions",requestMap).limitRate(5) // 限制请求速率
-                    .buffer(3);
-        }
         flux = flux.doOnNext(bufferedEvents -> {
                     // 处理模型响应并更新会话记忆
                     for(ServerEvent event : bufferedEvents) {
@@ -403,6 +517,7 @@ web.port=80
                             event.addExtendData("url","https://www.bbossgroups.com");
                             event.addExtendData("title","bboss官网");
                         }
+                        event.getContentType();
                         if(!event.isDone() ) {
                              
                             // 累积回答内容
@@ -413,15 +528,8 @@ web.port=80
                             
                             if( completeAnswer.length() > 0) {
                                 // 当收到完成信号且有累积内容时，将完整回答添加到会话记忆
-                                Map<String, Object> assistantMessage = new HashMap<>();
-                                assistantMessage.put("role", "assistant");
-                                assistantMessage.put("content", completeAnswer.toString());
-                                sessionMemory.add(assistantMessage);
-
-                                // 维护记忆窗口大小为20
-                                if (sessionMemory.size() > 20) {
-                                    sessionMemory.remove(0);
-                                }
+                                imageVLAgentMessage.addSessionMessage(completeAnswer.toString());
+                               
                             }
 
 
