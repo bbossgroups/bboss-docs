@@ -1,6 +1,7 @@
 - [bboss介绍](README.md)
 - [gradle实践](bboss-gradle.md)
 - [bboss redis组件使用实例](redis.md)
+- [Redis分布式锁使用文档](redis-distributed-lock.md)
 - [bboss MongoDB组件使用实例](MongoDB.md)
 - [向量数据库Milvus客户端组件使用](Milvus.md)
 - [OSS对象数据库Minio客户端组件使用](Minio.md)
