@@ -36,7 +36,7 @@ Github地址 https://github.com/bbossgroups/elasticsearch-file2ftp/blob/main/src
 gradle
 
 ```java
-compile 'com.bbossgroups:bboss-data:6.3.6' 
+compile 'com.bbossgroups:bboss-data:6.3.7' 
 ```
 
 maven
@@ -45,7 +45,7 @@ maven
 <dependency>  
     <groupId>com.bbossgroups</groupId>  
     <artifactId>bboss-data</artifactId>  
-    <version>6.3.6</version>  
+    <version>6.3.7</version>  
 </dependency>  
 ```
 导入Mino客户端包：需排除不必要的依赖包，避免冲突
