@@ -15,13 +15,13 @@
 ```xml
 <dependency>
    <groupId>com.bbossgroups</groupId>
-   <artifactId>bboss-ai</artifactId>
-   <version>6.5.3</version>
+   <artifactId>bboss-ai-flow</artifactId>
+   <version>6.5.5</version>
 </dependency>
 ```
 如果是gradle工程，导入方法如下：
 ```groovy
-api 'com.bbossgroups:bboss-ai: 6.5.3'
+api 'com.bbossgroups:bboss-ai-flow: 6.5.5'
 ```
 ## 1. 功能概述
 

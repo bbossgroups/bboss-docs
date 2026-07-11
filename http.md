@@ -9,14 +9,14 @@ Xml代码
 ```xml
 <dependency>  
     <groupId>com.bbossgroups</groupId>  
-    <artifactId>bboss-http</artifactId>  
-    <version>6.5.3</version>  
+    <artifactId>bboss-http5</artifactId>  
+    <version>6.5.5</version>  
 </dependency>  
 ```
 
   gradle坐标：
 
-compile 'com.bbossgroups:bboss-http: 6.5.3'
+compile 'com.bbossgroups:bboss-http5: 6.5.5'
 
  http组件使用：
 org.frameworkset.spi.remote.http.HttpRequestUtil
